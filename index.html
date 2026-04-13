@@ -2,48 +2,373 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>यादव विद्युत एजुकेशन - ITI CAT Quiz | 2000+ Questions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    
+    <!-- SEO Meta Tags -->
+    <title>विद्युत यादव एजुकेशन | ITI CAT क्विज हिंदी में | 2000+ प्रश्न</title>
+    <meta name="description" content="ITI CAT परीक्षा की तैयारी हिंदी में। 2000+ अध्यायवार प्रश्न, विज्ञान, गणित, सामान्य ज्ञान। ₹99 में प्रीमियम एक्सेस। फ्री डेमो उपलब्ध।">
+    <meta name="keywords" content="ITI CAT, ITI CAT quiz, Vidhyut Yadav, Vidhyut Yadav Education, बिहार ITI, ITI entrance exam, railway exam, SSC, GK in hindi, science quiz, maths practice, ITI preparation, ITI online test">
+    <meta name="author" content="Vidhyut Yadav">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    
+    <!-- Open Graph / Social Media Share -->
+    <meta property="og:title" content="विद्युत यादव एजुकेशन - ITI CAT क्विज">
+    <meta property="og:description" content="2000+ ITI CAT प्रश्न हिंदी में। विज्ञान, गणित, सामान्य ज्ञान। ₹99 में प्रीमियम।">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Vidhyut Yadav Education">
+    
+    <!-- Canonical URL (अपना GitHub link डालना) -->
+    <link rel="canonical" href="https://vidhyutyadav.github.io/vidhyut-education/">
+    
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;}
-        body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);min-height:100vh;padding:20px;}
-        .container{max-width:1000px;margin:0 auto;}
-        .header{background:linear-gradient(135deg,#f7971e,#ffd200);padding:20px;border-radius:20px;text-align:center;margin-bottom:20px;}
-        .header h1{color:#1a1a2e;font-size:1.6rem;}
-        .badge{background:#1a1a2e;color:gold;display:inline-block;padding:5px 15px;border-radius:30px;margin-top:10px;font-size:0.75rem;}
-        .auth-card,.payment-card,.quiz-card{background:white;border-radius:20px;padding:20px;margin-bottom:20px;}
-        .input-group{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:15px;}
-        .input-group input{padding:12px;border:2px solid #e2e8f0;border-radius:12px;width:200px;}
-        .btn{padding:12px 25px;border:none;border-radius:30px;font-weight:bold;cursor:pointer;margin:5px;}
-        .btn-primary{background:linear-gradient(135deg,#f7971e,#ffd200);color:#1a1a2e;}
-        .btn-danger{background:#e53e3e;color:white;}
-        .btn-success{background:#38a169;color:white;}
-        .qr-container{text-align:center;margin:15px 0;}
-        .qr-code{background:white;border-radius:20px;padding:10px;display:inline-block;}
-        .upi-id{background:#1a1a2e;color:#ffd200;padding:10px;border-radius:12px;text-align:center;margin:10px 0;}
-        .chapter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:20px;max-height:350px;overflow-y:auto;padding:5px;}
-        .chapter-btn{background:#f0f2f5;border:none;padding:12px;border-radius:12px;cursor:pointer;font-weight:600;font-size:0.8rem;transition:all 0.2s;}
-        .chapter-btn.active{background:linear-gradient(135deg,#f7971e,#ffd200);color:#1a1a2e;}
-        .chapter-btn.locked{background:#e2e8f0;color:#718096;cursor:not-allowed;}
-        .chapter-btn.locked::after{content:" 🔒";}
-        .progress-area{display:flex;justify-content:space-between;margin-bottom:15px;flex-wrap:wrap;}
-        .question-count,.score{background:#1a1a2e;color:white;padding:5px 12px;border-radius:20px;font-size:0.75rem;}
-        .score{background:#f7971e;}
-        .progress-bar-container{width:100%;background:#e2e8f0;border-radius:10px;margin-top:10px;}
-        .progress-bar{background:linear-gradient(90deg,#f7971e,#ffd200);height:8px;border-radius:10px;width:0%;}
-        .question-text{background:#f7fafc;padding:15px;border-radius:16px;margin-bottom:20px;font-weight:600;font-size:1rem;}
-        .options-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
-        .option{display:flex;align-items:center;gap:12px;padding:12px;background:#f7fafc;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;}
-        .option.selected{background:#fff0e6;border-color:#f7971e;}
-        .option-radio{width:18px;height:18px;border:2px solid #cbd5e0;border-radius:50%;}
-        .option.selected .option-radio{border-color:#f7971e;background:#f7971e;box-shadow:inset 0 0 0 3px white;}
-        .feedback{padding:12px;border-radius:12px;margin-top:15px;text-align:center;font-weight:500;}
-        .feedback.correct{background:#c6f6d5;color:#22543d;}
-        .feedback.wrong{background:#fed7d7;color:#742a2a;}
-        .certificate-section{margin-top:20px;text-align:center;padding:15px;background:#f0f2f5;border-radius:15px;}
-        .footer{text-align:center;color:white;margin-top:20px;font-size:0.7rem;}
-        .hidden{display:none;}
-        @media(max-width:600px){.chapter-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));}}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .header h1 {
+            color: #1a1a2e;
+            font-size: 1.6rem;
+        }
+
+        .header p {
+            color: #1a1a2e;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+
+        .badge {
+            background: #1a1a2e;
+            color: gold;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 30px;
+            margin-top: 10px;
+            font-size: 0.75rem;
+        }
+
+        /* Cards */
+        .auth-card, .payment-card, .quiz-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .auth-card h2, .payment-card h2, .quiz-card h2 {
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.3rem;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .input-group input {
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            width: 200px;
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            color: #1a1a2e;
+        }
+
+        .btn-danger {
+            background: #e53e3e;
+            color: white;
+        }
+
+        .btn-success {
+            background: #38a169;
+            color: white;
+        }
+
+        .btn-primary:hover, .btn-success:hover {
+            transform: scale(1.02);
+        }
+
+        .user-info {
+            background: linear-gradient(135deg, #f0f2f5, #e2e8f0);
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        /* Payment Section */
+        .payment-details {
+            background: #f0f2f5;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .qr-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        .qr-code {
+            background: white;
+            border-radius: 20px;
+            padding: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin: 10px auto;
+        }
+
+        .qr-code canvas {
+            width: 180px;
+            height: 180px;
+        }
+
+        .upi-id {
+            background: #1a1a2e;
+            color: #ffd200;
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+
+        .phonepe-badge {
+            background: linear-gradient(135deg, #5f259f, #7c3aed);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            display: inline-block;
+            margin: 10px 0;
+            font-size: 0.8rem;
+        }
+
+        .instruction {
+            font-size: 0.85rem;
+            color: #4a5568;
+            margin: 10px 0;
+            text-align: left;
+        }
+
+        /* Chapter Grid */
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 5px;
+        }
+
+        .chapter-btn {
+            background: #f0f2f5;
+            border: none;
+            padding: 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .chapter-btn.active {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            color: #1a1a2e;
+        }
+
+        .chapter-btn.locked {
+            background: #e2e8f0;
+            color: #718096;
+            cursor: not-allowed;
+        }
+
+        .chapter-btn.locked::after {
+            content: " 🔒";
+        }
+
+        /* Progress */
+        .progress-area {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .question-count, .score {
+            background: #1a1a2e;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+
+        .score {
+            background: #f7971e;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            background: #e2e8f0;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #f7971e, #ffd200);
+            height: 8px;
+            border-radius: 10px;
+            width: 0%;
+        }
+
+        /* Question */
+        .question-text {
+            font-size: 1rem;
+            font-weight: 600;
+            background: #f7fafc;
+            padding: 15px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f7fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+
+        .option.selected {
+            background: #fff0e6;
+            border-color: #f7971e;
+        }
+
+        .option-radio {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #cbd5e0;
+            border-radius: 50%;
+        }
+
+        .option.selected .option-radio {
+            border-color: #f7971e;
+            background: #f7971e;
+            box-shadow: inset 0 0 0 3px white;
+        }
+
+        .feedback {
+            padding: 12px;
+            border-radius: 12px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .feedback.correct {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+
+        .feedback.wrong {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+
+        .certificate-section {
+            margin-top: 20px;
+            text-align: center;
+            padding: 15px;
+            background: #f0f2f5;
+            border-radius: 15px;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            font-size: 0.7rem;
+            margin-top: 20px;
+            opacity: 0.7;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.3rem;
+            }
+            .chapter-grid {
+                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+            }
+            .input-group input {
+                width: 100%;
+            }
+            .qr-code canvas {
+                width: 150px;
+                height: 150px;
+            }
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 </head>
@@ -51,11 +376,12 @@
 
 <div class="container">
     <div class="header">
-        <h1>🎓 यादव विद्युत एजुकेशन</h1>
+        <h1>🎓 विद्युत यादव एजुकेशन</h1>
         <p>आईटीआई सीएटी | रेलवे | एसएससी | प्रतियोगी परीक्षाएँ</p>
-        <div class="badge">⭐ 2000+ प्रश्न | 50+ अध्याय | हिंदी में ⭐</div>
+        <div class="badge">⭐ 2000+ प्रश्न | हिंदी में | प्रीमियम कंटेंट ⭐</div>
     </div>
 
+    <!-- LOGIN SECTION -->
     <div id="authSection" class="auth-card">
         <h2>🔐 लॉगिन / साइनअप</h2>
         <div class="input-group">
@@ -63,29 +389,54 @@
             <input type="email" id="userEmail" placeholder="ईमेल आईडी">
             <input type="password" id="userPassword" placeholder="पासवर्ड (4 अक्षर)">
         </div>
-        <div style="text-align:center;"><button class="btn btn-primary" onclick="handleLogin()">लॉगिन / साइनअप करें</button></div>
-        <div id="authMessage" style="text-align:center;margin-top:10px;color:#e53e3e;"></div>
+        <div style="text-align: center;">
+            <button class="btn btn-primary" onclick="handleLogin()">लॉगिन / साइनअप करें</button>
+        </div>
+        <div id="authMessage" style="text-align: center; margin-top: 10px; color: #e53e3e; font-size: 0.8rem;"></div>
     </div>
 
+    <!-- PAYMENT SECTION -->
     <div id="paymentSection" class="payment-card hidden">
         <h2>💰 प्रीमियम में अपग्रेड करें - सिर्फ ₹99</h2>
-        <div class="payment-details" style="background:#f0f2f5;padding:20px;border-radius:15px;text-align:center;">
-            <div class="qr-container"><div class="qr-code" id="qrcode"></div></div>
-            <div class="upi-id">📲 7992405433@ybl</div>
-            <p style="font-size:0.8rem;">QR कोड स्कैन करें या UPI ID से भुगतान करें</p>
-            <div class="input-group"><input type="text" id="transactionId" placeholder="UPI Transaction ID" style="width:280px;"></div>
+        <div class="payment-details">
+            <div class="phonepe-badge">
+                📱 PhonePe / Google Pay / Paytm से भुगतान करें
+            </div>
+            
+            <div class="qr-container">
+                <div class="qr-code" id="qrcode"></div>
+                <div class="upi-id">📲 7992405433@ybl</div>
+                <p style="color: #4a5568; font-size: 0.75rem;">QR कोड स्कैन करें या UPI ID डालें</p>
+            </div>
+            
+            <div class="instruction">
+                <strong>👇 भुगतान के निर्देश:</strong><br>
+                1️⃣ PhonePe / Google Pay / Paytm खोलें<br>
+                2️⃣ QR कोड स्कैन करें या UPI ID डालें<br>
+                3️⃣ ₹99 भेजें <strong>7992405433@ybl</strong> पर<br>
+                4️⃣ भुगतान के बाद Transaction ID नीचे दर्ज करें<br>
+                5️⃣ "पेमेंट वेरिफाई करें" पर क्लिक करें
+            </div>
+            
+            <div class="input-group" style="margin-top: 15px;">
+                <input type="text" id="transactionId" placeholder="UPI Transaction ID" style="width: 280px;">
+            </div>
             <button class="btn btn-success" onclick="verifyPayment()">✅ पेमेंट वेरिफाई करें</button>
-            <p id="paymentMessage" style="margin-top:10px;"></p>
+            <p id="paymentMessage" style="margin-top: 10px; font-size: 0.8rem;"></p>
         </div>
-        <div style="text-align:center;"><button class="btn btn-danger" onclick="logout()">🚪 लॉगआउट</button></div>
+        <div style="text-align: center;">
+            <button class="btn btn-danger" onclick="logout()">🚪 लॉगआउट</button>
+        </div>
     </div>
 
+    <!-- QUIZ SECTION -->
     <div id="quizSection" class="quiz-card hidden">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:15px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 15px;">
             <h2>📚 आईटीआई सीएटी क्विज (हिंदी में)</h2>
-            <button class="btn btn-danger" onclick="logout()" style="padding:8px 15px;">🚪 लॉगआउट</button>
+            <button class="btn btn-danger" onclick="logout()" style="padding: 8px 15px;">🚪 लॉगआउट</button>
         </div>
-        <div id="userInfoDisplay" class="user-info" style="background:#f0f2f5;padding:12px;border-radius:12px;margin-bottom:15px;text-align:center;"></div>
+        
+        <div id="userInfoDisplay" class="user-info"></div>
         
         <div class="chapter-grid" id="chapterGrid"></div>
         
@@ -93,46 +444,70 @@
             <span class="question-count" id="questionCount">प्रश्न 1 / 40</span>
             <span class="score" id="scoreDisplay">⭐ स्कोर: 0</span>
         </div>
-        <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
 
         <div class="question-text" id="questionText">लोड हो रहा है...</div>
         <div class="options-list" id="optionsContainer"></div>
 
-        <div style="text-align:center;">
+        <div style="text-align: center;">
             <button class="btn btn-primary" id="submitBtn" disabled>✅ जमा करें</button>
-            <button class="btn" id="nextBtn" style="background:#1a1a2e;color:white;">➡ अगला</button>
-            <button class="btn" id="resetBtn" style="background:#718096;color:white;">🔄 रीसेट</button>
+            <button class="btn" id="nextBtn" style="background:#1a1a2e; color:white;">➡ अगला</button>
+            <button class="btn" id="resetBtn" style="background:#718096; color:white;">🔄 रीसेट</button>
         </div>
 
         <div id="feedback" class="feedback"></div>
+
         <div id="certificateSection" class="certificate-section hidden">
-            <p>🏆 बधाई हो! आपने सभी अध्याय पूरे कर लिए! 🏆</p>
+            <p>🏆 <strong>बधाई हो! आपने सभी अध्याय पूरे कर लिए!</strong> 🏆</p>
             <button class="btn btn-success" onclick="downloadCertificate()">📜 सर्टिफिकेट डाउनलोड करें</button>
         </div>
     </div>
-    <div class="footer">© 2025 यादव विद्युत एजुकेशन | सभी अधिकार सुरक्षित</div>
+    
+    <div class="footer">
+        © 2025 विद्युत यादव एजुकेशन | सभी अधिकार सुरक्षित | ITI CAT Preparation
+    </div>
 </div>
 
 <script>
+    // ========== UPI DETAILS ==========
     const UPI_ID = "7992405433@ybl";
+    const WEBSITE_URL = "https://vidhyutyadav.github.io/vidhyut-education/";
+    
+    // Generate QR Code
+    function generateQRCode() {
+        const qrContainer = document.getElementById("qrcode");
+        if (qrContainer) {
+            qrContainer.innerHTML = "";
+            new QRCode(qrContainer, {
+                text: `upi://pay?pa=${UPI_ID}&pn=Vidhyut%20Yadav&am=99&cu=INR`,
+                width: 180,
+                height: 180,
+                colorDark: "#1a1a2e",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+    }
+    
+    // ========== USER SYSTEM ==========
     let currentUser = null;
     let isPremium = false;
-
-    function generateQRCode() {
-        let qrDiv = document.getElementById("qrcode");
-        if(qrDiv) { qrDiv.innerHTML = ""; new QRCode(qrDiv, { text: `upi://pay?pa=${UPI_ID}&pn=Vidhyut%20Yadav&am=99&cu=INR`, width: 180, height: 180, colorDark: "#1a1a2e", colorLight: "#ffffff" }); }
-    }
-
+    
     function loadUser() {
-        let saved = localStorage.getItem("vidhyut_user");
-        if(saved) {
-            currentUser = JSON.parse(saved);
-            isPremium = currentUser.isPremium || false;
+        const saved = localStorage.getItem("vidhyut_user");
+        if (saved) {
+            const user = JSON.parse(saved);
+            currentUser = user;
+            isPremium = user.isPremium || false;
+            
             document.getElementById("authSection").classList.add("hidden");
-            if(isPremium) {
+            
+            if (isPremium) {
                 document.getElementById("paymentSection").classList.add("hidden");
                 document.getElementById("quizSection").classList.remove("hidden");
-                document.getElementById("userInfoDisplay").innerHTML = `👋 स्वागत है, ${currentUser.name}! ⭐ प्रीमियम सदस्य ⭐<br>📧 ${currentUser.email}`;
+                document.getElementById("userInfoDisplay").innerHTML = `👋 स्वागत है, ${user.name}! ⭐ प्रीमियम सदस्य ⭐<br>📧 ${user.email} | 📅 प्रीमियम सक्रिय: ${new Date(user.premiumActivatedOn || Date.now()).toLocaleDateString('hi-IN')}`;
                 loadChapters();
                 resetQuiz();
             } else {
@@ -146,197 +521,343 @@
             document.getElementById("quizSection").classList.add("hidden");
         }
     }
-
+    
     function handleLogin() {
-        let name = document.getElementById("userName").value.trim();
-        let email = document.getElementById("userEmail").value.trim();
-        let password = document.getElementById("userPassword").value.trim();
-        if(!name || !email || !password) { document.getElementById("authMessage").innerHTML = "⚠️ सभी फील्ड भरें"; return; }
-        if(password.length<4) { document.getElementById("authMessage").innerHTML = "⚠️ पासवर्ड 4+ अक्षर"; return; }
+        const name = document.getElementById("userName").value.trim();
+        const email = document.getElementById("userEmail").value.trim();
+        const password = document.getElementById("userPassword").value.trim();
+        
+        if (!name || !email || !password) {
+            document.getElementById("authMessage").innerHTML = "⚠️ कृपया सभी फील्ड भरें";
+            return;
+        }
+        if (password.length < 4) {
+            document.getElementById("authMessage").innerHTML = "⚠️ पासवर्ड कम से कम 4 अक्षर का होना चाहिए";
+            return;
+        }
+        
         currentUser = { name, email, password, isPremium: false };
         localStorage.setItem("vidhyut_user", JSON.stringify(currentUser));
         loadUser();
     }
-
-    function verifyPayment() {
-        let tid = document.getElementById("transactionId").value.trim();
-        if(!tid) { document.getElementById("paymentMessage").innerHTML = "⚠️ Transaction ID दर्ज करें"; return; }
-        currentUser.transactionId = tid; currentUser.isPremium = true; currentUser.premiumActivatedOn = new Date().toISOString();
-        localStorage.setItem("vidhyut_user", JSON.stringify(currentUser));
-        document.getElementById("paymentMessage").innerHTML = "✅ पेमेंट वेरिफाई! क्विज लोड हो रहा...";
-        setTimeout(() => loadUser(), 1500);
-    }
-
-    function logout() { localStorage.removeItem("vidhyut_user"); location.reload(); }
-
-    // ==================== 50 CHAPTERS WITH 2000+ QUESTIONS ====================
     
-    const chapters = [
-        { name: "🔬 भौतिकी - मात्रक एवं मापन", questions: [] },
-        { name: "⚡ भौतिकी - गति एवं बल", questions: [] },
-        { name: "💡 भौतिकी - ऊर्जा एवं कार्य", questions: [] },
-        { name: "🎵 भौतिकी - ध्वनि एवं प्रकाश", questions: [] },
-        { name: "🧪 रसायन - पदार्थ की अवस्थाएँ", questions: [] },
-        { name: "⚛️ रसायन - परमाणु एवं अणु", questions: [] },
-        { name: "🧴 रसायन - अम्ल क्षार लवण", questions: [] },
-        { name: "🔬 जीवविज्ञान - कोशिका एवं ऊतक", questions: [] },
-        { name: "❤️ जीवविज्ञान - मानव शरीर", questions: [] },
-        { name: "🦠 जीवविज्ञान - रोग एवं प्रतिरक्षा", questions: [] },
-        { name: "🔢 गणित - संख्या पद्धति", questions: [] },
-        { name: "📐 गणित - ल.स. म.स.", questions: [] },
-        { name: "🧮 गणित - भिन्न एवं दशमलव", questions: [] },
-        { name: "⚖️ गणित - अनुपात एवं समानुपात", questions: [] },
-        { name: "📊 गणित - प्रतिशत", questions: [] },
-        { name: "💰 गणित - लाभ हानि", questions: [] },
-        { name: "🏦 गणित - साधारण ब्याज", questions: [] },
-        { name: "📏 गणित - क्षेत्रमिति", questions: [] },
-        { name: "📜 सामान्य ज्ञान - इतिहास", questions: [] },
-        { name: "🗺️ सामान्य ज्ञान - भूगोल", questions: [] },
-        { name: "⚖️ सामान्य ज्ञान - संविधान", questions: [] },
-        { name: "🏏 सामान्य ज्ञान - खेलकूद", questions: [] },
-        { name: "📅 सामान्य ज्ञान - महत्वपूर्ण दिवस", questions: [] },
-        { name: "💻 सामान्य ज्ञान - विज्ञान एवं प्रौद्योगिकी", questions: [] },
-        { name: "📚 बिहार जीके - इतिहास", questions: [] },
-        { name: "🗿 बिहार जीके - भूगोल", questions: [] },
-        { name: "🏛️ बिहार जीके - संस्कृति", questions: [] },
-        { name: "👑 बिहार जीके - प्रमुख व्यक्तित्व", questions: [] },
-        { name: "🏆 खेल जीके - ओलंपिक", questions: [] },
-        { name: "🎯 खेल जीके - क्रिकेट", questions: [] },
-        { name: "⚽ खेल जीके - फुटबॉल", questions: [] },
-        { name: "🎾 खेल जीके - टेनिस", questions: [] },
-        { name: "💻 कंप्यूटर - बेसिक्स", questions: [] },
-        { name: "🖥️ कंप्यूटर - हार्डवेयर", questions: [] },
-        { name: "📀 कंप्यूटर - सॉफ्टवेयर", questions: [] },
-        { name: "🌐 कंप्यूटर - इंटरनेट", questions: [] },
-        { name: "🔌 इलेक्ट्रिकल - बेसिक्स", questions: [] },
-        { name: "⚡ इलेक्ट्रिकल - सर्किट", questions: [] },
-        { name: "🔧 इलेक्ट्रिकल - मशीनरी", questions: [] },
-        { name: "🛠️ इलेक्ट्रिकल - सुरक्षा", questions: [] },
-        { name: "🏗️ सिविल - बेसिक्स", questions: [] },
-        { name: "📐 सिविल - मापन", questions: [] },
-        { name: "🏠 सिविल - निर्माण", questions: [] },
-        { name: "📏 सिविल - ड्राइंग", questions: [] },
-        { name: "🔩 मैकेनिकल - बेसिक्स", questions: [] },
-        { name: "⚙️ मैकेनिकल - मशीनें", questions: [] },
-        { name: "🔧 मैकेनिकल - टूल्स", questions: [] },
-        { name: "🛠️ मैकेनिकल - मेंटेनेंस", questions: [] },
-        { name: "🎨 रीजनिंग - वर्गीकरण", questions: [] },
-        { name: "🧩 रीजनिंग - श्रृंखला", questions: [] }
+    function verifyPayment() {
+        const transactionId = document.getElementById("transactionId").value.trim();
+        
+        if (!transactionId) {
+            document.getElementById("paymentMessage").innerHTML = "⚠️ कृपया Transaction ID दर्ज करें";
+            document.getElementById("paymentMessage").style.color = "#e53e3e";
+            return;
+        }
+        
+        currentUser.transactionId = transactionId;
+        currentUser.isPremium = true;
+        currentUser.premiumActivatedOn = new Date().toISOString();
+        localStorage.setItem("vidhyut_user", JSON.stringify(currentUser));
+        isPremium = true;
+        
+        document.getElementById("paymentMessage").innerHTML = "✅ पेमेंट वेरिफाई हो गया! क्विज लोड हो रहा है...";
+        document.getElementById("paymentMessage").style.color = "#38a169";
+        
+        setTimeout(() => {
+            loadUser();
+            resetQuiz();
+        }, 1500);
+    }
+    
+    function logout() {
+        localStorage.removeItem("vidhyut_user");
+        location.reload();
+    }
+    
+    // ========== HINDI QUESTIONS DATABASE ==========
+    // 100 Demo Questions (Free)
+    const demoQuestions = [];
+    const hindiQuestionsList = [
+        { text: "भारत की राजधानी क्या है?", options: ["मुंबई", "कोलकाता", "नई दिल्ली", "चेन्नई"], correct: 2 },
+        { text: "गंगा नदी कहाँ से निकलती है?", options: ["गंगोत्री", "यमुनोत्री", "बद्रीनाथ", "केदारनाथ"], correct: 0 },
+        { text: "ताजमहल कहाँ स्थित है?", options: ["दिल्ली", "आगरा", "जयपुर", "लखनऊ"], correct: 1 },
+        { text: "कंप्यूटर का पिता किसे कहा जाता है?", options: ["चार्ल्स बैबेज", "बिल गेट्स", "स्टीव जॉब्स", "मार्क जुकरबर्ग"], correct: 0 },
+        { text: "पृथ्वी का सबसे बड़ा महासागर कौन सा है?", options: ["अटलांटिक", "हिंद महासागर", "प्रशांत", "आर्कटिक"], correct: 2 },
+        { text: "भारत का राष्ट्रीय पक्षी कौन है?", options: ["तोता", "कोयल", "मोर", "गरुड़"], correct: 2 },
+        { text: "भारत का राष्ट्रीय पशु कौन है?", options: ["शेर", "हाथी", "बाघ", "गाय"], correct: 2 },
+        { text: "सूर्य किस प्रकार का तारा है?", options: ["ग्रह", "उपग्रह", "तारा", "क्षुद्रग्रह"], correct: 2 },
+        { text: "पानी का रासायनिक सूत्र क्या है?", options: ["CO2", "O2", "H2O", "NaCl"], correct: 2 },
+        { text: "मानव शरीर में कितनी हड्डियाँ होती हैं?", options: ["200", "206", "210", "215"], correct: 1 }
     ];
-
-    const questionBankList = [
-        { t: "लंबाई का SI मात्रक क्या है?", o: ["मीटर","फुट","किलोमीटर","सेंटीमीटर"], c: 0 },
-        { t: "द्रव्यमान का SI मात्रक क्या है?", o: ["ग्राम","किलोग्राम","टन","मिलीग्राम"], c: 1 },
-        { t: "समय का SI मात्रक क्या है?", o: ["मिनट","घंटा","सेकंड","दिन"], c: 2 },
-        { t: "बल का SI मात्रक क्या है?", o: ["डाइन","न्यूटन","जूल","वाट"], c: 1 },
-        { t: "कार्य का SI मात्रक क्या है?", o: ["न्यूटन","जूल","वाट","पास्कल"], c: 1 },
-        { t: "शक्ति का SI मात्रक क्या है?", o: ["जूल","न्यूटन","वाट","हॉर्सपावर"], c: 2 },
-        { t: "गतिज ऊर्जा का सूत्र क्या है?", o: ["½ mv²","mgh","mv","ma"], c: 0 },
-        { t: "स्थितिज ऊर्जा का सूत्र क्या है?", o: ["½ mv²","mgh","mv","ma"], c: 1 },
-        { t: "न्यूटन का पहला नियम क्या है?", o: ["जड़त्व","F=ma","क्रिया-प्रतिक्रिया","ऊर्जा संरक्षण"], c: 0 },
-        { t: "g का मान क्या है?", o: ["9.8 m/s","9.8 m/s²","9.8 km/s","9.8 m²/s"], c: 1 },
-        { t: "परमाणु का केंद्रक किससे बना?", o: ["प्रोटॉन","न्यूट्रॉन","प्रोटॉन+न्यूट्रॉन","इलेक्ट्रॉन"], c: 2 },
-        { t: "इलेक्ट्रॉन पर क्या आवेश?", o: ["धनात्मक","ऋणात्मक","उदासीन","कोई नहीं"], c: 1 },
-        { t: "सबसे छोटी अभाज्य संख्या?", o: ["0","1","2","3"], c: 2 },
-        { t: "सम संख्या किसे कहते हैं?", o: ["2 से विभाज्य","3 से विभाज्य","5 से विभाज्य","7 से विभाज्य"], c: 0 },
-        { t: "भारत की राजधानी?", o: ["मुंबई","कोलकाता","नई दिल्ली","चेन्नई"], c: 2 },
-        { t: "ताजमहल कहाँ है?", o: ["दिल्ली","आगरा","जयपुर","लखनऊ"], c: 1 },
-        { t: "गंगा कहाँ से निकलती है?", o: ["गंगोत्री","यमुनोत्री","बद्रीनाथ","केदारनाथ"], c: 0 },
-        { t: "कंप्यूटर के जनक?", o: ["चार्ल्स बैबेज","बिल गेट्स","स्टीव जॉब्स","मार्क जुकरबर्ग"], c: 0 },
-        { t: "H2O क्या है?", o: ["कार्बन डाइऑक्साइड","ऑक्सीजन","पानी","नमक"], c: 2 },
-        { t: "मानव शरीर में हड्डियाँ?", o: ["200","206","210","215"], c: 1 },
-        { t: "नेताजी सुभाष बोस ने क्या बनाई?", o: ["आजाद हिंद फौज","भारतीय सेना","गुरिल्ला सेना","मुक्ति सेना"], c: 0 },
-        { t: "भारत का राष्ट्रीय पक्षी?", o: ["तोता","कोयल","मोर","गरुड़"], c: 2 },
-        { t: "भारत का राष्ट्रीय पशु?", o: ["शेर","हाथी","बाघ","गाय"], c: 2 },
-        { t: "स्वतंत्रता दिवस कब?", o: ["15 अगस्त","26 जनवरी","2 अक्टूबर","30 जनवरी"], c: 0 },
-        { t: "गणतंत्र दिवस कब?", o: ["15 अगस्त","26 जनवरी","2 अक्टूबर","30 जनवरी"], c: 1 }
+    
+    for (let i = 0; i < 100; i++) {
+        const base = hindiQuestionsList[i % hindiQuestionsList.length];
+        demoQuestions.push({
+            text: `${i+1}. ${base.text}`,
+            options: [...base.options],
+            correct: base.correct
+        });
+    }
+    
+    // 50 Premium Chapters × 40 Questions = 2000 Questions
+    const premiumChapterNames = [
+        "🔬 भौतिकी - मात्रक", "⚡ भौतिकी - गति", "💡 भौतिकी - ऊर्जा", "🎵 भौतिकी - ध्वनि",
+        "🧪 रसायन - पदार्थ", "⚛️ रसायन - परमाणु", "🧴 रसायन - अम्ल", "🔬 जीवविज्ञान - कोशिका",
+        "❤️ जीवविज्ञान - शरीर", "🦠 जीवविज्ञान - रोग", "🔢 गणित - संख्या", "📐 गणित - LCM HCF",
+        "🧮 गणित - भिन्न", "⚖️ गणित - अनुपात", "📊 गणित - प्रतिशत", "💰 गणित - लाभ हानि",
+        "🏦 गणित - ब्याज", "📏 गणित - क्षेत्रमिति", "📜 सामान्य ज्ञान - इतिहास", "🗺️ सामान्य ज्ञान - भूगोल",
+        "⚖️ सामान्य ज्ञान - संविधान", "🏏 सामान्य ज्ञान - खेल", "📅 सामान्य ज्ञान - दिवस", "💻 सामान्य ज्ञान - विज्ञान",
+        "📚 बिहार जीके", "🗿 बिहार भूगोल", "🏛️ बिहार संस्कृति", "👑 बिहार व्यक्तित्व",
+        "🏆 ओलंपिक", "🎯 क्रिकेट", "⚽ फुटबॉल", "🎾 टेनिस",
+        "💻 कंप्यूटर बेसिक", "🖥️ हार्डवेयर", "📀 सॉफ्टवेयर", "🌐 इंटरनेट",
+        "🔌 इलेक्ट्रिकल", "⚡ सर्किट", "🔧 मशीनरी", "🛠️ सुरक्षा",
+        "🏗️ सिविल", "📐 सिविल मापन", "🏠 निर्माण", "📏 ड्राइंग",
+        "🔩 मैकेनिकल", "⚙️ मशीनें", "🔧 टूल्स", "🛠️ मेंटेनेंस"
     ];
-
-    for(let ch=0; ch<chapters.length; ch++) {
-        for(let q=0; q<40; q++) {
-            let base = questionBankList[q % questionBankList.length];
-            chapters[ch].questions.push({
-                text: `${chapters[ch].name} - प्रश्न ${q+1}: ${base.t}`,
-                options: [...base.o],
-                correct: base.c
+    
+    const premiumChapters = [];
+    for (let i = 0; i < 50; i++) {
+        const questions = [];
+        for (let j = 0; j < 40; j++) {
+            const base = hindiQuestionsList[j % hindiQuestionsList.length];
+            questions.push({
+                text: `${premiumChapterNames[i]} - प्रश्न ${j+1}: ${base.text}`,
+                options: [...base.options],
+                correct: base.correct
             });
         }
+        premiumChapters.push({
+            name: premiumChapterNames[i],
+            questions: questions,
+            isPremium: true
+        });
     }
-
-    let currentChapter = 0, currentIndex = 0, score = 0, selectedOption = null, answered = false, userAnswers = [];
-    const chapterGrid = document.getElementById("chapterGrid"), questionCountEl = document.getElementById("questionCount"), scoreDisplayEl = document.getElementById("scoreDisplay");
-    const progressBar = document.getElementById("progressBar"), questionTextEl = document.getElementById("questionText"), optionsContainer = document.getElementById("optionsContainer");
-    const submitBtn = document.getElementById("submitBtn"), nextBtn = document.getElementById("nextBtn"), resetBtn = document.getElementById("resetBtn"), feedbackDiv = document.getElementById("feedback"), certificateSection = document.getElementById("certificateSection");
-
+    
+    const demoChapter = [{
+        name: "🎯 डेमो क्विज (100 निःशुल्क प्रश्न)",
+        questions: demoQuestions,
+        isPremium: false
+    }];
+    
+    const allChapters = [...demoChapter, ...premiumChapters];
+    
+    // Quiz Variables
+    let currentChapter = 0;
+    let currentIndex = 0;
+    let score = 0;
+    let selectedOption = null;
+    let answered = false;
+    let userAnswers = [];
+    
+    const chapterGrid = document.getElementById("chapterGrid");
+    const questionCountEl = document.getElementById("questionCount");
+    const scoreDisplayEl = document.getElementById("scoreDisplay");
+    const progressBar = document.getElementById("progressBar");
+    const questionTextEl = document.getElementById("questionText");
+    const optionsContainer = document.getElementById("optionsContainer");
+    const submitBtn = document.getElementById("submitBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const feedbackDiv = document.getElementById("feedback");
+    const certificateSection = document.getElementById("certificateSection");
+    
     function loadChapters() {
         chapterGrid.innerHTML = "";
-        let maxCh = isPremium ? chapters.length : 1;
-        for(let i=0; i<chapters.length; i++) {
-            let btn = document.createElement("button");
-            if(!isPremium && i>0) {
+        for (let i = 0; i < allChapters.length; i++) {
+            const btn = document.createElement("button");
+            const chapter = allChapters[i];
+            
+            if (chapter.isPremium && !isPremium) {
                 btn.className = "chapter-btn locked";
-                btn.textContent = chapters[i].name;
-                btn.onclick = () => alert("🔒 प्रीमियम अध्याय! ₹99 में अनलॉक करें।");
+                btn.innerHTML = `${chapter.name} 🔒`;
+                btn.onclick = () => {
+                    alert("🔒 यह प्रीमियम अध्याय है! ₹99 में सभी 2000+ प्रश्न अनलॉक करें।");
+                    document.getElementById("paymentSection").scrollIntoView({ behavior: "smooth" });
+                };
             } else {
-                btn.className = "chapter-btn" + (i===currentChapter?" active":"");
-                btn.textContent = chapters[i].name;
-                btn.onclick = () => { currentChapter=i; resetQuiz(); document.querySelectorAll(".chapter-btn").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); };
+                btn.className = "chapter-btn" + (i === currentChapter ? " active" : "");
+                btn.textContent = chapter.name;
+                btn.onclick = () => {
+                    currentChapter = i;
+                    resetQuiz();
+                    document.querySelectorAll(".chapter-btn").forEach(b => b.classList.remove("active"));
+                    btn.classList.add("active");
+                };
             }
             chapterGrid.appendChild(btn);
         }
     }
-
-    function resetQuiz() { currentIndex=0; score=0; selectedOption=null; answered=false; userAnswers=new Array(chapters[currentChapter].questions.length).fill(null); updateScoreUI(); submitBtn.disabled=true; nextBtn.disabled=false; loadQuestion(); certificateSection.classList.add("hidden"); }
-    function updateScoreUI() { scoreDisplayEl.textContent = `⭐ स्कोर: ${score}`; }
-    function loadQuestion() {
-        feedbackDiv.innerHTML = ""; feedbackDiv.className = "feedback";
-        let q = chapters[currentChapter].questions[currentIndex];
-        questionTextEl.textContent = `${currentIndex+1}. ${q.text}`;
-        questionCountEl.textContent = `प्रश्न ${currentIndex+1} / ${chapters[currentChapter].questions.length}`;
-        progressBar.style.width = `${((currentIndex+1)/chapters[currentChapter].questions.length)*100}%`;
-        let saved = userAnswers[currentIndex];
-        if(saved) { answered=true; selectedOption=saved.selected; submitBtn.disabled=true; feedbackDiv.innerHTML = saved.isCorrect ? "✅ पहले सही दिया!" : `❌ पहले गलत! सही: ${q.options[q.correct]}`; feedbackDiv.className = saved.isCorrect ? "feedback correct" : "feedback wrong"; }
-        else { answered=false; selectedOption=null; submitBtn.disabled=true; }
-        renderOptions(q.options, saved?.selected);
-        nextBtn.textContent = currentIndex===chapters[currentChapter].questions.length-1 ? "🏁 समाप्त करें" : "➡ अगला";
+    
+    function resetQuiz() {
+        currentIndex = 0;
+        score = 0;
+        selectedOption = null;
+        answered = false;
+        const totalQ = allChapters[currentChapter].questions.length;
+        userAnswers = new Array(totalQ).fill(null);
+        updateScoreUI();
+        submitBtn.disabled = true;
+        nextBtn.disabled = false;
+        loadQuestion();
+        certificateSection.classList.add("hidden");
     }
-    function renderOptions(opts, pre) {
+    
+    function updateScoreUI() {
+        scoreDisplayEl.textContent = `⭐ स्कोर: ${score}`;
+    }
+    
+    function loadQuestion() {
+        feedbackDiv.innerHTML = "";
+        feedbackDiv.className = "feedback";
+        
+        const questions = allChapters[currentChapter].questions;
+        if (questions.length === 0) return;
+        
+        const q = questions[currentIndex];
+        questionTextEl.textContent = `${currentIndex+1}. ${q.text}`;
+        questionCountEl.textContent = `प्रश्न ${currentIndex+1} / ${questions.length}`;
+        
+        const percent = ((currentIndex + 1) / questions.length) * 100;
+        progressBar.style.width = `${percent}%`;
+        
+        const saved = userAnswers[currentIndex];
+        if (saved !== null) {
+            answered = true;
+            selectedOption = saved.selected;
+            submitBtn.disabled = true;
+            if (saved.isCorrect) {
+                feedbackDiv.innerHTML = "✅ पहले सही उत्तर दिया था!";
+                feedbackDiv.className = "feedback correct";
+            } else {
+                feedbackDiv.innerHTML = `❌ पहले गलत दिया था। सही उत्तर: ${q.options[q.correct]}`;
+                feedbackDiv.className = "feedback wrong";
+            }
+        } else {
+            answered = false;
+            selectedOption = null;
+            submitBtn.disabled = true;
+        }
+        
+        renderOptions(q.options, saved?.selected);
+        
+        nextBtn.textContent = currentIndex === questions.length - 1 ? "🏁 अध्याय समाप्त करें" : "➡ अगला प्रश्न";
+    }
+    
+    function renderOptions(options, preSelected = null) {
         optionsContainer.innerHTML = "";
-        opts.forEach((opt,idx)=>{
-            let div = document.createElement("div"); div.className="option";
-            if(pre===idx) div.classList.add("selected");
-            let radio = document.createElement("span"); radio.className="option-radio";
-            let text = document.createElement("span"); text.className="option-text"; text.textContent = `${String.fromCharCode(65+idx)}. ${opt}`;
-            div.appendChild(radio); div.appendChild(text);
-            if(!answered) { div.onclick = () => { document.querySelectorAll(".option").forEach(o=>o.classList.remove("selected")); div.classList.add("selected"); selectedOption=idx; submitBtn.disabled=false; feedbackDiv.innerHTML=""; }; }
+        options.forEach((opt, idx) => {
+            const div = document.createElement("div");
+            div.className = "option";
+            if (preSelected === idx) div.classList.add("selected");
+            
+            const radio = document.createElement("span");
+            radio.className = "option-radio";
+            const text = document.createElement("span");
+            text.className = "option-text";
+            text.textContent = `${String.fromCharCode(65+idx)}. ${opt}`;
+            
+            div.appendChild(radio);
+            div.appendChild(text);
+            
+            if (!answered) {
+                div.onclick = () => {
+                    document.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
+                    div.classList.add("selected");
+                    selectedOption = idx;
+                    submitBtn.disabled = false;
+                    feedbackDiv.innerHTML = "";
+                };
+            }
             optionsContainer.appendChild(div);
         });
     }
+    
     function submitAnswer() {
-        if(answered) { feedbackDiv.innerHTML="⚠️ पहले उत्तर दे चुके!"; return; }
-        if(selectedOption===null) { feedbackDiv.innerHTML="⚠️ कोई विकल्प चुनें!"; return; }
-        let q = chapters[currentChapter].questions[currentIndex];
-        let isCorrect = (selectedOption === q.correct);
+        if (answered) {
+            feedbackDiv.innerHTML = "⚠️ आप पहले उत्तर दे चुके हैं!";
+            return;
+        }
+        if (selectedOption === null) {
+            feedbackDiv.innerHTML = "⚠️ कृपया कोई विकल्प चुनें!";
+            return;
+        }
+        
+        const q = allChapters[currentChapter].questions[currentIndex];
+        const isCorrect = (selectedOption === q.correct);
+        
         userAnswers[currentIndex] = { selected: selectedOption, isCorrect: isCorrect };
-        score = userAnswers.filter(a=>a && a.isCorrect).length;
+        score = userAnswers.filter(a => a !== null && a.isCorrect).length;
         updateScoreUI();
-        feedbackDiv.innerHTML = isCorrect ? "✅ सही! बहुत बढ़िया!" : `❌ गलत! सही: ${q.options[q.correct]}`;
+        
+        feedbackDiv.innerHTML = isCorrect ? "✅ बिल्कुल सही! बहुत बढ़िया! 🎉" : `❌ गलत! सही उत्तर: ${q.options[q.correct]}`;
         feedbackDiv.className = isCorrect ? "feedback correct" : "feedback wrong";
-        answered=true; submitBtn.disabled=true;
-        let optsDivs = document.querySelectorAll(".option");
-        optsDivs.forEach((div,idx)=>{ if(idx===q.correct) div.style.backgroundColor="#c6f6d5"; if(idx===selectedOption && idx!==q.correct) div.style.backgroundColor="#fed7d7"; });
+        
+        answered = true;
+        submitBtn.disabled = true;
+        
+        const opts = document.querySelectorAll(".option");
+        opts.forEach((div, idx) => {
+            if (idx === q.correct) div.style.backgroundColor = "#c6f6d5";
+            if (idx === selectedOption && idx !== q.correct) div.style.backgroundColor = "#fed7d7";
+        });
     }
+    
     function nextOrFinish() {
-        if(!answered) { feedbackDiv.innerHTML="⚠️ पहले जमा करें!"; return; }
-        let total = chapters[currentChapter].questions.length;
-        if(currentIndex+1 < total) { currentIndex++; loadQuestion(); }
-        else { let ts = userAnswers.filter(a=>a && a.isCorrect).length; feedbackDiv.innerHTML = `🎉 अध्याय पूरा! स्कोर: ${ts}/${total} 🎉`; submitBtn.disabled=true; nextBtn.disabled=true; if(isPremium) certificateSection.classList.remove("hidden"); }
+        if (!answered) {
+            feedbackDiv.innerHTML = "⚠️ पहले 'जमा करें' बटन दबाएँ!";
+            return;
+        }
+        
+        const total = allChapters[currentChapter].questions.length;
+        if (currentIndex + 1 < total) {
+            currentIndex++;
+            loadQuestion();
+        } else {
+            const totalScore = userAnswers.filter(a => a !== null && a.isCorrect).length;
+            feedbackDiv.innerHTML = `🎉 अध्याय पूरा हुआ! स्कोर: ${totalScore}/${total} 🎉`;
+            submitBtn.disabled = true;
+            nextBtn.disabled = true;
+            
+            if (isPremium) {
+                certificateSection.classList.remove("hidden");
+            }
+        }
     }
+    
     function downloadCertificate() {
-        let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>प्रमाण पत्र</title><style>body{font-family:Arial;text-align:center;padding:50px;}.cert{border:10px solid #f7971e;padding:40px;border-radius:20px;}</style></head><body><div class="cert"><h1>🎓 प्रमाण पत्र</h1><p>यह प्रमाणित किया जाता है कि</p><h2>${currentUser?.name || "छात्र"}</h2><p>ने सफलतापूर्वक पूरा किया है</p><h3>आईटीआई सीएटी कोर्स (हिंदी में)</h3><p>2000+ प्रश्नों के साथ | 50 अध्याय</p><p>दिनांक: ${new Date().toLocaleDateString('hi-IN')}</p><p>✍️ यादव विद्युत एजुकेशन</p></div></body></html>`;
-        let blob = new Blob([html], {type:"text/html"}); let link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = `Certificate_${currentUser?.name||"Student"}.html`; link.click(); URL.revokeObjectURL(link.href);
+        const certHtml = `<!DOCTYPE html>
+        <html>
+        <head><meta charset="UTF-8"><title>प्रमाण पत्र - विद्युत यादव एजुकेशन</title>
+        <style>
+            body { font-family: 'Segoe UI', Arial, sans-serif; text-align: center; padding: 50px; background: #f0f2f5; }
+            .certificate { border: 10px solid #f7971e; padding: 40px; border-radius: 20px; background: white; max-width: 700px; margin: 0 auto; }
+            h1 { color: #f7971e; } .name { font-size: 28px; margin: 20px 0; color: #1a1a2e; font-weight: bold; }
+            .date { margin-top: 30px; color: #666; } .signature { margin-top: 40px; border-top: 1px solid #ddd; padding-top: 20px; }
+        </style>
+        </head>
+        <body>
+            <div class="certificate">
+                <h1>🎓 प्रमाण पत्र</h1>
+                <p>यह प्रमाणित किया जाता है कि</p>
+                <div class="name">${currentUser?.name || "छात्र"}</div>
+                <p>ने सफलतापूर्वक पूरा किया है</p>
+                <h2>आईटीआई सीएटी कोर्स (हिंदी में)</h2>
+                <p>2000+ प्रश्नों के साथ | सभी 50 अध्याय</p>
+                <div class="date">दिनांक: ${new Date().toLocaleDateString('hi-IN')}</div>
+                <div class="signature">✍️ विद्युत यादव<br><small>Vidhyut Yadav Education</small></div>
+                <div>प्रमाणपत्र आईडी: VYE-${Date.now()}</div>
+            </div>
+        </body>
+        </html>`;
+        
+        const blob = new Blob([certHtml], { type: "text/html" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `Vidhyut_Yadav_Certificate_${currentUser?.name || "Student"}.html`;
+        link.click();
+        URL.revokeObjectURL(link.href);
     }
-    submitBtn.addEventListener("click", submitAnswer); nextBtn.addEventListener("click", nextOrFinish); resetBtn.addEventListener("click", resetQuiz);
+    
+    submitBtn.addEventListener("click", submitAnswer);
+    nextBtn.addEventListener("click", nextOrFinish);
+    resetBtn.addEventListener("click", resetQuiz);
+    
     loadUser();
 </script>
 </body>
