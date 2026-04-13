@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Vidhyut Yadav Education</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #1a1a2e;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #1a1a2e;
+        }
+        .login-box, .dashboard {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        .login-box h2, .dashboard h2 {
+            color: #1a1a2e;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .input-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .input-group input {
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            width: 250px;
+        }
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            color: #1a1a2e;
+        }
+        .btn-danger {
+            background: #e53e3e;
+            color: white;
+        }
+        .btn-success {
+            background: #38a169;
+            color: white;
+        }
+        .btn-warning {
+            background: #ecc94b;
+            color: #1a1a2e;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .stat-card h3 {
+            font-size: 2rem;
+        }
+        .question-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            overflow-x: auto;
+            display: block;
+        }
+        .question-table th, .question-table td {
+            border: 1px solid #e2e8f0;
+            padding: 10px;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+        .question-table th {
+            background: #1a1a2e;
+            color: white;
+        }
+        .question-table tr:nth-child(even) {
+            background: #f7fafc;
+        }
+        .search-box {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .search-box input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+        }
+        .modal-content input, .modal-content select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+            font-size: 0.8rem;
+        }
+        @media (max-width: 768px) {
+            .question-table th, .question-table td {
+                font-size: 0.7rem;
+                padding: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>🔐 विद्युत यादव एजुकेशन - एडमिन पैनल</h1>
+        <p>प्रश्न देखें, जोड़ें, संपादित करें, हटाएँ</p>
+    </div>
+
+    <!-- LOGIN BOX -->
+    <div id="loginBox" class="login-box">
+        <h2>🔑 एडमिन लॉगिन</h2>
+        <div class="input-group">
+            <input type="password" id="adminPassword" placeholder="एडमिन पासवर्ड दर्ज करें">
+        </div>
+        <div style="text-align: center;">
+            <button class="btn btn-primary" onclick="adminLogin()">लॉगिन करें</button>
+        </div>
+        <p id="loginError" style="text-align: center; margin-top: 10px; color: red;"></p>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboard" class="dashboard hidden">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 20px;">
+            <h2>📊 प्रश्न डैशबोर्ड</h2>
+            <button class="btn btn-primary" onclick="showAddModal()">➕ नया प्रश्न जोड़ें</button>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats">
+            <div class="stat-card">
+                <h3 id="totalQuestions">0</h3>
+                <p>कुल प्रश्न</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="demoCount">0</h3>
+                <p>डेमो प्रश्न</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="premiumCount">0</h3>
+                <p>प्रीमियम प्रश्न</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="chapterCount">0</h3>
+                <p>कुल अध्याय</p>
+            </div>
+        </div>
+
+        <!-- SEARCH -->
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 प्रश्न खोजें... (सवाल या अध्याय से)">
+            <button class="btn btn-primary" onclick="searchQuestions()">खोजें</button>
+            <button class="btn btn-warning" onclick="resetSearch()">सभी दिखाएँ</button>
+        </div>
+
+        <!-- QUESTIONS TABLE -->
+        <div style="overflow-x: auto;">
+            <table class="question-table" id="questionTable">
+                <thead>
+                    <tr><th>#</th><th>अध्याय</th><th>प्रश्न</th><th>विकल्प A</th><th>विकल्प B</th><th>विकल्प C</th><th>विकल्प D</th><th>सही</th><th>कार्य</th></tr>
+                </thead>
+                <tbody id="questionTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ADD/EDIT MODAL -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle">नया प्रश्न जोड़ें</h3>
+            <select id="modalChapter" style="width:100%; padding:10px; margin:10px 0;"></select>
+            <input type="text" id="modalQuestion" placeholder="प्रश्न लिखें">
+            <input type="text" id="modalOptA" placeholder="विकल्प A">
+            <input type="text" id="modalOptB" placeholder="विकल्प B">
+            <input type="text" id="modalOptC" placeholder="विकल्प C">
+            <input type="text" id="modalOptD" placeholder="विकल्प D">
+            <select id="modalCorrect">
+                <option value="0">विकल्प A</option>
+                <option value="1">विकल्प B</option>
+                <option value="2">विकल्प C</option>
+                <option value="3">विकल्प D</option>
+            </select>
+            <div style="text-align: center; margin-top: 15px;">
+                <button class="btn btn-success" onclick="saveQuestion()">सेव करें</button>
+                <button class="btn btn-danger" onclick="closeModal()">रद्द करें</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        🔒 सिर्फ एडमिन के लिए | विद्युत यादव एजुकेशन
+    </div>
+</div>
+
+<script>
+    // ========== ADMIN PASSWORD ==========
+    const ADMIN_PASSWORD = "vidhyut@123";  // 🔑 Aap ise change kar sakte ho
+    
+    // ========== ALL QUESTIONS DATA ==========
+    let allQuestions = [];
+    let chaptersList = [];
+    let currentEditIndex = -1;
+    let currentSearchTerm = "";
+    
+    // Load questions from localStorage
+    function loadQuestionsFromStorage() {
+        const saved = localStorage.getItem("vidhyut_admin_questions");
+        if (saved) {
+            allQuestions = JSON.parse(saved);
+        } else {
+            // Default questions generate karo
+            generateDefaultQuestions();
+        }
+        
+        // Chapters list generate
+        const uniqueChapters = [...new Set(allQuestions.map(q => q.chapter))];
+        chaptersList = uniqueChapters;
+        
+        updateStats();
+        displayQuestions();
+        updateChapterSelect();
+    }
+    
+    function generateDefaultQuestions() {
+        allQuestions = [];
+        const defaultQuestionsList = [
+            { text: "भारत की राजधानी क्या है?", options: ["मुंबई", "कोलकाता", "नई दिल्ली", "चेन्नई"], correct: 2 },
+            { text: "गंगा नदी कहाँ से निकलती है?", options: ["गंगोत्री", "यमुनोत्री", "बद्रीनाथ", "केदारनाथ"], correct: 0 },
+            { text: "ताजमहल कहाँ स्थित है?", options: ["दिल्ली", "आगरा", "जयपुर", "लखनऊ"], correct: 1 },
+            { text: "कंप्यूटर का पिता किसे कहा जाता है?", options: ["चार्ल्स बैबेज", "बिल गेट्स", "स्टीव जॉब्स", "मार्क जुकरबर्ग"], correct: 0 },
+            { text: "पृथ्वी का सबसे बड़ा महासागर कौन सा है?", options: ["अटलांटिक", "हिंद महासागर", "प्रशांत", "आर्कटिक"], correct: 2 }
+        ];
+        
+        // Demo Chapter
+        for (let i = 0; i < defaultQuestionsList.length; i++) {
+            allQuestions.push({
+                id: Date.now() + i,
+                chapter: "🎯 डेमो क्विज (निःशुल्क)",
+                text: defaultQuestionsList[i].text,
+                options: [...defaultQuestionsList[i].options],
+                correct: defaultQuestionsList[i].correct
+            });
+        }
+        
+        // Premium Chapters (5 sample chapters for demo)
+        const premiumChapters = ["🔬 भौतिकी", "⚡ रसायन विज्ञान", "🔢 गणित", "📜 इतिहास", "🗺️ भूगोल"];
+        for (let ch = 0; ch < premiumChapters.length; ch++) {
+            for (let i = 0; i < 5; i++) {
+                allQuestions.push({
+                    id: Date.now() + ch * 100 + i,
+                    chapter: `⭐ ${premiumChapters[ch]} (प्रीमियम)`,
+                    text: `${premiumChapters[ch]} का प्रश्न ${i+1}: ${defaultQuestionsList[i % defaultQuestionsList.length].text}`,
+                    options: [...defaultQuestionsList[i % defaultQuestionsList.length].options],
+                    correct: defaultQuestionsList[i % defaultQuestionsList.length].correct
+                });
+            }
+        }
+        
+        saveToStorage();
+    }
+    
+    function saveToStorage() {
+        localStorage.setItem("vidhyut_admin_questions", JSON.stringify(allQuestions));
+    }
+    
+    function updateStats() {
+        document.getElementById("totalQuestions").textContent = allQuestions.length;
+        const demoCount = allQuestions.filter(q => q.chapter.includes("डेमो") || q.chapter.includes("निःशुल्क")).length;
+        const premiumCount = allQuestions.filter(q => q.chapter.includes("प्रीमियम") || q.chapter.includes("⭐")).length;
+        document.getElementById("demoCount").textContent = demoCount;
+        document.getElementById("premiumCount").textContent = premiumCount;
+        document.getElementById("chapterCount").textContent = chaptersList.length;
+    }
+    
+    function displayQuestions() {
+        const tbody = document.getElementById("questionTableBody");
+        tbody.innerHTML = "";
+        
+        let filteredQuestions = allQuestions;
+        if (currentSearchTerm) {
+            filteredQuestions = allQuestions.filter(q => 
+                q.text.toLowerCase().includes(currentSearchTerm.toLowerCase()) ||
+                q.chapter.toLowerCase().includes(currentSearchTerm.toLowerCase())
+            );
+        }
+        
+        filteredQuestions.forEach((q, idx) => {
+            const row = tbody.insertRow();
+            row.insertCell(0).textContent = idx + 1;
+            row.insertCell(1).textContent = q.chapter;
+            row.insertCell(2).textContent = q.text.length > 50 ? q.text.substring(0, 47) + "..." : q.text;
+            row.insertCell(3).textContent = q.options[0];
+            row.insertCell(4).textContent = q.options[1];
+            row.insertCell(5).textContent = q.options[2];
+            row.insertCell(6).textContent = q.options[3];
+            row.insertCell(7).textContent = `${String.fromCharCode(65 + q.correct)}. ${q.options[q.correct]}`;
+            
+            const actionCell = row.insertCell(8);
+            const editBtn = document.createElement("button");
+            editBtn.textContent = "✏️";
+            editBtn.style.background = "#ecc94b";
+            editBtn.style.border = "none";
+            editBtn.style.borderRadius = "10px";
+            editBtn.style.padding = "5px 10px";
+            editBtn.style.margin = "2px";
+            editBtn.style.cursor = "pointer";
+            editBtn.onclick = () => editQuestion(q.id);
+            
+            const deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "🗑️";
+            deleteBtn.style.background = "#e53e3e";
+            deleteBtn.style.color = "white";
+            deleteBtn.style.border = "none";
+            deleteBtn.style.borderRadius = "10px";
+            deleteBtn.style.padding = "5px 10px";
+            deleteBtn.style.margin = "2px";
+            deleteBtn.style.cursor = "pointer";
+            deleteBtn.onclick = () => deleteQuestion(q.id);
+            
+            actionCell.appendChild(editBtn);
+            actionCell.appendChild(deleteBtn);
+        });
+    }
+    
+    function updateChapterSelect() {
+        const select = document.getElementById("modalChapter");
+        select.innerHTML = "";
+        chaptersList.forEach(ch => {
+            const option = document.createElement("option");
+            option.value = ch;
+            option.textContent = ch;
+            select.appendChild(option);
+        });
+    }
+    
+    function showAddModal() {
+        currentEditIndex = -1;
+        document.getElementById("modalTitle").textContent = "➕ नया प्रश्न जोड़ें";
+        document.getElementById("modalQuestion").value = "";
+        document.getElementById("modalOptA").value = "";
+        document.getElementById("modalOptB").value = "";
+        document.getElementById("modalOptC").value = "";
+        document.getElementById("modalOptD").value = "";
+        document.getElementById("modalCorrect").value = "0";
+        document.getElementById("modal").style.display = "flex";
+    }
+    
+    function editQuestion(id) {
+        const q = allQuestions.find(q => q.id === id);
+        if (!q) return;
+        
+        currentEditIndex = allQuestions.findIndex(q => q.id === id);
+        document.getElementById("modalTitle").textContent = "✏️ प्रश्न संपादित करें";
+        document.getElementById("modalChapter").value = q.chapter;
+        document.getElementById("modalQuestion").value = q.text;
+        document.getElementById("modalOptA").value = q.options[0];
+        document.getElementById("modalOptB").value = q.options[1];
+        document.getElementById("modalOptC").value = q.options[2];
+        document.getElementById("modalOptD").value = q.options[3];
+        document.getElementById("modalCorrect").value = q.correct;
+        document.getElementById("modal").style.display = "flex";
+    }
+    
+    function saveQuestion() {
+        const chapter = document.getElementById("modalChapter").value;
+        const text = document.getElementById("modalQuestion").value.trim();
+        const optA = document.getElementById("modalOptA").value.trim();
+        const optB = document.getElementById("modalOptB").value.trim();
+        const optC = document.getElementById("modalOptC").value.trim();
+        const optD = document.getElementById("modalOptD").value.trim();
+        const correct = parseInt(document.getElementById("modalCorrect").value);
+        
+        if (!text || !optA || !optB || !optC || !optD) {
+            alert("⚠️ कृपया सभी फील्ड भरें!");
+            return;
+        }
+        
+        if (currentEditIndex === -1) {
+            // Add new question
+            allQuestions.push({
+                id: Date.now(),
+                chapter: chapter,
+                text: text,
+                options: [optA, optB, optC, optD],
+                correct: correct
+            });
+        } else {
+            // Edit existing
+            allQuestions[currentEditIndex] = {
+                ...allQuestions[currentEditIndex],
+                chapter: chapter,
+                text: text,
+                options: [optA, optB, optC, optD],
+                correct: correct
+            };
+        }
+        
+        saveToStorage();
+        loadQuestionsFromStorage();
+        closeModal();
+        alert("✅ प्रश्न सहेज लिया गया!");
+    }
+    
+    function deleteQuestion(id) {
+        if (confirm("⚠️ क्या आप वाकई यह प्रश्न हटाना चाहते हैं?")) {
+            allQuestions = allQuestions.filter(q => q.id !== id);
+            saveToStorage();
+            loadQuestionsFromStorage();
+            alert("✅ प्रश्न हटा दिया गया!");
+        }
+    }
+    
+    function searchQuestions() {
+        currentSearchTerm = document.getElementById("searchInput").value.trim();
+        displayQuestions();
+    }
+    
+    function resetSearch() {
+        document.getElementById("searchInput").value = "";
+        currentSearchTerm = "";
+        displayQuestions();
+    }
+    
+    function closeModal() {
+        document.getElementById("modal").style.display = "none";
+    }
+    
+    function adminLogin() {
+        const password = document.getElementById("adminPassword").value;
+        if (password === ADMIN_PASSWORD) {
+            document.getElementById("loginBox").classList.add("hidden");
+            document.getElementById("dashboard").classList.remove("hidden");
+            loadQuestionsFromStorage();
+        } else {
+            document.getElementById("loginError").textContent = "❌ गलत पासवर्ड!";
+        }
+    }
+    
+    // Close modal on outside click
+    window.onclick = function(event) {
+        const modal = document.getElementById("modal");
+        if (event.target === modal) {
+            closeModal();
+        }
+    }
+</script>
+</body>
+</html>
