@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    
+
     <!-- SEO Meta Tags -->
     <title>vidhyut yadav education</title>
     <meta name="description" content="ITI CAT परीक्षा की तैयारी हिंदी में। 2000+ अध्यायवार प्रश्न, विज्ञान, गणित, सामान्य ज्ञान। ₹99 में प्रीमियम एक्सेस। फ्री डेमो उपलब्ध।">
@@ -11,16 +11,16 @@
     <meta name="author" content="Vidhyut Yadav">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
-    
+
     <!-- Open Graph / Social Media Share -->
     <meta property="og:title" content="विद्युत यादव एजुकेशन - ITI CAT क्विज">
     <meta property="og:description" content="2000+ ITI CAT प्रश्न हिंदी में। विज्ञान, गणित, सामान्य ज्ञान। ₹99 में प्रीमियम।">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Vidhyut Yadav Education">
-    
+
     <!-- Canonical URL (अपना GitHub link डालना) -->
     <link rel="canonical" href="https://vidhyutyadav.github.io/vidhyut-education/">
-    
+
     <style>
         * {
             margin: 0;
@@ -402,13 +402,13 @@
             <div class="phonepe-badge">
                 📱 PhonePe / Google Pay / Paytm से भुगतान करें
             </div>
-            
+
             <div class="qr-container">
                 <div class="qr-code" id="qrcode"></div>
                 <div class="upi-id">📲 7992405433@ybl</div>
                 <p style="color: #4a5568; font-size: 0.75rem;">QR कोड स्कैन करें या UPI ID डालें</p>
             </div>
-            
+
             <div class="instruction">
                 <strong>👇 भुगतान के निर्देश:</strong><br>
                 1️⃣ PhonePe / Google Pay / Paytm खोलें<br>
@@ -417,7 +417,7 @@
                 4️⃣ भुगतान के बाद Transaction ID नीचे दर्ज करें<br>
                 5️⃣ "पेमेंट वेरिफाई करें" पर क्लिक करें
             </div>
-            
+
             <div class="input-group" style="margin-top: 15px;">
                 <input type="text" id="transactionId" placeholder="UPI Transaction ID" style="width: 280px;">
             </div>
@@ -435,11 +435,11 @@
             <h2>📚 आईटीआई सीएटी क्विज (हिंदी में)</h2>
             <button class="btn btn-danger" onclick="logout()" style="padding: 8px 15px;">🚪 लॉगआउट</button>
         </div>
-        
+
         <div id="userInfoDisplay" class="user-info"></div>
-        
+
         <div class="chapter-grid" id="chapterGrid"></div>
-        
+
         <div class="progress-area">
             <span class="question-count" id="questionCount">प्रश्न 1 / 40</span>
             <span class="score" id="scoreDisplay">⭐ स्कोर: 0</span>
@@ -464,7 +464,7 @@
             <button class="btn btn-success" onclick="downloadCertificate()">📜 सर्टिफिकेट डाउनलोड करें</button>
         </div>
     </div>
-    
+
     <div class="footer">
         © 2025 विद्युत यादव एजुकेशन | सभी अधिकार सुरक्षित | ITI CAT Preparation
     </div>
@@ -474,7 +474,7 @@
     // ========== UPI DETAILS ==========
     const UPI_ID = "7992405433@ybl";
     const WEBSITE_URL = "https://vidhyutyadav.github.io/vidhyut-education/";
-    
+
     // Generate QR Code
     function generateQRCode() {
         const qrContainer = document.getElementById("qrcode");
@@ -490,20 +490,20 @@
             });
         }
     }
-    
+
     // ========== USER SYSTEM ==========
     let currentUser = null;
     let isPremium = false;
-    
+
     function loadUser() {
         const saved = localStorage.getItem("vidhyut_user");
         if (saved) {
             const user = JSON.parse(saved);
             currentUser = user;
             isPremium = user.isPremium || false;
-            
+
             document.getElementById("authSection").classList.add("hidden");
-            
+
             if (isPremium) {
                 document.getElementById("paymentSection").classList.add("hidden");
                 document.getElementById("quizSection").classList.remove("hidden");
@@ -521,12 +521,12 @@
             document.getElementById("quizSection").classList.add("hidden");
         }
     }
-    
+
     function handleLogin() {
         const name = document.getElementById("userName").value.trim();
         const email = document.getElementById("userEmail").value.trim();
         const password = document.getElementById("userPassword").value.trim();
-        
+
         if (!name || !email || !password) {
             document.getElementById("authMessage").innerHTML = "⚠️ कृपया सभी फील्ड भरें";
             return;
@@ -535,41 +535,41 @@
             document.getElementById("authMessage").innerHTML = "⚠️ पासवर्ड कम से कम 4 अक्षर का होना चाहिए";
             return;
         }
-        
+
         currentUser = { name, email, password, isPremium: false };
         localStorage.setItem("vidhyut_user", JSON.stringify(currentUser));
         loadUser();
     }
-    
+
     function verifyPayment() {
         const transactionId = document.getElementById("transactionId").value.trim();
-        
+
         if (!transactionId) {
             document.getElementById("paymentMessage").innerHTML = "⚠️ कृपया Transaction ID दर्ज करें";
             document.getElementById("paymentMessage").style.color = "#e53e3e";
             return;
         }
-        
+
         currentUser.transactionId = transactionId;
         currentUser.isPremium = true;
         currentUser.premiumActivatedOn = new Date().toISOString();
         localStorage.setItem("vidhyut_user", JSON.stringify(currentUser));
         isPremium = true;
-        
+
         document.getElementById("paymentMessage").innerHTML = "✅ पेमेंट वेरिफाई हो गया! क्विज लोड हो रहा है...";
         document.getElementById("paymentMessage").style.color = "#38a169";
-        
+
         setTimeout(() => {
             loadUser();
             resetQuiz();
         }, 1500);
     }
-    
+
     function logout() {
         localStorage.removeItem("vidhyut_user");
         location.reload();
     }
-    
+
     // ========== HINDI QUESTIONS DATABASE ==========
     // 100 Demo Questions (Free)
     const demoQuestions = [];
@@ -585,7 +585,7 @@
         { text: "पानी का रासायनिक सूत्र क्या है?", options: ["CO2", "O2", "H2O", "NaCl"], correct: 2 },
         { text: "मानव शरीर में कितनी हड्डियाँ होती हैं?", options: ["200", "206", "210", "215"], correct: 1 }
     ];
-    
+
     for (let i = 0; i < 100; i++) {
         const base = hindiQuestionsList[i % hindiQuestionsList.length];
         demoQuestions.push({
@@ -594,7 +594,7 @@
             correct: base.correct
         });
     }
-    
+
     // 50 Premium Chapters × 40 Questions = 2000 Questions
     const premiumChapterNames = [
         "🔬 भौतिकी - मात्रक", "⚡ भौतिकी - गति", "💡 भौतिकी - ऊर्जा", "🎵 भौतिकी - ध्वनि",
@@ -610,7 +610,7 @@
         "🏗️ सिविल", "📐 सिविल मापन", "🏠 निर्माण", "📏 ड्राइंग",
         "🔩 मैकेनिकल", "⚙️ मशीनें", "🔧 टूल्स", "🛠️ मेंटेनेंस"
     ];
-    
+
     const premiumChapters = [];
     for (let i = 0; i < 50; i++) {
         const questions = [];
@@ -628,15 +628,15 @@
             isPremium: true
         });
     }
-    
+
     const demoChapter = [{
         name: "🎯 डेमो क्विज (100 निःशुल्क प्रश्न)",
         questions: demoQuestions,
         isPremium: false
     }];
-    
+
     const allChapters = [...demoChapter, ...premiumChapters];
-    
+
     // Quiz Variables
     let currentChapter = 0;
     let currentIndex = 0;
@@ -644,7 +644,7 @@
     let selectedOption = null;
     let answered = false;
     let userAnswers = [];
-    
+
     const chapterGrid = document.getElementById("chapterGrid");
     const questionCountEl = document.getElementById("questionCount");
     const scoreDisplayEl = document.getElementById("scoreDisplay");
@@ -656,13 +656,13 @@
     const resetBtn = document.getElementById("resetBtn");
     const feedbackDiv = document.getElementById("feedback");
     const certificateSection = document.getElementById("certificateSection");
-    
+
     function loadChapters() {
         chapterGrid.innerHTML = "";
         for (let i = 0; i < allChapters.length; i++) {
             const btn = document.createElement("button");
             const chapter = allChapters[i];
-            
+
             if (chapter.isPremium && !isPremium) {
                 btn.className = "chapter-btn locked";
                 btn.innerHTML = `${chapter.name} 🔒`;
@@ -683,7 +683,7 @@
             chapterGrid.appendChild(btn);
         }
     }
-    
+
     function resetQuiz() {
         currentIndex = 0;
         score = 0;
@@ -697,25 +697,25 @@
         loadQuestion();
         certificateSection.classList.add("hidden");
     }
-    
+
     function updateScoreUI() {
         scoreDisplayEl.textContent = `⭐ स्कोर: ${score}`;
     }
-    
+
     function loadQuestion() {
         feedbackDiv.innerHTML = "";
         feedbackDiv.className = "feedback";
-        
+
         const questions = allChapters[currentChapter].questions;
         if (questions.length === 0) return;
-        
+
         const q = questions[currentIndex];
         questionTextEl.textContent = `${currentIndex+1}. ${q.text}`;
         questionCountEl.textContent = `प्रश्न ${currentIndex+1} / ${questions.length}`;
-        
+
         const percent = ((currentIndex + 1) / questions.length) * 100;
         progressBar.style.width = `${percent}%`;
-        
+
         const saved = userAnswers[currentIndex];
         if (saved !== null) {
             answered = true;
@@ -733,28 +733,28 @@
             selectedOption = null;
             submitBtn.disabled = true;
         }
-        
+
         renderOptions(q.options, saved?.selected);
-        
+
         nextBtn.textContent = currentIndex === questions.length - 1 ? "🏁 अध्याय समाप्त करें" : "➡ अगला प्रश्न";
     }
-    
+
     function renderOptions(options, preSelected = null) {
         optionsContainer.innerHTML = "";
         options.forEach((opt, idx) => {
             const div = document.createElement("div");
             div.className = "option";
             if (preSelected === idx) div.classList.add("selected");
-            
+
             const radio = document.createElement("span");
             radio.className = "option-radio";
             const text = document.createElement("span");
             text.className = "option-text";
             text.textContent = `${String.fromCharCode(65+idx)}. ${opt}`;
-            
+
             div.appendChild(radio);
             div.appendChild(text);
-            
+
             if (!answered) {
                 div.onclick = () => {
                     document.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
@@ -767,7 +767,7 @@
             optionsContainer.appendChild(div);
         });
     }
-    
+
     function submitAnswer() {
         if (answered) {
             feedbackDiv.innerHTML = "⚠️ आप पहले उत्तर दे चुके हैं!";
@@ -777,33 +777,33 @@
             feedbackDiv.innerHTML = "⚠️ कृपया कोई विकल्प चुनें!";
             return;
         }
-        
+
         const q = allChapters[currentChapter].questions[currentIndex];
         const isCorrect = (selectedOption === q.correct);
-        
+
         userAnswers[currentIndex] = { selected: selectedOption, isCorrect: isCorrect };
         score = userAnswers.filter(a => a !== null && a.isCorrect).length;
         updateScoreUI();
-        
+
         feedbackDiv.innerHTML = isCorrect ? "✅ बिल्कुल सही! बहुत बढ़िया! 🎉" : `❌ गलत! सही उत्तर: ${q.options[q.correct]}`;
         feedbackDiv.className = isCorrect ? "feedback correct" : "feedback wrong";
-        
+
         answered = true;
         submitBtn.disabled = true;
-        
+
         const opts = document.querySelectorAll(".option");
         opts.forEach((div, idx) => {
             if (idx === q.correct) div.style.backgroundColor = "#c6f6d5";
             if (idx === selectedOption && idx !== q.correct) div.style.backgroundColor = "#fed7d7";
         });
     }
-    
+
     function nextOrFinish() {
         if (!answered) {
             feedbackDiv.innerHTML = "⚠️ पहले 'जमा करें' बटन दबाएँ!";
             return;
         }
-        
+
         const total = allChapters[currentChapter].questions.length;
         if (currentIndex + 1 < total) {
             currentIndex++;
@@ -813,13 +813,13 @@
             feedbackDiv.innerHTML = `🎉 अध्याय पूरा हुआ! स्कोर: ${totalScore}/${total} 🎉`;
             submitBtn.disabled = true;
             nextBtn.disabled = true;
-            
+
             if (isPremium) {
                 certificateSection.classList.remove("hidden");
             }
         }
     }
-    
+
     function downloadCertificate() {
         const certHtml = `<!DOCTYPE html>
         <html>
@@ -845,7 +845,7 @@
             </div>
         </body>
         </html>`;
-        
+
         const blob = new Blob([certHtml], { type: "text/html" });
         const link = document.createElement("a");
         link.href = URL.createObjectURL(blob);
@@ -853,11 +853,11 @@
         link.click();
         URL.revokeObjectURL(link.href);
     }
-    
+
     submitBtn.addEventListener("click", submitAnswer);
     nextBtn.addEventListener("click", nextOrFinish);
     resetBtn.addEventListener("click", resetQuiz);
-    
+
     loadUser();
 </script>
 </body>
