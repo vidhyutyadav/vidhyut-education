@@ -2,856 +2,745 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vidhyut education official</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Bhai Education - Free Quiz App | SSC | Railway | ITI CAT</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box;}
-        body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(135deg,#0f0c29,#302b63);padding:15px;}
-        .container{max-width:1000px;margin:0 auto;}
-        .header{background:linear-gradient(135deg,#f7971e,#ffd200);padding:15px;border-radius:20px;text-align:center;margin-bottom:15px;}
-        .header h1{color:#1a1a2e;font-size:1.5rem;}
-        .header p{color:#1a1a2e;font-size:0.8rem;}
-        .price-badge{background:#1a1a2e;color:#ffd200;display:inline-block;padding:5px 15px;border-radius:30px;margin-top:8px;font-size:0.9rem;font-weight:bold;}
-        .auth-card,.payment-card,.quiz-card{background:white;border-radius:20px;padding:20px;margin-bottom:15px;}
-        .input-group{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:15px;}
-        .input-group input{padding:10px;border:2px solid #e2e8f0;border-radius:12px;width:200px;}
-        .btn{padding:10px 20px;border:none;border-radius:30px;font-weight:bold;cursor:pointer;margin:5px;}
-        .btn-primary{background:linear-gradient(135deg,#f7971e,#ffd200);color:#1a1a2e;}
-        .btn-danger{background:#e53e3e;color:white;}
-        .btn-success{background:#38a169;color:white;}
-        .qr-container{text-align:center;margin:15px 0;}
-        .qr-code{background:white;border-radius:20px;padding:10px;display:inline-block;}
-        .upi-id{background:#1a1a2e;color:#ffd200;padding:10px;border-radius:12px;text-align:center;margin:10px 0;font-size:1rem;}
-        .chapter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:20px;max-height:350px;overflow-y:auto;}
-        .chapter-btn{background:#f0f2f5;border:none;padding:10px;border-radius:12px;cursor:pointer;font-weight:600;font-size:0.75rem;}
-        .chapter-btn.active{background:linear-gradient(135deg,#f7971e,#ffd200);color:#1a1a2e;}
-        .chapter-btn.locked{background:#e2e8f0;color:#718096;cursor:not-allowed;}
-        .chapter-btn.locked::after{content:" 🔒";}
-        .progress-area{display:flex;justify-content:space-between;margin-bottom:15px;}
-        .question-count,.score{background:#1a1a2e;color:white;padding:5px 12px;border-radius:20px;font-size:0.7rem;}
-        .score{background:#f7971e;color:#1a1a2e;}
-        .progress-bar-container{width:100%;background:#e2e8f0;border-radius:10px;margin-top:10px;}
-        .progress-bar{background:linear-gradient(90deg,#f7971e,#ffd200);height:6px;border-radius:10px;width:0%;}
-        .question-text{background:#f7fafc;padding:15px;border-radius:16px;margin-bottom:20px;font-weight:600;font-size:0.95rem;}
-        .options-list{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;}
-        .option{display:flex;align-items:center;gap:12px;padding:10px;background:#f7fafc;border:2px solid #e2e8f0;border-radius:12px;cursor:pointer;}
-        .option.selected{background:#fff0e6;border-color:#f7971e;}
-        .option-radio{width:16px;height:16px;border:2px solid #cbd5e0;border-radius:50%;}
-        .option.selected .option-radio{border-color:#f7971e;background:#f7971e;box-shadow:inset 0 0 0 2px white;}
-        .feedback{padding:10px;border-radius:12px;margin-top:15px;text-align:center;font-size:0.85rem;}
-        .feedback.correct{background:#c6f6d5;color:#22543d;}
-        .feedback.wrong{background:#fed7d7;color:#742a2a;}
-        .hidden{display:none;}
-        .footer{text-align:center;color:white;margin-top:15px;font-size:0.7rem;}
-        @media(max-width:600px){.chapter-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));}}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            min-height: 100vh;
+            padding: 15px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #e65c00, #ff8c00);
+            padding: 20px;
+            border-radius: 25px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .header h1 {
+            color: white;
+            font-size: 1.8rem;
+        }
+        .header p {
+            color: #ffe0b3;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+        .free-badge {
+            background: #1a1a2e;
+            color: #ff8c00;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 30px;
+            margin-top: 10px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        .stats {
+            background: white;
+            border-radius: 15px;
+            padding: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .stats span {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #e65c00;
+        }
+        .category {
+            background: white;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .category-title {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .category-title:hover {
+            background: linear-gradient(135deg, #e65c00, #ff8c00);
+        }
+        .chapter-list {
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .chapter-list.show {
+            display: grid;
+        }
+        .chapter-btn {
+            background: #f0f2f5;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .chapter-btn:hover {
+            background: #ff8c00;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 25px;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e65c00;
+        }
+        .close-modal {
+            background: #e53e3e;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .question-card {
+            background: #f7fafc;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ff8c00;
+        }
+        .question-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .option.selected {
+            background: #fff0e6;
+            border-color: #ff8c00;
+            border-width: 2px;
+        }
+        .option-radio {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #cbd5e0;
+            border-radius: 50%;
+        }
+        .option.selected .option-radio {
+            border-color: #ff8c00;
+            background: #ff8c00;
+            box-shadow: inset 0 0 0 2px white;
+        }
+        .feedback {
+            font-size: 0.8rem;
+            padding: 6px;
+            border-radius: 8px;
+            margin-top: 8px;
+        }
+        .feedback.correct {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+        .feedback.wrong {
+            background: #fed7d7;
+            color: #742a2a;
+        }
+        .score-area {
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background: #f0f2f5;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+        .btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #e65c00, #ff8c00);
+            color: white;
+        }
+        .footer {
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.7rem;
+            margin-top: 20px;
+        }
+        .toggle-icon {
+            font-size: 1.2rem;
+        }
+        @media (max-width: 600px) {
+            .chapter-list {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+        }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <h1>🎓 यादव विद्युत एजुकेशन</h1>
-        <p>आईटीआई सीएटी | रेलवे | एसएससी | प्रतियोगी परीक्षाएँ</p>
-        <div class="price-badge">⭐ ₹49 में प्रीमियम ⭐</div>
+        <h1>📚 BHAI EDUCATION</h1>
+        <p>Complete Free Quiz App | Maths | Reasoning | GK | Science | GS</p>
+        <div class="free-badge">⭐ 500+ Questions | 100% Free | No Payment ⭐</div>
     </div>
 
-    <div id="authSection" class="auth-card">
-        <h2 style="text-align:center; margin-bottom:15px;">🔐 लॉगिन / साइनअप</h2>
-        <div class="input-group">
-            <input type="text" id="userName" placeholder="अपना नाम">
-            <input type="email" id="userEmail" placeholder="ईमेल आईडी">
-            <input type="password" id="userPassword" placeholder="पासवर्ड (4 अक्षर)">
-        </div>
-        <div style="text-align:center;"><button class="btn btn-primary" onclick="handleLogin()">लॉगिन करें</button></div>
-        <div id="authMessage" style="text-align:center;margin-top:10px;color:#e53e3e;font-size:0.8rem;"></div>
+    <div class="stats">
+        📊 <span>50+ Chapters</span> | <span>500+ Questions</span> | <span>100% Free</span> 📚
     </div>
 
-    <div id="paymentSection" class="payment-card hidden">
-        <h2 style="text-align:center; margin-bottom:15px;">💰 प्रीमियम अपग्रेड - ₹49 Only</h2>
-        <div style="background:#f0f2f5;padding:20px;border-radius:15px;text-align:center;">
-            <div class="qr-container"><div class="qr-code" id="qrcode"></div></div>
-            <div class="upi-id">📲 7992405433@ybl</div>
-            <p style="font-size:0.75rem;">QR कोड स्कैन करें या UPI ID से ₹49 भेजें</p>
-            <div class="input-group"><input type="text" id="transactionId" placeholder="UPI Transaction ID" style="width:250px;"></div>
-            <button class="btn btn-success" onclick="verifyPayment()">✅ पेमेंट वेरिफाई करें</button>
-            <p id="paymentMessage" style="margin-top:10px;font-size:0.8rem;"></p>
-        </div>
-        <div style="text-align:center;margin-top:10px;"><button class="btn btn-danger" onclick="logout()">🚪 लॉगआउट</button></div>
+    <div id="categories-container"></div>
+
+    <div class="footer">
+        <p>© 2025 Bhai Education | सभी प्रतियोगी परीक्षाओं की तैयारी</p>
+        <p>Maths | Reasoning | GK | GS | Physics | Chemistry | Biology</p>
     </div>
+</div>
 
-    <div id="quizSection" class="quiz-card hidden">
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:15px;">
-            <h2 style="font-size:1.2rem;">📚 ITI CAT क्विज (1000+ प्रश्न)</h2>
-            <button class="btn btn-danger" onclick="logout()" style="padding:6px 12px;font-size:0.8rem;">🚪 लॉगआउट</button>
+<div id="quizModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle">Chapter Name</h3>
+            <button class="close-modal" onclick="closeModal()">✕</button>
         </div>
-        <div id="userInfoDisplay" style="background:#f0f2f5;padding:10px;border-radius:12px;margin-bottom:15px;text-align:center;font-size:0.85rem;"></div>
-        
-        <div class="chapter-grid" id="chapterGrid"></div>
-        
-        <div class="progress-area">
-            <span class="question-count" id="questionCount">प्रश्न 1 / 20</span>
-            <span class="score" id="scoreDisplay">⭐ स्कोर: 0</span>
-        </div>
-        <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
-
-        <div class="question-text" id="questionText">लोड हो रहा है...</div>
-        <div class="options-list" id="optionsContainer"></div>
-
-        <div style="text-align:center;">
-            <button class="btn btn-primary" id="submitBtn" disabled>✅ जमा करें</button>
-            <button class="btn" id="nextBtn" style="background:#1a1a2e;color:white;">➡ अगला</button>
-            <button class="btn" id="resetBtn" style="background:#718096;color:white;">🔄 रीसेट</button>
-        </div>
-        <div id="feedback" class="feedback"></div>
-        <div id="certificateSection" style="display:none; margin-top:15px; text-align:center; padding:10px; background:#f0f2f5; border-radius:12px;">
-            <p>🏆 बधाई हो! सभी अध्याय पूरे! 🏆</p>
-            <button class="btn btn-success" onclick="downloadCertificate()">📜 सर्टिफिकेट डाउनलोड करें</button>
-        </div>
+        <div id="questions-container"></div>
+        <div class="score-area" id="modal-score">⭐ Score: 0 / 3 ⭐</div>
     </div>
-    <div class="footer">© 2025 यादव विद्युत एजुकेशन | सभी अधिकार सुरक्षित</div>
 </div>
 
 <script>
-    const UPI_ID = "7992405433@ybl";
-    let currentUser = null;
-    let isPremium = false;
-
-    function generateQRCode() {
-        let qrDiv = document.getElementById("qrcode");
-        if(qrDiv) { qrDiv.innerHTML = ""; new QRCode(qrDiv, { text: `upi://pay?pa=${UPI_ID}&pn=Vidhyut%20Yadav&am=49&cu=INR`, width: 160, height: 160, colorDark: "#1a1a2e", colorLight: "#ffffff" }); }
-    }
-
-    function loadUser() {
-        let saved = localStorage.getItem("vidhyut_user");
-        if(saved) {
-            currentUser = JSON.parse(saved);
-            isPremium = currentUser.isPremium || false;
-            document.getElementById("authSection").classList.add("hidden");
-            if(isPremium) {
-                document.getElementById("paymentSection").classList.add("hidden");
-                document.getElementById("quizSection").classList.remove("hidden");
-                document.getElementById("userInfoDisplay").innerHTML = `👋 स्वागत ${currentUser.name} ⭐ प्रीमियम सदस्य ⭐<br>📧 ${currentUser.email}`;
-                loadChapters();
-                resetQuiz();
-            } else {
-                document.getElementById("paymentSection").classList.remove("hidden");
-                document.getElementById("quizSection").classList.add("hidden");
-                generateQRCode();
-            }
-        } else {
-            document.getElementById("authSection").classList.remove("hidden");
-            document.getElementById("paymentSection").classList.add("hidden");
-            document.getElementById("quizSection").classList.add("hidden");
-        }
-    }
-
-    function handleLogin() {
-        let name = document.getElementById("userName").value.trim();
-        let email = document.getElementById("userEmail").value.trim();
-        let password = document.getElementById("userPassword").value.trim();
-        if(!name || !email || !password) { document.getElementById("authMessage").innerHTML = "⚠️ सभी फील्ड भरें"; return; }
-        if(password.length<4) { document.getElementById("authMessage").innerHTML = "⚠️ पासवर्ड 4+ अक्षर"; return; }
-        currentUser = { name, email, password, isPremium: false };
-        localStorage.setItem("vidhyut_user", JSON.stringify(currentUser));
-        loadUser();
-    }
-
-    function verifyPayment() {
-        let tid = document.getElementById("transactionId").value.trim();
-        if(!tid) { document.getElementById("paymentMessage").innerHTML = "⚠️ Transaction ID दर्ज करें"; return; }
-        currentUser.transactionId = tid; currentUser.isPremium = true; currentUser.premiumActivatedOn = new Date().toISOString();
-        localStorage.setItem("vidhyut_user", JSON.stringify(currentUser));
-        document.getElementById("paymentMessage").innerHTML = "✅ पेमेंट वेरिफाई! क्विज लोड हो रहा...";
-        setTimeout(() => loadUser(), 1500);
-    }
-
-    function logout() { localStorage.removeItem("vidhyut_user"); location.reload(); }
-
-    // ==================== 50 CHAPTERS × 20 QUESTIONS = 1000 QUESTIONS ====================
+    // ==================== ALL CHAPTERS WITH 3 QUESTIONS EACH ====================
     
-    // Physics Questions (भौतिकी)
-    const physicsMaatrak = [
-        { t: "लंबाई का SI मात्रक क्या है?", o: ["मीटर", "फुट", "किलोमीटर", "सेंटीमीटर"], c: 0 },
-        { t: "द्रव्यमान का SI मात्रक क्या है?", o: ["किलोग्राम", "ग्राम", "टन", "मिलीग्राम"], c: 0 },
-        { t: "समय का SI मात्रक क्या है?", o: ["सेकंड", "मिनट", "घंटा", "दिन"], c: 0 },
-        { t: "तापमान का SI मात्रक क्या है?", o: ["केल्विन", "सेल्सियस", "फारेनहाइट", "रैंकिन"], c: 0 },
-        { t: "विद्युत धारा का SI मात्रक क्या है?", o: ["एम्पीयर", "वोल्ट", "ओम", "वाट"], c: 0 },
-        { t: "बल का SI मात्रक क्या है?", o: ["न्यूटन", "डाइन", "जूल", "वाट"], c: 0 },
+    // ----- ARITHMETIC (MATHS) -----
+    const numberSystem = [
+        { text: "सबसे छोटी अभाज्य संख्या कौन सी है?", options: ["0", "1", "2", "3"], correct: 2 },
+        { text: "सम संख्या किसे कहते हैं?", options: ["2 से विभाज्य", "3 से विभाज्य", "5 से विभाज्य", "7 से विभाज्य"], correct: 0 },
+        { text: "π का मान क्या होता है?", options: ["22/7", "7/22", "3.14", "A और C"], correct: 3 }
+    ];
+    
+    const lcmHcf = [
+        { text: "12 और 18 का LCM क्या है?", options: ["36", "6", "72", "24"], correct: 0 },
+        { text: "12 और 18 का HCF क्या है?", options: ["6", "36", "12", "18"], correct: 0 },
+        { text: "LCM और HCF का गुणनफल किसके बराबर होता है?", options: ["संख्याओं का गुणनफल", "संख्याओं का योग", "संख्याओं का अंतर", "संख्याओं का भागफल"], correct: 0 }
+    ];
+    
+    const percentage = [
+        { text: "50 का 20% = ?", options: ["10", "5", "15", "20"], correct: 0 },
+        { text: "100 का 30% = ?", options: ["30", "20", "40", "50"], correct: 0 },
+        { text: "किसी संख्या का 30% = 90, तो संख्या क्या है?", options: ["300", "200", "400", "500"], correct: 0 }
+    ];
+    
+    const profitLoss = [
+        { text: "₹100 की वस्तु ₹120 में बेचने पर लाभ % = ?", options: ["20%", "10%", "15%", "25%"], correct: 0 },
+        { text: "लाभ % का सूत्र क्या है?", options: ["(लाभ/क्रय मूल्य)×100", "(लाभ/विक्रय मूल्य)×100", "(हानि/क्रय मूल्य)×100", "(हानि/विक्रय मूल्य)×100"], correct: 0 },
+        { text: "₹500 की वस्तु पर 10% लाभ पर विक्रय मूल्य = ?", options: ["₹550", "₹450", "₹500", "₹600"], correct: 0 }
+    ];
+    
+    const discount = [
+        { text: "छूट का सूत्र क्या है?", options: ["छूट = अंकित मूल्य × छूट%/100", "छूट = विक्रय मूल्य × छूट%/100", "छूट = क्रय मूल्य × छूट%/100", "कोई नहीं"], correct: 0 },
+        { text: "अंकित मूल्य ₹1000, छूट 10% = ?", options: ["₹900", "₹1000", "₹1100", "₹950"], correct: 0 },
+        { text: "अंकित मूल्य ₹500, छूट 20% = ?", options: ["₹400", "₹500", "₹600", "₹450"], correct: 0 }
+    ];
+    
+    const simpleInterest = [
+        { text: "साधारण ब्याज का सूत्र क्या है?", options: ["P×R×T/100", "P×R×T", "PRT/100", "P×R/T"], correct: 0 },
+        { text: "₹1000 का 10% वार्षिक ब्याज से 2 वर्ष का साधारण ब्याज = ?", options: ["₹200", "₹100", "₹300", "₹400"], correct: 0 },
+        { text: "मूलधन का सूत्र क्या है?", options: ["(SI×100)/(R×T)", "(SI×R×T)/100", "(100×R×T)/SI", "कोई नहीं"], correct: 0 }
+    ];
+    
+    const compoundInterest = [
+        { text: "चक्रवृद्धि ब्याज का सूत्र क्या है?", options: ["A = P(1+R/100)^T", "A = P(1+R×T/100)", "A = P×R×T/100", "A = P×R×T"], correct: 0 },
+        { text: "₹1000 का 10% चक्रवृद्धि ब्याज से 2 वर्ष का मिश्रधन = ?", options: ["₹1210", "₹1200", "₹1100", "₹1331"], correct: 0 },
+        { text: "चक्रवृद्धि ब्याज और साधारण ब्याज में अंतर क्यों होता है?", options: ["पिछले ब्याज पर भी ब्याज", "केवल मूलधन पर ब्याज", "दर अलग होती है", "समय अलग होता है"], correct: 0 }
+    ];
+    
+    const ratioProportion = [
+        { text: "2:3 = 4:x, तो x = ?", options: ["6", "4", "8", "12"], correct: 0 },
+        { text: "3:5 = 9:x, तो x = ?", options: ["15", "12", "18", "21"], correct: 0 },
+        { text: "दो संख्याओं का अनुपात 3:4 है और उनका योग 35 है, तो संख्याएँ क्या हैं?", options: ["15,20", "10,25", "20,15", "14,21"], correct: 0 }
+    ];
+    
+    const average = [
+        { text: "2, 4, 6, 8, 10 का औसत क्या है?", options: ["6", "5", "7", "8"], correct: 0 },
+        { text: "औसत का सूत्र क्या है?", options: ["सभी राशियों का योग/राशियों की संख्या", "सभी राशियों का गुणनफल/राशियों की संख्या", "सभी राशियों का योग×राशियों की संख्या", "कोई नहीं"], correct: 0 },
+        { text: "5 संख्याओं का औसत 10 है, उनका योग क्या होगा?", options: ["50", "10", "5", "15"], correct: 0 }
+    ];
+    
+    const timeWork = [
+        { text: "A किसी काम को 10 दिन में करता है, B उसी काम को 15 दिन में करता है, दोनों मिलकर कितने दिन में करेंगे?", options: ["6 दिन", "5 दिन", "8 दिन", "12 दिन"], correct: 0 },
+        { text: "कार्य और समय में क्या संबंध है?", options: ["व्युत्क्रमानुपाती", "अनुक्रमानुपाती", "कोई संबंध नहीं", "बराबर"], correct: 0 },
+        { text: "4 आदमी किसी काम को 15 दिन में करते हैं, 6 आदमी उसी काम को कितने दिन में करेंगे?", options: ["10 दिन", "12 दिन", "8 दिन", "15 दिन"], correct: 0 }
+    ];
+    
+    const pipeCistern = [
+        { text: "एक पाइप किसी टंकी को 10 घंटे में भरता है, दूसरा पाइप उसी टंकी को 15 घंटे में भरता है, दोनों मिलकर कितने घंटे में भरेंगे?", options: ["6 घंटे", "5 घंटे", "8 घंटे", "12 घंटे"], correct: 0 },
+        { text: "एक पाइप टंकी को 5 घंटे में भरता है, दूसरा पाइप उसी टंकी को 10 घंटे में खाली करता है, दोनों एक साथ खोल दिए जाएँ तो टंकी कितने घंटे में भरेगी?", options: ["10 घंटे", "5 घंटे", "15 घंटे", "20 घंटे"], correct: 0 },
+        { text: "टंकी का 1/3 भाग भरने में 2 घंटे लगते हैं, पूरी टंकी भरने में कितने घंटे लगेंगे?", options: ["6 घंटे", "4 घंटे", "3 घंटे", "9 घंटे"], correct: 0 }
+    ];
+    
+    const timeSpeedDistance = [
+        { text: "दूरी = चाल × समय", options: ["सूत्र सही है", "गलत है", "दूरी = समय/चाल", "दूरी = चाल/समय"], correct: 0 },
+        { text: "60 km/h की चाल से चल रही एक कार 3 घंटे में कितनी दूरी तय करेगी?", options: ["180 km", "120 km", "240 km", "60 km"], correct: 0 },
+        { text: "औसत चाल का सूत्र क्या है?", options: ["कुल दूरी/कुल समय", "कुल समय/कुल दूरी", "दूरी×समय", "दूरी+समय"], correct: 0 }
+    ];
+    
+    const train = [
+        { text: "एक ट्रेन 90 km/h की चाल से चल रही है, 5 सेकंड में कितनी दूरी तय करेगी?", options: ["125 m", "100 m", "150 m", "175 m"], correct: 0 },
+        { text: "एक ट्रेन 72 km/h की चाल से चल रही है, 10 सेकंड में कितनी दूरी तय करेगी?", options: ["200 m", "150 m", "250 m", "300 m"], correct: 0 },
+        { text: "एक ट्रेन 108 km/h की चाल से चल रही है, 15 सेकंड में कितनी दूरी तय करेगी?", options: ["450 m", "400 m", "500 m", "350 m"], correct: 0 }
+    ];
+    
+    const boatStream = [
+        { text: "शांत जल में नाव की चाल 10 km/h है, धारा की चाल 2 km/h है, धारा के अनुकूल चाल क्या होगी?", options: ["12 km/h", "8 km/h", "10 km/h", "14 km/h"], correct: 0 },
+        { text: "शांत जल में नाव की चाल 15 km/h है, धारा की चाल 3 km/h है, धारा के प्रतिकूल चाल क्या होगी?", options: ["12 km/h", "18 km/h", "15 km/h", "9 km/h"], correct: 0 },
+        { text: "धारा के अनुकूल चाल 14 km/h है, धारा के प्रतिकूल चाल 6 km/h है, शांत जल में नाव की चाल क्या है?", options: ["10 km/h", "8 km/h", "12 km/h", "14 km/h"], correct: 0 }
+    ];
+    
+    const mixtureAlligation = [
+        { text: "एक मिश्रण में दूध और पानी का अनुपात 3:2 है, यदि मिश्रण 20 लीटर है तो दूध की मात्रा क्या है?", options: ["12 लीटर", "8 लीटर", "10 लीटर", "15 लीटर"], correct: 0 },
+        { text: "एक मिश्रण में दूध और पानी का अनुपात 4:1 है, यदि मिश्रण 25 लीटर है तो पानी की मात्रा क्या है?", options: ["5 लीटर", "10 लीटर", "15 लीटर", "20 लीटर"], correct: 0 },
+        { text: "5 रु/kg और 8 रु/kg की चीनी को किस अनुपात में मिलाएँ कि मिश्रण की कीमत 6 रु/kg हो जाए?", options: ["2:1", "1:2", "3:1", "1:3"], correct: 0 }
+    ];
+    
+    // ----- REASONING -----
+    const codingDecoding = [
+        { text: "यदि 'MAN' को 'NBO' लिखा जाता है, तो 'BOY' को क्या लिखेंगे?", options: ["CPZ", "COZ", "BPZ", "CPY"], correct: 0 },
+        { text: "यदि 'DELHI' को 'EDMIJ' लिखा जाता है, तो 'MUMBAI' को क्या लिखेंगे?", options: ["NVNCBJ", "NVNCBI", "NVMCBJ", "NUNCBI"], correct: 0 },
+        { text: "यदि 'PINK' को 'QJOL' लिखा जाता है, तो 'BLUE' को क्या लिखेंगे?", options: ["CMVF", "CMVE", "CNVF", "CLVE"], correct: 0 }
+    ];
+    
+    const numberSeries = [
+        { text: "2, 4, 6, 8, ?", options: ["10", "9", "12", "14"], correct: 0 },
+        { text: "3, 6, 9, 12, ?", options: ["15", "18", "14", "16"], correct: 0 },
+        { text: "1, 4, 9, 16, ?", options: ["25", "24", "23", "22"], correct: 0 }
+    ];
+    
+    const alphabetSeries = [
+        { text: "A, B, C, D, ?", options: ["E", "F", "G", "H"], correct: 0 },
+        { text: "Z, Y, X, W, ?", options: ["V", "U", "T", "S"], correct: 0 },
+        { text: "A, C, E, G, ?", options: ["I", "H", "J", "K"], correct: 0 }
+    ];
+    
+    const analogy = [
+        { text: "पंखा : हवा :: बल्ब : ?", options: ["रोशनी", "गर्मी", "बिजली", "शोर"], correct: 0 },
+        { text: "चिकित्सक : अस्पताल :: शिक्षक : ?", options: ["विद्यालय", "घर", "कार्यालय", "पार्क"], correct: 0 },
+        { text: "चिड़िया : उड़ना :: मछली : ?", options: ["तैरना", "दौड़ना", "रेंगना", "उड़ना"], correct: 0 }
+    ];
+    
+    const classification = [
+        { text: "सेब, आम, केला, गाजर में अलग चुनो?", options: ["गाजर", "सेब", "आम", "केला"], correct: 0 },
+        { text: "शेर, बाघ, तेंदुआ, हाथी में अलग चुनो?", options: ["हाथी", "शेर", "बाघ", "तेंदुआ"], correct: 0 },
+        { text: "गाय, भैंस, बकरी, शेर में अलग चुनो?", options: ["शेर", "गाय", "भैंस", "बकरी"], correct: 0 }
+    ];
+    
+    const bloodRelation = [
+        { text: "A, B का पिता है, C, A की माता है, D, B का भाई है, तो D, C से क्या लगता है?", options: ["पोता", "बेटा", "भाई", "पिता"], correct: 0 },
+        { text: "X, Y की माता है, Z, Y का भाई है, तो Z, X से क्या लगता है?", options: ["बेटा", "पति", "भाई", "पिता"], correct: 0 },
+        { text: "A, B का पिता है, B, C का पुत्र है, तो C, A से क्या लगती है?", options: ["पत्नी", "माता", "बहन", "बेटी"], correct: 1 }
+    ];
+    
+    const directionTest = [
+        { text: "राम उत्तर दिशा में 5 km चला, फिर दाएँ मुड़कर 3 km चला, अब वह किस दिशा में है?", options: ["पूर्व", "उत्तर", "पश्चिम", "दक्षिण"], correct: 0 },
+        { text: "सीता पूर्व दिशा में 6 km चली, फिर बाएँ मुड़कर 4 km चली, अब वह किस दिशा में है?", options: ["उत्तर", "पूर्व", "दक्षिण", "पश्चिम"], correct: 0 },
+        { text: "रोहित दक्षिण दिशा में 10 km चला, फिर दाएँ मुड़कर 5 km चला, फिर दाएँ मुड़कर 3 km चला, अब वह किस दिशा में है?", options: ["पश्चिम", "उत्तर", "पूर्व", "दक्षिण"], correct: 0 }
+    ];
+    
+    const orderRanking = [
+        { text: "एक कक्षा में राम ऊपर से 5वें और नीचे से 10वें स्थान पर है, कक्षा में कितने छात्र हैं?", options: ["14", "15", "16", "17"], correct: 0 },
+        { text: "एक पंक्ति में श्याम बाएँ से 8वें और दाएँ से 12वें स्थान पर है, पंक्ति में कितने व्यक्ति हैं?", options: ["19", "20", "18", "21"], correct: 0 },
+        { text: "एक कक्षा में मोहन ऊपर से 10वें और नीचे से 15वें स्थान पर है, कक्षा में कितने छात्र हैं?", options: ["24", "25", "26", "27"], correct: 0 }
+    ];
+    
+    const puzzle = [
+        { text: "यदि 2 = 6, 3 = 12, 4 = 20, तो 5 = ?", options: ["30", "25", "28", "32"], correct: 0 },
+        { text: "यदि 3 = 10, 4 = 17, 5 = 26, तो 6 = ?", options: ["37", "35", "36", "38"], correct: 0 },
+        { text: "यदि 1 = 1, 2 = 4, 3 = 9, तो 4 = ?", options: ["16", "12", "14", "18"], correct: 0 }
+    ];
+    
+    const sittingArrangement = [
+        { text: "A, B के बाएँ है, C, B के दाएँ है, D, C के बाएँ है, तो केंद्र में कौन है?", options: ["B", "A", "C", "D"], correct: 0 },
+        { text: "P, Q के दाएँ है, R, Q के बाएँ है, S, R के दाएँ है, तो सबसे बाएँ कौन है?", options: ["R", "P", "Q", "S"], correct: 0 },
+        { text: "A, B और C के बीच में है, D, A के बाएँ है, तो दाएँ छोर पर कौन है?", options: ["C", "A", "B", "D"], correct: 0 }
+    ];
+    
+    // ----- GK (सामान्य ज्ञान) -----
+    const indianHistory = [
+        { text: "भारत की राजधानी क्या है?", options: ["नई दिल्ली", "मुंबई", "कोलकाता", "चेन्नई"], correct: 0 },
+        { text: "ताजमहल कहाँ है?", options: ["आगरा", "दिल्ली", "जयपुर", "लखनऊ"], correct: 0 },
+        { text: "गंगा नदी कहाँ से निकलती है?", options: ["गंगोत्री", "यमुनोत्री", "बद्रीनाथ", "केदारनाथ"], correct: 0 }
+    ];
+    
+    const indianConstitution = [
+        { text: "भारत का संविधान कब लागू हुआ?", options: ["26 जनवरी 1950", "15 अगस्त 1947", "26 नवंबर 1949", "2 अक्टूबर 1950"], correct: 0 },
+        { text: "संविधान सभा के अध्यक्ष कौन थे?", options: ["डॉ. राजेंद्र प्रसाद", "डॉ. भीमराव अंबेडकर", "जवाहरलाल नेहरू", "सरदार पटेल"], correct: 0 },
+        { text: "भारत का राष्ट्रीय चिन्ह क्या है?", options: ["अशोक स्तंभ", "चक्र", "सिंह", "हाथी"], correct: 0 }
+    ];
+    
+    const polity = [
+        { text: "भारत के पहले राष्ट्रपति कौन थे?", options: ["राजेंद्र प्रसाद", "नेहरू", "गाँधी", "पटेल"], correct: 0 },
+        { text: "भारत के पहले प्रधानमंत्री कौन थे?", options: ["जवाहरलाल नेहरू", "राजेंद्र प्रसाद", "गाँधी", "पटेल"], correct: 0 },
+        { text: "लोकसभा का अध्यक्ष कौन होता है?", options: ["स्पीकर", "राष्ट्रपति", "प्रधानमंत्री", "मुख्य न्यायाधीश"], correct: 0 }
+    ];
+    
+    const geography = [
+        { text: "पृथ्वी का सबसे बड़ा महासागर कौन सा है?", options: ["प्रशांत", "अटलांटिक", "हिंद", "आर्कटिक"], correct: 0 },
+        { text: "पृथ्वी का सबसे ऊँचा पर्वत कौन सा है?", options: ["माउंट एवरेस्ट", "K2", "कंचनजंगा", "नंगा पर्वत"], correct: 0 },
+        { text: "भारत की सबसे लंबी नदी कौन सी है?", options: ["गंगा", "यमुना", "ब्रह्मपुत्र", "गोदावरी"], correct: 0 }
+    ];
+    
+    const economics = [
+        { text: "भारत की मुद्रा क्या है?", options: ["रुपया", "डॉलर", "यूरो", "पाउंड"], correct: 0 },
+        { text: "RBI का पूरा नाम क्या है?", options: ["Reserve Bank of India", "Royal Bank of India", "Reserve Bank of India", "None"], correct: 0 },
+        { text: "GDP का पूरा नाम क्या है?", options: ["Gross Domestic Product", "Gross Development Product", "Gross Domestic Production", "None"], correct: 0 }
+    ];
+    
+    const importantDays = [
+        { text: "गणतंत्र दिवस कब मनाया जाता है?", options: ["26 जनवरी", "15 अगस्त", "2 अक्टूबर", "30 जनवरी"], correct: 0 },
+        { text: "स्वतंत्रता दिवस कब मनाया जाता है?", options: ["15 अगस्त", "26 जनवरी", "2 अक्टूबर", "30 जनवरी"], correct: 0 },
+        { text: "गाँधी जयंती कब मनाई जाती है?", options: ["2 अक्टूबर", "15 अगस्त", "26 जनवरी", "30 जनवरी"], correct: 0 }
+    ];
+    
+    const awards = [
+        { text: "भारत का सर्वोच्च नागरिक पुरस्कार कौन सा है?", options: ["भारत रत्न", "पद्म विभूषण", "पद्म भूषण", "पद्म श्री"], correct: 0 },
+        { text: "साहित्य का नोबेल पुरस्कार किसने जीता?", options: ["रवींद्रनाथ टैगोर", "सीवी रमन", "अमर्त्य सेन", "हरगोबिंद खुराना"], correct: 0 },
+        { text: "ऑस्कर पुरस्कार किस क्षेत्र में दिया जाता है?", options: ["फिल्म", "साहित्य", "खेल", "विज्ञान"], correct: 0 }
+    ];
+    
+    const sports = [
+        { text: "हॉकी में भारत ने ओलंपिक में कितने गोल्ड मेडल जीते?", options: ["8", "6", "10", "12"], correct: 0 },
+        { text: "क्रिकेट विश्व कप कितने साल में होता है?", options: ["4", "2", "3", "5"], correct: 0 },
+        { text: "भारत का राष्ट्रीय खेल कौन सा है?", options: ["हॉकी", "क्रिकेट", "फुटबॉल", "कबड्डी"], correct: 0 }
+    ];
+    
+    const booksAuthors = [
+        { text: "'गीता' के रचयिता कौन हैं?", options: ["वेदव्यास", "तुलसीदास", "कालिदास", "मीराबाई"], correct: 0 },
+        { text: "'रामचरितमानस' के रचयिता कौन हैं?", options: ["तुलसीदास", "वाल्मीकि", "कालिदास", "सूरदास"], correct: 0 },
+        { text: "'महाभारत' के रचयिता कौन हैं?", options: ["वेदव्यास", "तुलसीदास", "वाल्मीकि", "कालिदास"], correct: 0 }
+    ];
+    
+    const governmentSchemes = [
+        { text: "प्रधानमंत्री जन धन योजना कब शुरू हुई?", options: ["2014", "2015", "2016", "2017"], correct: 0 },
+        { text: "आयुष्मान भारत योजना किससे संबंधित है?", options: ["स्वास्थ्य बीमा", "शिक्षा", "बैंकिंग", "कृषि"], correct: 0 },
+        { text: "बेटी बचाओ बेटी पढ़ाओ योजना कब शुरू हुई?", options: ["2015", "2014", "2016", "2017"], correct: 0 }
+    ];
+    
+    // ----- SCIENCE (PHYSICS, CHEMISTRY, BIOLOGY) -----
+    const gsScience = [
+        { t: "पानी का रासायनिक सूत्र क्या है?", o: ["H₂O", "CO₂", "O₂", "NaCl"], c: 0 },
+        { t: "विटामिन C का रासायनिक नाम क्या है?", o: ["एस्कॉर्बिक अम्ल", "राइबोफ्लेविन", "थायमिन", "नियासिन"], c: 0 },
+        { t: "मानव शरीर में कितनी हड्डियाँ होती हैं?", o: ["206", "200", "210", "205"], c: 0 }
+    ];
+    
+    const physicsMotion = [
+        { t: "गति के तीन नियम किसने दिए?", o: ["न्यूटन", "गैलीलियो", "आइंस्टीन", "केप्लर"], c: 0 },
+        { t: "गति का SI मात्रक क्या है?", o: ["m/s", "km/h", "m/s²", "km/s"], c: 0 },
+        { t: "एकसमान गति में क्या स्थिर रहता है?", o: ["वेग", "त्वरण", "बल", "दूरी"], c: 0 }
+    ];
+    
+    const physicsForce = [
+        { t: "बल का SI मात्रक क्या है?", o: ["न्यूटन", "जूल", "वाट", "पास्कल"], c: 0 },
+        { t: "गुरुत्वाकर्षण बल किसने खोजा?", o: ["न्यूटन", "गैलीलियो", "आइंस्टीन", "केप्लर"], c: 0 },
+        { t: "बल का सूत्र क्या है?", o: ["F=ma", "F=mv", "F=m/t", "F=ma²"], c: 0 }
+    ];
+    
+    const physicsEnergy = [
+        { t: "ऊर्जा का SI मात्रक क्या है?", o: ["जूल", "वाट", "न्यूटन", "पास्कल"], c: 0 },
+        { t: "गतिज ऊर्जा का सूत्र क्या है?", o: ["½mv²", "mgh", "mv", "ma"], c: 0 },
+        { t: "स्थितिज ऊर्जा का सूत्र क्या है?", o: ["mgh", "½mv²", "mv", "ma"], c: 0 }
+    ];
+    
+    const physicsWork = [
         { t: "कार्य का SI मात्रक क्या है?", o: ["जूल", "न्यूटन", "वाट", "पास्कल"], c: 0 },
-        { t: "शक्ति का SI मात्रक क्या है?", o: ["वाट", "जूल", "न्यूटन", "पास्कल"], c: 0 },
-        { t: "दाब का SI मात्रक क्या है?", o: ["पास्कल", "न्यूटन", "जूल", "वाट"], c: 0 },
-        { t: "आवृत्ति का SI मात्रक क्या है?", o: ["हर्ट्ज", "सेकंड", "मीटर", "डेसीबल"], c: 0 },
-        { t: "प्रतिरोध का SI मात्रक क्या है?", o: ["ओम", "वोल्ट", "एम्पीयर", "वाट"], c: 0 },
-        { t: "विभवांतर का SI मात्रक क्या है?", o: ["वोल्ट", "एम्पीयर", "ओम", "कूलॉम"], c: 0 },
-        { t: "धारिता का SI मात्रक क्या है?", o: ["फैरड", "हेनरी", "ओम", "वोल्ट"], c: 0 },
-        { t: "चुंबकीय क्षेत्र का SI मात्रक क्या है?", o: ["टेस्ला", "गॉस", "वेबर", "हेनरी"], c: 0 },
-        { t: "ऊर्जा का SI मात्रक क्या है?", o: ["जूल", "वाट", "न्यूटन", "पास्कल"], c: 0 },
-        { t: "त्वरण का SI मात्रक क्या है?", o: ["m/s²", "m/s", "m²/s", "kg m/s"], c: 0 },
-        { t: "वेग का SI मात्रक क्या है?", o: ["m/s", "m/s²", "km/h", "m/h"], c: 0 },
-        { t: "चमकदार तीव्रता का SI मात्रक?", o: ["कैंडेला", "लक्स", "लुमेन", "वाट"], c: 0 },
-        { t: "पदार्थ की मात्रा का SI मात्रक?", o: ["मोल", "ग्राम", "किलोग्राम", "टन"], c: 0 },
-        { t: "1 हॉर्स पावर = ? वाट", o: ["746", "7460", "74600", "74.6"], c: 0 }
-    ];
-
-    const physicsGati = [
-        { t: "न्यूटन का गति का पहला नियम क्या है?", o: ["जड़त्व का नियम", "F=ma", "क्रिया-प्रतिक्रिया", "ऊर्जा संरक्षण"], c: 0 },
-        { t: "बल का सूत्र क्या है?", o: ["F=ma", "F=m/a", "F=a/m", "F=mv"], c: 0 },
-        { t: "गुरुत्वाकर्षण का नियम किसने दिया?", o: ["न्यूटन", "गैलीलियो", "आइंस्टीन", "केप्लर"], c: 0 },
-        { t: "g का मान क्या है?", o: ["9.8 m/s²", "9.8 m/s", "9.8 km/s", "9.8 m²/s"], c: 0 },
-        { t: "भार का सूत्र क्या है?", o: ["mg", "m/g", "m+a", "m-a"], c: 0 },
-        { t: "संवेग का सूत्र क्या है?", o: ["mv", "ma", "m/t", "F/t"], c: 0 },
-        { t: "घर्षण बल किस पर निर्भर करता है?", o: ["द्रव्यमान और प्रकृति", "केवल द्रव्यमान", "केवल प्रकृति", "केवल क्षेत्रफल"], c: 0 },
-        { t: "स्थैतिक घर्षण किसे कहते हैं?", o: ["गति करने से पहले", "गति करने पर", "गति के दौरान", "रुकने पर"], c: 0 },
-        { t: "गतिज घर्षण किसे कहते हैं?", o: ["गति के दौरान", "गति से पहले", "रुकने पर", "कोई नहीं"], c: 0 },
-        { t: "G का मान क्या है?", o: ["6.67×10⁻¹¹", "9.8", "3×10⁸", "1.6×10⁻¹⁹"], c: 0 },
-        { t: "एकसमान वेग का अर्थ क्या है?", o: ["त्वरण शून्य", "बल शून्य", "दोनों", "कोई नहीं"], c: 2 },
-        { t: "मुक्त पतन में त्वरण कितना?", o: ["g", "2g", "g/2", "शून्य"], c: 0 },
-        { t: "वृत्तीय गति में कौन सा बल लगता है?", o: ["अभिकेन्द्र", "गुरुत्व", "अपकेन्द्र", "घर्षण"], c: 0 },
-        { t: "अभिकेन्द्र बल का सूत्र?", o: ["mv²/r", "mr²", "mvr", "mv/r"], c: 0 },
-        { t: "न्यूटन का दूसरा नियम?", o: ["F=ma", "F=mv", "p=mv", "a=F/m"], c: 0 },
-        { t: "न्यूटन का तीसरा नियम?", o: ["क्रिया-प्रतिक्रिया", "जड़त्व", "F=ma", "गुरुत्वाकर्षण"], c: 0 },
-        { t: "ट्रेन में पीछे झटका किस नियम से?", o: ["जड़त्व", "गुरुत्व", "घर्षण", "प्रतिक्रिया"], c: 0 },
-        { t: "रॉकेट किस सिद्धांत पर?", o: ["संवेग संरक्षण", "जड़त्व", "ऊर्जा संरक्षण", "गुरुत्वाकर्षण"], c: 0 },
-        { t: "गति के समीकरण किसने दिए?", o: ["न्यूटन", "गैलीलियो", "आइंस्टीन", "केप्लर"], c: 0 },
-        { t: "त्वरण किसका अनुपात है?", o: ["वेग/समय", "दूरी/समय", "बल/द्रव्यमान", "A और C"], c: 3 }
-    ];
-
-    const physicsUrja = [
-        { t: "गतिज ऊर्जा का सूत्र क्या है?", o: ["½ mv²", "mgh", "mv", "ma"], c: 0 },
-        { t: "स्थितिज ऊर्जा का सूत्र क्या है?", o: ["mgh", "½ mv²", "mv", "ma"], c: 0 },
-        { t: "ऊर्जा का SI मात्रक क्या है?", o: ["जूल", "वाट", "न्यूटन", "पास्कल"], c: 0 },
         { t: "कार्य का सूत्र क्या है?", o: ["F×s", "F/s", "F+s", "F-s"], c: 0 },
-        { t: "शक्ति का सूत्र क्या है?", o: ["कार्य/समय", "बल×दूरी", "द्रव्यमान×त्वरण", "संवेग/समय"], c: 0 },
-        { t: "1 kWh = ? जूल", o: ["3.6×10⁶", "3.6×10³", "3.6×10⁵", "3.6×10⁹"], c: 0 },
-        { t: "यांत्रिक ऊर्जा किसका योग होती है?", o: ["KE+PE", "KE-PE", "KE×PE", "KE/PE"], c: 0 },
-        { t: "ऊर्जा संरक्षण का नियम किसने दिया?", o: ["जूल", "न्यूटन", "आइंस्टीन", "फैराडे"], c: 0 },
-        { t: "प्रत्यास्थ स्थितिज ऊर्जा किसमें होती है?", o: ["खिंची डोरी", "गतिमान वस्तु", "ऊँचाई पर वस्तु", "गर्म वस्तु"], c: 0 },
-        { t: "शक्ति का व्यावसायिक मात्रक?", o: ["किलोवाट घंटा", "वाट", "जूल", "न्यूटन"], c: 0 },
-        { t: "1 वाट = ? जूल/सेकंड", o: ["1", "10", "100", "1000"], c: 0 },
-        { t: "गुरुत्वीय स्थितिज ऊर्जा का सूत्र?", o: ["mgh", "½ mv²", "mgh/2", "2mgh"], c: 0 },
-        { t: "कार्य-ऊर्जा प्रमेय क्या कहता है?", o: ["कार्य = ऊर्जा में परिवर्तन", "कार्य = बल×दूरी", "ऊर्जा = द्रव्यमान×त्वरण", "कोई नहीं"], c: 0 },
-        { t: "निकाय की कुल ऊर्जा क्या होती है?", o: ["KE+PE", "KE-PE", "KE×PE", "KE/PE"], c: 0 },
-        { t: "बल द्वारा किया गया कार्य कब शून्य होता है?", o: ["बल और विस्थापन लंबवत", "बल और विस्थापन समान", "बल शून्य", "सभी"], c: 3 },
-        { t: "ऊर्जा का व्यावसायिक मात्रक क्या है?", o: ["kWh", "J", "W", "N"], c: 0 },
-        { t: "1 kWh = ? J", o: ["3.6×10⁶", "3.6×10³", "3.6×10⁵", "3.6×10⁹"], c: 0 },
-        { t: "शक्ति का SI मात्रक क्या है?", o: ["वाट", "जूल", "न्यूटन", "पास्कल"], c: 0 },
-        { t: "1 हॉर्स पावर = ? वाट", o: ["746", "7460", "74600", "74.6"], c: 0 },
-        { t: "कार्य करने की दर को क्या कहते हैं?", o: ["शक्ति", "ऊर्जा", "बल", "त्वरण"], c: 0 }
+        { t: "कार्य कब शून्य होता है?", o: ["बल और विस्थापन लंबवत", "बल और विस्थापन समान", "बल शून्य", "सभी"], c: 3 }
     ];
-
-    const physicsDhvani = [
-        { t: "ध्वनि की चाल कितनी है?", o: ["340 m/s", "300 m/s", "1500 m/s", "3×10⁸ m/s"], c: 0 },
-        { t: "प्रकाश की चाल कितनी है?", o: ["3×10⁸ m/s", "3×10⁵ m/s", "3×10⁶ m/s", "340 m/s"], c: 0 },
-        { t: "ध्वनि किस माध्यम में सबसे तेज चलती है?", o: ["ठोस", "द्रव", "गैस", "निर्वात"], c: 0 },
-        { t: "ध्वनि की आवृत्ति का मात्रक क्या है?", o: ["हर्ट्ज", "डेसीबल", "मीटर", "सेकंड"], c: 0 },
-        { t: "ध्वनि की तीव्रता का मात्रक क्या है?", o: ["डेसीबल", "हर्ट्ज", "मीटर", "सेकंड"], c: 0 },
-        { t: "पराध्वनि की आवृत्ति कितनी होती है?", o: ["20000 Hz से अधिक", "20 Hz से कम", "20-20000 Hz", "2000 Hz"], c: 0 },
-        { t: "अवश्रव्य ध्वनि की आवृत्ति कितनी होती है?", o: ["20 Hz से कम", "20000 Hz से अधिक", "20-20000 Hz", "2000 Hz"], c: 0 },
-        { t: "मनुष्य कितनी आवृत्ति की ध्वनि सुन सकता है?", o: ["20-20000 Hz", "0-20 Hz", "20000-40000 Hz", "सभी"], c: 0 },
-        { t: "प्रकाश का वर्ण किस पर निर्भर करता है?", o: ["तरंगदैर्ध्य", "आवृत्ति", "तीव्रता", "A और B"], c: 3 },
-        { t: "इंद्रधनुष में कितने रंग होते हैं?", o: ["7", "5", "6", "8"], c: 0 },
-        { t: "प्रकाश का अपवर्तन किसके कारण होता है?", o: ["माध्यम बदलने पर", "परावर्तन से", "अवशोषण से", "प्रकीर्णन से"], c: 0 },
-        { t: "दर्पण का सूत्र क्या है?", o: ["1/f = 1/v + 1/u", "f = uv", "1/f = 1/v - 1/u", "f = u+v"], c: 0 },
-        { t: "लेंस का सूत्र क्या है?", o: ["1/f = 1/v - 1/u", "1/f = 1/v + 1/u", "f = uv", "f = u+v"], c: 0 },
-        { t: "आवर्धन का सूत्र क्या है?", o: ["m = -v/u", "m = v/u", "m = u/v", "m = -u/v"], c: 0 },
-        { t: "प्रकाश वर्ष किसका मात्रक है?", o: ["दूरी", "समय", "प्रकाश", "ऊर्जा"], c: 0 },
-        { t: "एक प्रकाश वर्ष कितना होता है?", o: ["9.46×10¹⁵ m", "3×10⁸ m", "1.5×10¹¹ m", "6.4×10⁶ m"], c: 0 },
-        { t: "ध्वनि का वेग किस पर निर्भर करता है?", o: ["तापमान", "दाब", "आर्द्रता", "सभी"], c: 3 },
-        { t: "प्रकाश का वेग किसमें सबसे कम होता है?", o: ["कांच", "वायु", "निर्वात", "जल"], c: 0 },
-        { t: "परावर्तन के कितने नियम हैं?", o: ["2", "1", "3", "4"], c: 0 },
-        { t: "समतल दर्पण में बनने वाला प्रतिबिंब कैसा होता है?", o: ["आभासी और सीधा", "वास्तविक और उल्टा", "आभासी और उल्टा", "वास्तविक और सीधा"], c: 0 }
+    
+    const physicsElectricity = [
+        { t: "विद्युत धारा का SI मात्रक क्या है?", o: ["एम्पीयर", "वोल्ट", "ओम", "वाट"], c: 0 },
+        { t: "ओम का नियम क्या है?", o: ["V=IR", "I=VR", "R=VI", "V=I/R"], c: 0 },
+        { t: "प्रतिरोध का SI मात्रक क्या है?", o: ["ओम", "वोल्ट", "एम्पीयर", "वाट"], c: 0 }
     ];
-
-    // Chemistry Questions (रसायन)
-    const chemistryPadarth = [
-        { t: "पदार्थ की कितनी अवस्थाएँ होती हैं?", o: ["3", "2", "4", "5"], c: 0 },
-        { t: "ठोस से द्रव में बदलना क्या कहलाता है?", o: ["गलन", "वाष्पीकरण", "संघनन", "जमाव"], c: 0 },
-        { t: "द्रव से ठोस में बदलना क्या कहलाता है?", o: ["जमाव", "गलन", "वाष्पीकरण", "उर्ध्वपातन"], c: 0 },
-        { t: "द्रव से गैस में बदलना क्या कहलाता है?", o: ["वाष्पीकरण", "संघनन", "गलन", "जमाव"], c: 0 },
-        { t: "गैस से द्रव में बदलना क्या कहलाता है?", o: ["संघनन", "वाष्पीकरण", "गलन", "उर्ध्वपातन"], c: 0 },
-        { t: "ठोस से सीधे गैस में बदलना?", o: ["उर्ध्वपातन", "वाष्पीकरण", "संघनन", "गलन"], c: 0 },
-        { t: "पानी का क्वथनांक कितना होता है?", o: ["100°C", "0°C", "32°C", "212°C"], c: 0 },
-        { t: "पानी का हिमांक कितना होता है?", o: ["0°C", "100°C", "32°C", "-273°C"], c: 0 },
-        { t: "निरपेक्ष शून्य तापमान कितना होता है?", o: ["-273°C", "0°C", "-100°C", "-460°C"], c: 0 },
-        { t: "बॉयल का नियम किसके बीच संबंध बताता है?", o: ["P और V", "P और T", "V और T", "P और n"], c: 0 },
-        { t: "चार्ल्स का नियम किसके बीच संबंध बताता है?", o: ["V और T", "P और V", "P और T", "n और P"], c: 0 },
-        { t: "आदर्श गैस समीकरण क्या है?", o: ["PV=nRT", "P/V=nRT", "V/P=nRT", "PV=n/T"], c: 0 },
-        { t: "वाष्पीकरण किस तापमान पर होता है?", o: ["किसी भी तापमान", "क्वथनांक पर", "हिमांक पर", "केवल 100°C"], c: 0 },
-        { t: "प्लाज्मा किसे कहते हैं?", o: ["पदार्थ की चौथी अवस्था", "ठोस", "द्रव", "गैस"], c: 0 },
-        { t: "BEC किसे कहते हैं?", o: ["पदार्थ की पाँचवीं अवस्था", "ठोस", "द्रव", "गैस"], c: 0 },
-        { t: "गैसों का आयतन किस पर निर्भर करता है?", o: ["ताप और दाब", "केवल ताप", "केवल दाब", "कोई नहीं"], c: 0 },
-        { t: "द्रव का वाष्प दाब किस पर निर्भर करता है?", o: ["तापमान", "आयतन", "द्रव्यमान", "प्रकृति"], c: 0 },
-        { t: "ठोस में अणुओं की स्थिति कैसी होती है?", o: ["बहुत पास", "थोड़ी दूर", "बहुत दूर", "कोई नहीं"], c: 0 },
-        { t: "गैस में अणुओं की स्थिति कैसी होती है?", o: ["बहुत दूर", "बहुत पास", "थोड़ी दूर", "स्थिर"], c: 0 },
-        { t: "बर्फ किस तापमान पर पिघलती है?", o: ["0°C", "-10°C", "10°C", "32°C"], c: 0 }
+    
+    const chemistryElements = [
+        { t: "सबसे हल्का तत्व कौन सा है?", o: ["हाइड्रोजन", "हीलियम", "ऑक्सीजन", "नाइट्रोजन"], c: 0 },
+        { t: "पानी किन तत्वों से बना है?", o: ["हाइड्रोजन और ऑक्सीजन", "हाइड्रोजन और नाइट्रोजन", "ऑक्सीजन और कार्बन", "सोडियम और क्लोरीन"], c: 0 },
+        { t: "सोडियम का रासायनिक प्रतीक क्या है?", o: ["Na", "So", "Sd", "N"], c: 0 }
     ];
-
-    const chemistryParmanu = [
-        { t: "परमाणु का केंद्रक किससे बना है?", o: ["प्रोटॉन+न्यूट्रॉन", "केवल प्रोटॉन", "केवल न्यूट्रॉन", "इलेक्ट्रॉन"], c: 0 },
-        { t: "इलेक्ट्रॉन पर क्या आवेश होता है?", o: ["ऋणात्मक", "धनात्मक", "उदासीन", "कोई नहीं"], c: 0 },
-        { t: "प्रोटॉन पर क्या आवेश होता है?", o: ["धनात्मक", "ऋणात्मक", "उदासीन", "कोई नहीं"], c: 0 },
-        { t: "न्यूट्रॉन पर क्या आवेश होता है?", o: ["उदासीन", "धनात्मक", "ऋणात्मक", "कोई नहीं"], c: 0 },
-        { t: "परमाणु की खोज किसने की?", o: ["डाल्टन", "रदरफोर्ड", "थॉमसन", "बोहर"], c: 0 },
-        { t: "इलेक्ट्रॉन की खोज किसने की?", o: ["थॉमसन", "रदरफोर्ड", "चैडविक", "गोल्डस्टीन"], c: 0 },
-        { t: "प्रोटॉन की खोज किसने की?", o: ["रदरफोर्ड", "थॉमसन", "चैडविक", "गोल्डस्टीन"], c: 0 },
-        { t: "न्यूट्रॉन की खोज किसने की?", o: ["चैडविक", "रदरफोर्ड", "थॉमसन", "गोल्डस्टीन"], c: 0 },
-        { t: "परमाणु क्रमांक किसे कहते हैं?", o: ["प्रोटॉनों की संख्या", "न्यूट्रॉनों की संख्या", "इलेक्ट्रॉनों की संख्या", "न्यूक्लिऑनों की संख्या"], c: 0 },
-        { t: "द्रव्यमान संख्या किसे कहते हैं?", o: ["प्रोटॉन+न्यूट्रॉन", "केवल प्रोटॉन", "केवल न्यूट्रॉन", "केवल इलेक्ट्रॉन"], c: 0 },
-        { t: "समस्थानिक किसे कहते हैं?", o: ["समान परमाणु क्रमांक", "समान द्रव्यमान संख्या", "समान न्यूट्रॉन", "कोई नहीं"], c: 0 },
-        { t: "समभारिक किसे कहते हैं?", o: ["समान द्रव्यमान संख्या", "समान परमाणु क्रमांक", "समान न्यूट्रॉन", "कोई नहीं"], c: 0 },
-        { t: "परमाणु मॉडल किसने दिया?", o: ["बोहर", "रदरफोर्ड", "थॉमसन", "डाल्टन"], c: 0 },
-        { t: "परमाणु का सबसे छोटा कण कौन है?", o: ["इलेक्ट्रॉन", "प्रोटॉन", "न्यूट्रॉन", "पॉजीट्रॉन"], c: 0 },
-        { t: "परमाणु का द्रव्यमान कहाँ केंद्रित होता है?", o: ["नाभिक में", "कोश में", "कक्ष में", "सभी जगह"], c: 0 },
-        { t: "इलेक्ट्रॉन कहाँ स्थित होते हैं?", o: ["नाभिक के चारों ओर", "नाभिक में", "प्रोटॉन के साथ", "न्यूट्रॉन के साथ"], c: 0 },
-        { t: "प्रोटॉन की संख्या क्या निर्धारित करती है?", o: ["तत्व की पहचान", "द्रव्यमान", "आयतन", "घनत्व"], c: 0 },
-        { t: "आइसोटोप का उदाहरण क्या है?", o: ["यूरेनियम-235", "कार्बन-12", "हाइड्रोजन-1", "सभी"], c: 3 },
-        { t: "रेडियोएक्टिवता की खोज किसने की?", o: ["हेनरी बेकरेल", "मैरी क्यूरी", "पियरे क्यूरी", "रदरफोर्ड"], c: 0 },
-        { t: "अल्फा कण क्या होता है?", o: ["हीलियम नाभिक", "इलेक्ट्रॉन", "प्रोटॉन", "न्यूट्रॉन"], c: 0 }
-    ];
-
-    const chemistryAmla = [
+    
+    const chemistryAcidBaseSalt = [
         { t: "नींबू में कौन सा अम्ल होता है?", o: ["साइट्रिक अम्ल", "एसिटिक अम्ल", "सल्फ्यूरिक अम्ल", "हाइड्रोक्लोरिक अम्ल"], c: 0 },
         { t: "सिरके में कौन सा अम्ल होता है?", o: ["एसिटिक अम्ल", "साइट्रिक अम्ल", "सल्फ्यूरिक अम्ल", "हाइड्रोक्लोरिक अम्ल"], c: 0 },
-        { t: "दूध में कौन सा अम्ल होता है?", o: ["लैक्टिक अम्ल", "एसिटिक अम्ल", "साइट्रिक अम्ल", "टार्टरिक अम्ल"], c: 0 },
-        { t: "चींटी के डंक में कौन सा अम्ल होता है?", o: ["फॉर्मिक अम्ल", "एसिटिक अम्ल", "साइट्रिक अम्ल", "लैक्टिक अम्ल"], c: 0 },
-        { t: "आम के आम में कौन सा अम्ल होता है?", o: ["टार्टरिक अम्ल", "साइट्रिक अम्ल", "मैलिक अम्ल", "एसिटिक अम्ल"], c: 0 },
-        { t: "सेब में कौन सा अम्ल होता है?", o: ["मैलिक अम्ल", "साइट्रिक अम्ल", "टार्टरिक अम्ल", "लैक्टिक अम्ल"], c: 0 },
-        { t: "अंगूर में कौन सा अम्ल होता है?", o: ["टार्टरिक अम्ल", "साइट्रिक अम्ल", "मैलिक अम्ल", "एसिटिक अम्ल"], c: 0 },
-        { t: "pH का पूरा नाम क्या है?", o: ["Potential of Hydrogen", "Power of Hydrogen", "Percentage of Hydrogen", "Point of Hydrogen"], c: 0 },
-        { t: "उदासीन विलयन का pH मान कितना होता है?", o: ["7", "0", "14", "1"], c: 0 },
-        { t: "अम्लीय विलयन का pH मान कितना होता है?", o: ["7 से कम", "7 से अधिक", "7", "0"], c: 0 },
-        { t: "क्षारीय विलयन का pH मान कितना होता है?", o: ["7 से अधिक", "7 से कम", "7", "0"], c: 0 },
-        { t: "HCl का नाम क्या है?", o: ["हाइड्रोक्लोरिक अम्ल", "सल्फ्यूरिक अम्ल", "नाइट्रिक अम्ल", "एसिटिक अम्ल"], c: 0 },
-        { t: "H₂SO₄ का नाम क्या है?", o: ["सल्फ्यूरिक अम्ल", "हाइड्रोक्लोरिक अम्ल", "नाइट्रिक अम्ल", "फॉस्फोरिक अम्ल"], c: 0 },
-        { t: "HNO₃ का नाम क्या है?", o: ["नाइट्रिक अम्ल", "सल्फ्यूरिक अम्ल", "हाइड्रोक्लोरिक अम्ल", "एसिटिक अम्ल"], c: 0 },
-        { t: "CH₃COOH का नाम क्या है?", o: ["एसिटिक अम्ल", "फॉर्मिक अम्ल", "साइट्रिक अम्ल", "लैक्टिक अम्ल"], c: 0 },
-        { t: "NaOH का नाम क्या है?", o: ["सोडियम हाइड्रोक्साइड", "सोडियम क्लोराइड", "सोडियम कार्बोनेट", "सोडियम बाइकार्बोनेट"], c: 0 },
-        { t: "Ca(OH)₂ का नाम क्या है?", o: ["कैल्शियम हाइड्रोक्साइड", "कैल्शियम क्लोराइड", "कैल्शियम कार्बोनेट", "कैल्शियम ऑक्साइड"], c: 0 },
-        { t: "NH₄OH का नाम क्या है?", o: ["अमोनियम हाइड्रोक्साइड", "अमोनियम क्लोराइड", "अमोनियम नाइट्रेट", "अमोनियम सल्फेट"], c: 0 },
-        { t: "लिटमस पेपर अम्ल में क्या रंग देता है?", o: ["लाल", "नीला", "हरा", "पीला"], c: 0 },
-        { t: "लिटमस पेपर क्षार में क्या रंग देता है?", o: ["नीला", "लाल", "हरा", "पीला"], c: 0 }
+        { t: "pH मान का पूरा नाम क्या है?", o: ["Potential of Hydrogen", "Power of Hydrogen", "Percentage of Hydrogen", "Point of Hydrogen"], c: 0 }
     ];
-
-    // Biology Questions (जीवविज्ञान)
-    const biologyKoshika = [
-        { t: "कोशिका की खोज किसने की?", o: ["रॉबर्ट हुक", "लीवेनहुक", "पुरकिंजे", "ब्राउन"], c: 0 },
-        { t: "कोशिका का केंद्रक किसने खोजा?", o: ["रॉबर्ट ब्राउन", "रॉबर्ट हुक", "लीवेनहुक", "पुरकिंजे"], c: 0 },
-        { t: "जीवन की मूल इकाई क्या है?", o: ["कोशिका", "अणु", "परमाणु", "ऊतक"], c: 0 },
-        { t: "पादप कोशिका में कौन सा अंगक नहीं होता?", o: ["तारक काय", "केंद्रक", "माइटोकॉन्ड्रिया", "राइबोसोम"], c: 0 },
-        { t: "प्रोकैरियोटिक कोशिका में क्या नहीं होता?", o: ["केंद्रक झिल्ली", "कोशिका झिल्ली", "राइबोसोम", "DNA"], c: 0 },
-        { t: "यूकैरियोटिक कोशिका में क्या होता है?", o: ["केंद्रक झिल्ली", "कोशिका झिल्ली", "राइबोसोम", "सभी"], c: 3 },
-        { t: "माइटोकॉन्ड्रिया को क्या कहते हैं?", o: ["कोशिका का पावरहाउस", "कोशिका का केंद्रक", "कोशिका का ईंधन", "कोशिका का द्वार"], c: 0 },
-        { t: "हरित लवक किसमें पाया जाता है?", o: ["पादप कोशिका", "जंतु कोशिका", "जीवाणु", "विषाणु"], c: 0 },
-        { t: "प्रकाश संश्लेषण किसमें होता है?", o: ["हरित लवक", "माइटोकॉन्ड्रिया", "केंद्रक", "राइबोसोम"], c: 0 },
-        { t: "कोशिका भित्ति किसमें पाई जाती है?", o: ["पादप कोशिका", "जंतु कोशिका", "जीवाणु", "A और C"], c: 3 },
-        { t: "राइबोसोम किसके निर्माण करते हैं?", o: ["प्रोटीन", "वसा", "कार्बोहाइड्रेट", "न्यूक्लिक अम्ल"], c: 0 },
-        { t: "लाइसोसोम को क्या कहते हैं?", o: ["आत्मघाती थैली", "पावरहाउस", "प्रोटीन फैक्ट्री", "परिवहन तंत्र"], c: 0 },
-        { t: "गॉल्जीकाय का कार्य क्या है?", o: ["पदार्थों का संकुलन और परिवहन", "प्रोटीन बनाना", "ऊर्जा बनाना", "भोजन बनाना"], c: 0 },
-        { t: "कोशिका झिल्ली किसकी बनी होती है?", o: ["लिपिड और प्रोटीन", "केवल प्रोटीन", "केवल लिपिड", "कार्बोहाइड्रेट"], c: 0 },
-        { t: "नाभिकीय झिल्ली किसे कहते हैं?", o: ["केंद्रक झिल्ली", "कोशिका झिल्ली", "माइटोकॉन्ड्रिया झिल्ली", "हरित लवक झिल्ली"], c: 0 },
-        { t: "DNA कहाँ पाया जाता है?", o: ["केंद्रक में", "माइटोकॉन्ड्रिया में", "हरित लवक में", "सभी में"], c: 3 },
-        { t: "कोशिका सिद्धांत किसने दिया?", o: ["श्लाइडन और श्वान", "डार्विन", "मेंडल", "लैमार्क"], c: 0 },
-        { t: "जीवाणु किस प्रकार की कोशिका है?", o: ["प्रोकैरियोटिक", "यूकैरियोटिक", "बहुकोशिकीय", "कोई नहीं"], c: 0 },
-        { t: "कोशिका का आकार किस पर निर्भर करता है?", o: ["कार्य पर", "रंग पर", "वजन पर", "कोई नहीं"], c: 0 },
-        { t: "सबसे बड़ी कोशिका कौन सी है?", o: ["शुतुरमुर्ग का अंडा", "मानव अंडा", "जीवाणु", "लाल रक्त कोशिका"], c: 0 }
+    
+    const chemistryMetalNonmetal = [
+        { t: "कौन सा पदार्थ विद्युत का सबसे अच्छा चालक है?", o: ["चाँदी", "ताँबा", "सोना", "एल्यूमीनियम"], c: 0 },
+        { t: "पारा किस अवस्था में होता है?", o: ["द्रव", "ठोस", "गैस", "प्लाज्मा"], c: 0 },
+        { t: "हीरा किसका रूप है?", o: ["कार्बन", "सिलिकॉन", "हाइड्रोजन", "ऑक्सीजन"], c: 0 }
     ];
-
-    const biologyManav = [
+    
+    const chemicalReaction = [
+        { t: "जंग लगना किस प्रकार की अभिक्रिया है?", o: ["ऑक्सीकरण", "अपचयन", "उदासीनीकरण", "विस्थापन"], c: 0 },
+        { t: "दूध का खट्टा होना किस प्रकार की अभिक्रिया है?", o: ["रासायनिक", "भौतिक", "प्रकाश", "ऊष्मा"], c: 0 },
+        { t: "प्रकाश संश्लेषण किस प्रकार की अभिक्रिया है?", o: ["रासायनिक", "भौतिक", "नाभिकीय", "कोई नहीं"], c: 0 }
+    ];
+    
+    const biologyHumanBody = [
         { t: "मानव हृदय में कितने कक्ष होते हैं?", o: ["4", "2", "3", "5"], c: 0 },
-        { t: "मानव शरीर में कितनी हड्डियाँ होती हैं?", o: ["206", "200", "210", "205"], c: 0 },
-        { t: "मानव शरीर में कितनी मांसपेशियाँ होती हैं?", o: ["639", "600", "650", "700"], c: 0 },
-        { t: "मस्तिष्क का कितना भाग पानी होता है?", o: ["75%", "50%", "60%", "80%"], c: 0 },
         { t: "मानव रक्त का pH मान कितना होता है?", o: ["7.4", "7.0", "7.8", "8.0"], c: 0 },
-        { t: "हीमोग्लोबिन का मुख्य घटक क्या है?", o: ["आयरन", "कैल्शियम", "सोडियम", "पोटैशियम"], c: 0 },
-        { t: "रक्त का लाल रंग किसके कारण होता है?", o: ["हीमोग्लोबिन", "प्लाज्मा", "श्वेत कणिकाएँ", "प्लेटलेट्स"], c: 0 },
-        { t: "शरीर का सबसे बड़ा अंग कौन सा है?", o: ["त्वचा", "यकृत", "हृदय", "फेफड़े"], c: 0 },
-        { t: "शरीर का सबसे बड़ा आंतरिक अंग कौन सा है?", o: ["यकृत", "हृदय", "फेफड़े", "गुर्दा"], c: 0 },
-        { t: "मानव शरीर में कितने गुणसूत्र होते हैं?", o: ["46", "44", "48", "23"], c: 0 },
-        { t: "रक्त का थक्का जमाने में किसका योगदान है?", o: ["प्लेटलेट्स", "RBC", "WBC", "प्लाज्मा"], c: 0 },
-        { t: "ऑक्सीजन का परिवहन कौन करता है?", o: ["RBC", "WBC", "प्लेटलेट्स", "प्लाज्मा"], c: 0 },
-        { t: "रोग प्रतिरोधक क्षमता किसके द्वारा मिलती है?", o: ["WBC", "RBC", "प्लेटलेट्स", "प्लाज्मा"], c: 0 },
-        { t: "पाचन क्रिया कहाँ शुरू होती है?", o: ["मुख", "आमाशय", "क्षुद्रांत्र", "बृहदांत्र"], c: 0 },
-        { t: "एंजाइम क्या होते हैं?", o: ["प्रोटीन", "वसा", "कार्बोहाइड्रेट", "विटामिन"], c: 0 },
-        { t: "इंसुलिन कहाँ स्रावित होता है?", o: ["अग्न्याशय", "यकृत", "हृदय", "गुर्दा"], c: 0 },
-        { t: "पित्त कहाँ बनता है?", o: ["यकृत", "पित्ताशय", "अग्न्याशय", "आमाशय"], c: 0 },
-        { t: "मूत्र कहाँ बनता है?", o: ["गुर्दा", "यकृत", "हृदय", "फेफड़ा"], c: 0 },
-        { t: "श्वसन क्रिया कहाँ होती है?", o: ["फेफड़े", "हृदय", "यकृत", "गुर्दा"], c: 0 },
-        { t: "तंत्रिका तंत्र का मुख्य अंग कौन सा है?", o: ["मस्तिष्क", "हृदय", "यकृत", "गुर्दा"], c: 0 }
+        { t: "हीमोग्लोबिन का मुख्य घटक क्या है?", o: ["आयरन", "कैल्शियम", "सोडियम", "पोटैशियम"], c: 0 }
     ];
-
-    const biologyRog = [
-        { t: "मलेरिया किसके कारण होता है?", o: ["प्रोटोजोआ", "वायरस", "बैक्टीरिया", "फंगस"], c: 0 },
-        { t: "डेंगू बुखार किसके कारण होता है?", o: ["वायरस", "बैक्टीरिया", "प्रोटोजोआ", "फंगस"], c: 0 },
-        { t: "कोविड-19 किसके कारण होता है?", o: ["कोरोना वायरस", "HIV", "H1N1", "Ebola"], c: 0 },
-        { t: "टायफाइड किसके कारण होता है?", o: ["बैक्टीरिया", "वायरस", "प्रोटोजोआ", "फंगस"], c: 0 },
-        { t: "हैजा किसके कारण होता है?", o: ["बैक्टीरिया", "वायरस", "प्रोटोजोआ", "फंगस"], c: 0 },
-        { t: "टीबी किसके कारण होता है?", o: ["बैक्टीरिया", "वायरस", "प्रोटोजोआ", "फंगस"], c: 0 },
-        { t: "एड्स किसके कारण होता है?", o: ["वायरस", "बैक्टीरिया", "प्रोटोजोआ", "फंगस"], c: 0 },
-        { t: "जुकाम किसके कारण होता है?", o: ["वायरस", "बैक्टीरिया", "प्रोटोजोआ", "फंगस"], c: 0 },
-        { t: "खुजली किसके कारण होती है?", o: ["फंगस", "वायरस", "बैक्टीरिया", "प्रोटोजोआ"], c: 0 },
-        { t: "दमा किस प्रकार का रोग है?", o: ["एलर्जी", "संक्रामक", "आनुवांशिक", "ऑटोइम्यून"], c: 0 },
-        { t: "मधुमेह किस प्रकार का रोग है?", o: ["चयापचय", "संक्रामक", "हृदय", "फेफड़े"], c: 0 },
-        { t: "कैंसर का उपचार किससे किया जाता है?", o: ["कीमोथेरेपी", "एंटीबायोटिक", "एंटीवायरल", "वैक्सीन"], c: 0 },
-        { t: "एंटीबायोटिक की खोज किसने की?", o: ["अलेक्जेंडर फ्लेमिंग", "लुई पाश्चर", "रॉबर्ट कोच", "एडवर्ड जेनर"], c: 0 },
-        { t: "वैक्सीन की खोज किसने की?", o: ["एडवर्ड जेनर", "लुई पाश्चर", "रॉबर्ट कोच", "अलेक्जेंडर फ्लेमिंग"], c: 0 },
-        { t: "पेनिसिलिन क्या है?", o: ["एंटीबायोटिक", "वैक्सीन", "एंटीवायरल", "एंटीफंगल"], c: 0 },
-        { t: "क्वारंटाइन का क्या अर्थ है?", o: ["पृथक्करण", "इलाज", "रोकथाम", "टीकाकरण"], c: 0 },
-        { t: "इम्यूनिटी किसे कहते हैं?", o: ["रोग प्रतिरोधक क्षमता", "रोग फैलना", "रोग का इलाज", "रोग का लक्षण"], c: 0 },
-        { t: "वैक्सीन किसके लिए होती है?", o: ["रोकथाम", "इलाज", "जांच", "सभी"], c: 0 },
-        { t: "COVID-19 वैक्सीन किसने बनाई?", o: ["कोविशील्ड", "कोवैक्सीन", "फाइजर", "सभी"], c: 3 },
-        { t: "मास्क किससे बचाता है?", o: ["वायरस", "बैक्टीरिया", "धूल", "सभी"], c: 3 }
-    ];
-
-    // Maths Questions (गणित)
-    const mathsSankhya = [
-        { t: "सबसे छोटी अभाज्य संख्या कौन सी है?", o: ["2", "0", "1", "3"], c: 0 },
-        { t: "सबसे छोटी भाज्य संख्या कौन सी है?", o: ["4", "2", "6", "8"], c: 0 },
-        { t: "सम संख्या किसे कहते हैं?", o: ["2 से विभाज्य", "3 से विभाज्य", "5 से विभाज्य", "7 से विभाज्य"], c: 0 },
-        { t: "विषम संख्या किसे कहते हैं?", o: ["2 से विभाज्य नहीं", "2 से विभाज्य", "3 से विभाज्य", "5 से विभाज्य"], c: 0 },
-        { t: "π का मान क्या होता है?", o: ["22/7", "7/22", "3.14", "A और C"], c: 3 },
-        { t: "√2 किस प्रकार की संख्या है?", o: ["अपरिमेय", "परिमेय", "पूर्णांक", "प्राकृतिक"], c: 0 },
-        { t: "परिमेय संख्या किसे कहते हैं?", o: ["p/q रूप में लिखी जा सके", "p/q रूप में न लिखी जा सके", "दशमलव में अनंत", "कोई नहीं"], c: 0 },
-        { t: "0 किस प्रकार की संख्या है?", o: ["पूर्ण", "प्राकृतिक", "अभाज्य", "भाज्य"], c: 0 },
-        { t: "1 किस प्रकार की संख्या है?", o: ["न अभाज्य न भाज्य", "अभाज्य", "भाज्य", "सम"], c: 0 },
-        { t: "दो सम संख्याओं का योग क्या होता है?", o: ["सम", "विषम", "अभाज्य", "भाज्य"], c: 0 },
-        { t: "दो विषम संख्याओं का योग क्या होता है?", o: ["सम", "विषम", "अभाज्य", "भाज्य"], c: 0 },
-        { t: "सम और विषम संख्या का योग क्या होता है?", o: ["विषम", "सम", "अभाज्य", "भाज्य"], c: 0 },
-        { t: "प्राकृतिक संख्याएँ किन्हें कहते हैं?", o: ["1,2,3...", "0,1,2...", "-1,-2...", "सभी"], c: 0 },
-        { t: "पूर्ण संख्याएँ किन्हें कहते हैं?", o: ["0,1,2...", "1,2,3...", "-1,-2...", "सभी"], c: 0 },
-        { t: "पूर्णांक किन्हें कहते हैं?", o: ["धनात्मक और ऋणात्मक", "केवल धनात्मक", "केवल ऋणात्मक", "केवल शून्य"], c: 0 },
-        { t: "किसी संख्या के अंकों का योग 3 से विभाज्य हो तो वह संख्या किससे विभाज्य होगी?", o: ["3", "2", "5", "7"], c: 0 },
-        { t: "किसी संख्या का अंतिम अंक 0 या 5 हो तो वह किससे विभाज्य होगी?", o: ["5", "2", "3", "7"], c: 0 },
-        { t: "किसी संख्या का अंतिम अंक सम हो तो वह किससे विभाज्य होगी?", o: ["2", "3", "5", "7"], c: 0 },
-        { t: "दो अभाज्य संख्याओं का योग क्या होता है?", o: ["कोई निश्चित नहीं", "अभाज्य", "भाज्य", "सम"], c: 0 },
-        { t: "सबसे बड़ी अभाज्य संख्या कौन सी है?", o: ["अनंत", "97", "99", "100"], c: 0 }
-    ];
-
-    const mathsLCM = [
-        { t: "12 और 18 का LCM क्या है?", o: ["36", "6", "72", "24"], c: 0 },
-        { t: "12 और 18 का HCF क्या है?", o: ["6", "36", "12", "18"], c: 0 },
-        { t: "15 और 25 का LCM क्या है?", o: ["75", "5", "25", "15"], c: 0 },
-        { t: "15 और 25 का HCF क्या है?", o: ["5", "75", "15", "25"], c: 0 },
-        { t: "8 और 12 का LCM क्या है?", o: ["24", "4", "12", "8"], c: 0 },
-        { t: "8 और 12 का HCF क्या है?", o: ["4", "24", "8", "12"], c: 0 },
-        { t: "LCM और HCF का गुणनफल किसके बराबर होता है?", o: ["संख्याओं का गुणनफल", "संख्याओं का योग", "संख्याओं का अंतर", "संख्याओं का भागफल"], c: 0 },
-        { t: "दो संख्याओं का LCM 36 और HCF 6 है, यदि एक संख्या 12 है तो दूसरी संख्या क्या होगी?", o: ["18", "24", "36", "30"], c: 0 },
-        { t: "दो संख्याओं का LCM 60 और HCF 5 है, संख्याएँ क्या हैं?", o: ["15 और 20", "10 और 30", "12 और 25", "5 और 60"], c: 0 },
-        { t: "दो सह-अभाज्य संख्याओं का HCF क्या होता है?", o: ["1", "0", "संख्या ही", "अनंत"], c: 0 },
-        { t: "दो अभाज्य संख्याओं का LCM क्या होता है?", o: ["गुणनफल", "योग", "अंतर", "भागफल"], c: 0 },
-        { t: "दो संख्याओं का HCF 8 और LCM 48 है, यदि एक संख्या 16 है तो दूसरी संख्या क्या है?", o: ["24", "32", "36", "40"], c: 0 },
-        { t: "36 और 48 का LCM क्या है?", o: ["144", "72", "12", "96"], c: 0 },
-        { t: "36 और 48 का HCF क्या है?", o: ["12", "144", "36", "48"], c: 0 },
-        { t: "24 और 36 का LCM क्या है?", o: ["72", "12", "24", "36"], c: 0 },
-        { t: "24 और 36 का HCF क्या है?", o: ["12", "72", "24", "36"], c: 0 },
-        { t: "20 और 30 का LCM क्या है?", o: ["60", "10", "20", "30"], c: 0 },
-        { t: "20 और 30 का HCF क्या है?", o: ["10", "60", "20", "30"], c: 0 },
-        { t: "LCM निकालने की विधि कौन सी है?", o: ["अभाज्य गुणनखंड", "भाग विधि", "दोनों", "कोई नहीं"], c: 2 },
-        { t: "HCF निकालने की विधि कौन सी है?", o: ["यूक्लिड विभाजन", "अभाज्य गुणनखंड", "दोनों", "कोई नहीं"], c: 2 }
-    ];
-
-    const mathsBhinn = [
-        { t: "1/2 + 1/3 = ?", o: ["5/6", "2/5", "1/6", "2/6"], c: 0 },
-        { t: "1/2 - 1/3 = ?", o: ["1/6", "5/6", "2/5", "2/6"], c: 0 },
-        { t: "2/3 × 3/4 = ?", o: ["1/2", "3/6", "6/12", "1/3"], c: 0 },
-        { t: "2/3 ÷ 3/4 = ?", o: ["8/9", "1/2", "2/3", "3/4"], c: 0 },
-        { t: "1/2 का दशमलव मान क्या है?", o: ["0.5", "0.2", "0.25", "0.75"], c: 0 },
-        { t: "1/4 का दशमलव मान क्या है?", o: ["0.25", "0.5", "0.2", "0.75"], c: 0 },
-        { t: "3/4 का दशमलव मान क्या है?", o: ["0.75", "0.5", "0.25", "0.2"], c: 0 },
-        { t: "0.5 को भिन्न में बदलें?", o: ["1/2", "1/4", "3/4", "1/5"], c: 0 },
-        { t: "0.25 को भिन्न में बदलें?", o: ["1/4", "1/2", "3/4", "1/5"], c: 0 },
-        { t: "0.75 को भिन्न में बदलें?", o: ["3/4", "1/2", "1/4", "1/5"], c: 0 },
-        { t: "2/5 + 3/5 = ?", o: ["1", "5/10", "6/5", "5/5"], c: 0 },
-        { t: "4/7 - 2/7 = ?", o: ["2/7", "6/7", "2/14", "4/7"], c: 0 },
-        { t: "3/8 × 4/9 = ?", o: ["1/6", "12/72", "1/4", "2/9"], c: 0 },
-        { t: "5/6 ÷ 5/12 = ?", o: ["2", "1/2", "1", "5/12"], c: 0 },
-        { t: "1/3 + 1/6 = ?", o: ["1/2", "2/9", "1/9", "2/6"], c: 0 },
-        { t: "2/5 × 5/8 = ?", o: ["1/4", "10/40", "2/8", "5/20"], c: 0 },
-        { t: "3/4 - 1/2 = ?", o: ["1/4", "2/4", "1/2", "3/4"], c: 0 },
-        { t: "4/9 ÷ 2/3 = ?", o: ["2/3", "8/27", "12/18", "4/6"], c: 0 },
-        { t: "0.125 को भिन्न में बदलें?", o: ["1/8", "1/4", "1/2", "3/8"], c: 0 },
-        { t: "1/8 का दशमलव मान क्या है?", o: ["0.125", "0.25", "0.5", "0.75"], c: 0 }
-    ];
-
-    const mathsAnupat = [
-        { t: "2:3 = 4:x, तो x = ?", o: ["6", "4", "8", "12"], c: 0 },
-        { t: "3:5 = 9:x, तो x = ?", o: ["15", "12", "18", "21"], c: 0 },
-        { t: "4:7 = 8:x, तो x = ?", o: ["14", "12", "16", "18"], c: 0 },
-        { t: "5:8 = 15:x, तो x = ?", o: ["24", "20", "25", "30"], c: 0 },
-        { t: "2:3 और 4:5 में कौन बड़ा है?", o: ["4:5", "2:3", "बराबर", "कोई नहीं"], c: 0 },
-        { t: "3:4 और 5:6 में कौन छोटा है?", o: ["3:4", "5:6", "बराबर", "कोई नहीं"], c: 0 },
-        { t: "2:3 = ?%", o: ["66.67%", "33.33%", "50%", "75%"], c: 0 },
-        { t: "3:4 = ?%", o: ["75%", "25%", "50%", "33.33%"], c: 0 },
-        { t: "4:5 = ?%", o: ["80%", "20%", "40%", "60%"], c: 0 },
-        { t: "2:5 = ?%", o: ["40%", "20%", "60%", "80%"], c: 0 },
-        { t: "यदि A:B = 2:3 और B:C = 4:5 तो A:C = ?", o: ["8:15", "2:5", "4:5", "6:15"], c: 0 },
-        { t: "यदि A:B = 3:4 और B:C = 6:7 तो A:C = ?", o: ["9:14", "3:7", "18:28", "6:7"], c: 0 },
-        { t: "यदि A:B = 1:2 और B:C = 3:4 तो A:C = ?", o: ["3:8", "1:4", "3:4", "1:8"], c: 0 },
-        { t: "दो संख्याओं का अनुपात 3:4 है और उनका योग 35 है, तो संख्याएँ क्या हैं?", o: ["15,20", "10,25", "20,15", "14,21"], c: 0 },
-        { t: "दो संख्याओं का अनुपात 2:3 है और उनका अंतर 10 है, तो संख्याएँ क्या हैं?", o: ["20,30", "10,15", "15,25", "30,45"], c: 0 },
-        { t: "दो संख्याओं का अनुपात 5:7 है और उनका योग 60 है, तो छोटी संख्या क्या है?", o: ["25", "35", "20", "30"], c: 0 },
-        { t: "समानुपात के कितने प्रकार होते हैं?", o: ["2", "3", "4", "5"], c: 0 },
-        { t: "यदि a:b = c:d हो तो ad = ?", o: ["bc", "ac", "bd", "ab"], c: 0 },
-        { t: "यदि a:b = c:d हो तो a/b = ?", o: ["c/d", "d/c", "a/c", "b/d"], c: 0 },
-        { t: "यदि a:b = b:c हो तो b क्या कहलाता है?", o: ["मध्य समानुपाती", "तीसरा समानुपाती", "चौथा समानुपाती", "कोई नहीं"], c: 0 }
-    ];
-
-    const mathsPratishat = [
-        { t: "50 का 20% = ?", o: ["10", "5", "15", "20"], c: 0 },
-        { t: "100 का 30% = ?", o: ["30", "20", "40", "50"], c: 0 },
-        { t: "200 का 15% = ?", o: ["30", "20", "40", "50"], c: 0 },
-        { t: "80 का 25% = ?", o: ["20", "15", "25", "30"], c: 0 },
-        { t: "150 का 10% = ?", o: ["15", "10", "20", "25"], c: 0 },
-        { t: "500 का 12% = ?", o: ["60", "50", "70", "80"], c: 0 },
-        { t: "25 का 40% = ?", o: ["10", "5", "15", "20"], c: 0 },
-        { t: "75 का 20% = ?", o: ["15", "10", "20", "25"], c: 0 },
-        { t: "120 का 25% = ?", o: ["30", "20", "40", "50"], c: 0 },
-        { t: "250 का 8% = ?", o: ["20", "15", "25", "30"], c: 0 },
-        { t: "किसी संख्या का 30% = 90, तो संख्या क्या है?", o: ["300", "200", "400", "500"], c: 0 },
-        { t: "किसी संख्या का 25% = 50, तो संख्या क्या है?", o: ["200", "100", "300", "400"], c: 0 },
-        { t: "40 का कितना प्रतिशत 20 है?", o: ["50%", "25%", "75%", "100%"], c: 0 },
-        { t: "80 का कितना प्रतिशत 20 है?", o: ["25%", "50%", "75%", "100%"], c: 0 },
-        { t: "200 का कितना प्रतिशत 50 है?", o: ["25%", "50%", "75%", "100%"], c: 0 },
-        { t: "₹100 पर 10% की वृद्धि = ?", o: ["₹110", "₹90", "₹100", "₹120"], c: 0 },
-        { t: "₹200 पर 20% की कमी = ?", o: ["₹160", "₹240", "₹180", "₹200"], c: 0 },
-        { t: "₹500 पर 15% की वृद्धि = ?", o: ["₹575", "₹525", "₹550", "₹600"], c: 0 },
-        { t: "₹300 पर 10% की कमी = ?", o: ["₹270", "₹330", "₹290", "₹310"], c: 0 },
-        { t: "₹400 पर 25% की वृद्धि = ?", o: ["₹500", "₹300", "₹450", "₹550"], c: 0 }
-    ];
-
-    const mathsLabhHani = [
-        { t: "₹100 की वस्तु ₹120 में बेचने पर लाभ % = ?", o: ["20%", "10%", "15%", "25%"], c: 0 },
-        { t: "₹200 की वस्तु ₹160 में बेचने पर हानि % = ?", o: ["20%", "10%", "15%", "25%"], c: 0 },
-        { t: "₹50 की वस्तु ₹60 में बेचने पर लाभ % = ?", o: ["20%", "10%", "15%", "25%"], c: 0 },
-        { t: "₹80 की वस्तु ₹72 में बेचने पर हानि % = ?", o: ["10%", "20%", "15%", "5%"], c: 0 },
-        { t: "₹120 की वस्तु ₹150 में बेचने पर लाभ % = ?", o: ["25%", "20%", "30%", "15%"], c: 0 },
-        { t: "₹250 की वस्तु ₹200 में बेचने पर हानि % = ?", o: ["20%", "25%", "15%", "30%"], c: 0 },
-        { t: "लाभ % का सूत्र क्या है?", o: ["(लाभ/क्रय मूल्य)×100", "(लाभ/विक्रय मूल्य)×100", "(हानि/क्रय मूल्य)×100", "(हानि/विक्रय मूल्य)×100"], c: 0 },
-        { t: "हानि % का सूत्र क्या है?", o: ["(हानि/क्रय मूल्य)×100", "(हानि/विक्रय मूल्य)×100", "(लाभ/क्रय मूल्य)×100", "(लाभ/विक्रय मूल्य)×100"], c: 0 },
-        { t: "क्रय मूल्य का सूत्र क्या है?", o: ["(100×विक्रय मूल्य)/(100+लाभ%)", "(100×विक्रय मूल्य)/(100-हानि%)", "दोनों", "कोई नहीं"], c: 2 },
-        { t: "विक्रय मूल्य का सूत्र क्या है?", o: ["क्रय मूल्य×(100+लाभ%)/100", "क्रय मूल्य×(100-हानि%)/100", "दोनों", "कोई नहीं"], c: 2 },
-        { t: "₹500 की वस्तु पर 10% लाभ पर विक्रय मूल्य = ?", o: ["₹550", "₹450", "₹500", "₹600"], c: 0 },
-        { t: "₹300 की वस्तु पर 20% हानि पर विक्रय मूल्य = ?", o: ["₹240", "₹360", "₹300", "₹280"], c: 0 },
-        { t: "₹200 पर 25% लाभ = ?", o: ["₹250", "₹150", "₹200", "₹275"], c: 0 },
-        { t: "₹400 पर 15% हानि = ?", o: ["₹340", "₹460", "₹400", "₹360"], c: 0 },
-        { t: "10% लाभ पर ₹110 में बिकने वाली वस्तु का क्रय मूल्य = ?", o: ["₹100", "₹99", "₹110", "₹120"], c: 0 },
-        { t: "20% हानि पर ₹80 में बिकने वाली वस्तु का क्रय मूल्य = ?", o: ["₹100", "₹64", "₹80", "₹96"], c: 0 },
-        { t: "दो वस्तुएँ समान मूल्य पर बेची गईं, एक पर 20% लाभ दूसरी पर 20% हानि, कुल लाभ/हानि?", o: ["4% हानि", "4% लाभ", "कोई लाभ/हानि नहीं", "2% लाभ"], c: 0 },
-        { t: "छूट का सूत्र क्या है?", o: ["छूट = अंकित मूल्य × छूट%/100", "छूट = विक्रय मूल्य × छूट%/100", "छूट = क्रय मूल्य × छूट%/100", "कोई नहीं"], c: 0 },
-        { t: "अंकित मूल्य ₹1000, छूट 10% = ?", o: ["₹900", "₹1000", "₹1100", "₹950"], c: 0 },
-        { t: "अंकित मूल्य ₹500, छूट 20% = ?", o: ["₹400", "₹500", "₹600", "₹450"], c: 0 }
-    ];
-
-    const mathsByaj = [
-        { t: "साधारण ब्याज का सूत्र क्या है?", o: ["P×R×T/100", "P×R×T", "PRT/100", "P×R/T"], c: 0 },
-        { t: "मिश्रधन का सूत्र क्या है?", o: ["P + SI", "P - SI", "P × SI", "P/SI"], c: 0 },
-        { t: "₹1000 का 10% वार्षिक ब्याज से 2 वर्ष का साधारण ब्याज = ?", o: ["₹200", "₹100", "₹300", "₹400"], c: 0 },
-        { t: "₹2000 का 8% वार्षिक ब्याज से 3 वर्ष का साधारण ब्याज = ?", o: ["₹480", "₹160", "₹240", "₹320"], c: 0 },
-        { t: "₹5000 का 12% वार्षिक ब्याज से 2 वर्ष का साधारण ब्याज = ?", o: ["₹1200", "₹600", "₹2400", "₹800"], c: 0 },
-        { t: "₹1500 का 5% वार्षिक ब्याज से 4 वर्ष का साधारण ब्याज = ?", o: ["₹300", "₹150", "₹450", "₹600"], c: 0 },
-        { t: "₹2500 का 6% वार्षिक ब्याज से 3 वर्ष का साधारण ब्याज = ?", o: ["₹450", "₹150", "₹300", "₹600"], c: 0 },
-        { t: "मूलधन का सूत्र क्या है?", o: ["(SI×100)/(R×T)", "(SI×R×T)/100", "(100×R×T)/SI", "कोई नहीं"], c: 0 },
-        { t: "दर का सूत्र क्या है?", o: ["(SI×100)/(P×T)", "(P×T)/(SI×100)", "(SI×P×T)/100", "कोई नहीं"], c: 0 },
-        { t: "समय का सूत्र क्या है?", o: ["(SI×100)/(P×R)", "(P×R)/(SI×100)", "(SI×P×R)/100", "कोई नहीं"], c: 0 },
-        { t: "₹800 का 5% से कितने वर्ष में ₹200 ब्याज मिलेगा?", o: ["5 वर्ष", "4 वर्ष", "6 वर्ष", "3 वर्ष"], c: 0 },
-        { t: "₹1200 का 10% से कितने वर्ष में ₹600 ब्याज मिलेगा?", o: ["5 वर्ष", "4 वर्ष", "6 वर्ष", "3 वर्ष"], c: 0 },
-        { t: "चक्रवृद्धि ब्याज का सूत्र क्या है?", o: ["A = P(1+R/100)^T", "A = P(1+R×T/100)", "A = P×R×T/100", "A = P×R×T"], c: 0 },
-        { t: "₹1000 का 10% चक्रवृद्धि ब्याज से 2 वर्ष का मिश्रधन = ?", o: ["₹1210", "₹1200", "₹1100", "₹1331"], c: 0 },
-        { t: "₹2000 का 5% चक्रवृद्धि ब्याज से 2 वर्ष का मिश्रधन = ?", o: ["₹2205", "₹2100", "₹2300", "₹2400"], c: 0 },
-        { t: "साधारण ब्याज और चक्रवृद्धि ब्याज में अंतर क्यों होता है?", o: ["पिछले ब्याज पर भी ब्याज", "केवल मूलधन पर ब्याज", "दर अलग होती है", "समय अलग होता है"], c: 0 },
-        { t: "ब्याज की दर दोगुनी करने पर साधारण ब्याज कितना होगा?", o: ["दोगुना", "आधा", "समान", "तीन गुना"], c: 0 },
-        { t: "समय दोगुना करने पर साधारण ब्याज कितना होगा?", o: ["दोगुना", "आधा", "समान", "तीन गुना"], c: 0 },
-        { t: "मूलधन दोगुना करने पर साधारण ब्याज कितना होगा?", o: ["दोगुना", "आधा", "समान", "तीन गुना"], c: 0 },
-        { t: "₹500 का 10% से 2 वर्ष का साधारण ब्याज = ?", o: ["₹100", "₹50", "₹150", "₹200"], c: 0 }
-    ];
-
-    const mathsKshetramiti = [
-        { t: "वर्ग का क्षेत्रफल क्या होता है?", o: ["भुजा²", "4×भुजा", "2×भुजा", "भुजा×भुजा×भुजा"], c: 0 },
-        { t: "आयत का क्षेत्रफल क्या होता है?", o: ["लंबाई×चौड़ाई", "2×(लं+चौ)", "लं+चौ", "लं²+चौ²"], c: 0 },
-        { t: "वृत्त का क्षेत्रफल क्या होता है?", o: ["πr²", "2πr", "πd", "πr"], c: 0 },
-        { t: "त्रिभुज का क्षेत्रफल क्या होता है?", o: ["½×आधार×ऊँचाई", "आधार×ऊँचाई", "2×आधार×ऊँचाई", "आधार+ऊँचाई"], c: 0 },
-        { t: "समांतर चतुर्भुज का क्षेत्रफल क्या होता है?", o: ["आधार×ऊँचाई", "½×आधार×ऊँचाई", "2×आधार×ऊँचाई", "आधार+ऊँचाई"], c: 0 },
-        { t: "वर्ग का परिमाप क्या होता है?", o: ["4×भुजा", "भुजा²", "2×भुजा", "भुजा×भुजा"], c: 0 },
-        { t: "आयत का परिमाप क्या होता है?", o: ["2×(लं+चौ)", "लं×चौ", "लं+चौ", "2×(लं×चौ)"], c: 0 },
-        { t: "वृत्त की परिधि क्या होती है?", o: ["2πr", "πr²", "πr", "πd²"], c: 0 },
-        { t: "घन का आयतन क्या होता है?", o: ["भुजा³", "भुजा²", "6×भुजा²", "4×भुजा²"], c: 0 },
-        { t: "घनाभ का आयतन क्या होता है?", o: ["लं×चौ×ऊँ", "2×(लं×चौ+चौ×ऊँ+लं×ऊँ)", "लं+चौ+ऊँ", "लं×चौ"], c: 0 },
-        { t: "बेलन का आयतन क्या होता है?", o: ["πr²h", "2πrh", "πr²", "2πr²h"], c: 0 },
-        { t: "गोले का आयतन क्या होता है?", o: ["(4/3)πr³", "(4/3)πr²", "4πr²", "(2/3)πr³"], c: 0 },
-        { t: "शंकु का आयतन क्या होता है?", o: ["(1/3)πr²h", "πr²h", "2πrh", "(1/2)πr²h"], c: 0 },
-        { t: "भुजा 5 cm वाले वर्ग का क्षेत्रफल = ?", o: ["25 cm²", "20 cm²", "10 cm²", "15 cm²"], c: 0 },
-        { t: "लंबाई 10 m और चौड़ाई 5 m वाले आयत का क्षेत्रफल = ?", o: ["50 m²", "30 m²", "15 m²", "100 m²"], c: 0 },
-        { t: "त्रिज्या 7 cm वाले वृत्त का क्षेत्रफल = ?", o: ["154 cm²", "44 cm²", "22 cm²", "88 cm²"], c: 0 },
-        { t: "भुजा 4 cm वाले वर्ग का परिमाप = ?", o: ["16 cm", "8 cm", "12 cm", "24 cm"], c: 0 },
-        { t: "लंबाई 8 m और चौड़ाई 3 m वाले आयत का परिमाप = ?", o: ["22 m", "24 m", "11 m", "48 m"], c: 0 },
-        { t: "त्रिज्या 14 cm वाले वृत्त की परिधि = ?", o: ["88 cm", "44 cm", "22 cm", "66 cm"], c: 0 },
-        { t: "भुजा 3 cm वाले घन का आयतन = ?", o: ["27 cm³", "9 cm³", "18 cm³", "36 cm³"], c: 0 }
-    ];
-
-    // Computer Questions (कंप्यूटर)
-    const computerBasic = [
-        { t: "CPU का पूरा नाम क्या है?", o: ["Central Processing Unit", "Computer Personal Unit", "Central Program Unit", "Control Processing Unit"], c: 0 },
-        { t: "RAM का पूरा नाम क्या है?", o: ["Random Access Memory", "Read Access Memory", "Rapid Access Memory", "Right Access Memory"], c: 0 },
-        { t: "ROM का पूरा नाम क्या है?", o: ["Read Only Memory", "Random Only Memory", "Read Output Memory", "Rapid Only Memory"], c: 0 },
-        { t: "कंप्यूटर का पिता किसे कहा जाता है?", o: ["चार्ल्स बैबेज", "बिल गेट्स", "स्टीव जॉब्स", "एलन ट्यूरिंग"], c: 0 },
-        { t: "माउस किस प्रकार का डिवाइस है?", o: ["इनपुट डिवाइस", "आउटपुट डिवाइस", "स्टोरेज डिवाइस", "प्रोसेसिंग डिवाइस"], c: 0 },
-        { t: "मॉनिटर किस प्रकार का डिवाइस है?", o: ["आउटपुट डिवाइस", "इनपुट डिवाइस", "स्टोरेज डिवाइस", "प्रोसेसिंग डिवाइस"], c: 0 },
-        { t: "प्रिंटर किस प्रकार का डिवाइस है?", o: ["आउटपुट डिवाइस", "इनपुट डिवाइस", "स्टोरेज डिवाइस", "प्रोसेसिंग डिवाइस"], c: 0 },
-        { t: "कीबोर्ड किस प्रकार का डिवाइस है?", o: ["इनपुट डिवाइस", "आउटपुट डिवाइस", "स्टोरेज डिवाइस", "प्रोसेसिंग डिवाइस"], c: 0 },
-        { t: "पेन ड्राइव किस प्रकार का डिवाइस है?", o: ["स्टोरेज डिवाइस", "इनपुट डिवाइस", "आउटपुट डिवाइस", "प्रोसेसिंग डिवाइस"], c: 0 },
-        { t: "हार्ड डिस्क किस प्रकार का डिवाइस है?", o: ["स्टोरेज डिवाइस", "इनपुट डिवाइस", "आउटपुट डिवाइस", "प्रोसेसिंग डिवाइस"], c: 0 },
-        { t: "OS का पूरा नाम क्या है?", o: ["Operating System", "Open System", "Output System", "Office System"], c: 0 },
-        { t: "विंडोज किस प्रकार का सॉफ्टवेयर है?", o: ["OS", "Browser", "Antivirus", "Editor"], c: 0 },
-        { t: "गूगल क्रोम क्या है?", o: ["Browser", "OS", "Antivirus", "Editor"], c: 0 },
-        { t: "WWW का पूरा नाम क्या है?", o: ["World Wide Web", "Web World Wide", "Wide World Web", "World Web Wide"], c: 0 },
-        { t: "URL का पूरा नाम क्या है?", o: ["Uniform Resource Locator", "Universal Resource Locator", "Uniform Resource Link", "Universal Resource Link"], c: 0 },
-        { t: "HTTP का पूरा नाम क्या है?", o: ["Hyper Text Transfer Protocol", "High Text Transfer Protocol", "Hyper Transfer Text Protocol", "High Transfer Text Protocol"], c: 0 },
-        { t: "HTML का पूरा नाम क्या है?", o: ["Hyper Text Markup Language", "High Text Markup Language", "Hyper Transfer Markup Language", "High Transfer Markup Language"], c: 0 },
-        { t: "PDF का पूरा नाम क्या है?", o: ["Portable Document Format", "Print Document Format", "Public Document Format", "Private Document Format"], c: 0 },
-        { t: "USB का पूरा नाम क्या है?", o: ["Universal Serial Bus", "Universal Serial Box", "United Serial Bus", "Universal System Bus"], c: 0 },
-        { t: "ALU का पूरा नाम क्या है?", o: ["Arithmetic Logic Unit", "Arithmetic Local Unit", "Advanced Logic Unit", "Arithmetic Logical Unit"], c: 0 }
-    ];
-
-    const computerHardware = [
-        { t: "CPU कहाँ स्थित होता है?", o: ["Motherboard पर", "Monitor में", "Keyboard में", "Mouse में"], c: 0 },
-        { t: "मदरबोर्ड को क्या कहते हैं?", o: ["मुख्य सर्किट बोर्ड", "पावर सप्लाई", "हार्ड डिस्क", "रैम"], c: 0 },
-        { t: "SMPS का पूरा नाम क्या है?", o: ["Switched Mode Power Supply", "Simple Mode Power Supply", "System Mode Power Supply", "Switch Mode Power System"], c: 0 },
-        { t: "कैश मेमोरी किसके बीच होती है?", o: ["CPU और RAM", "CPU और ROM", "RAM और ROM", "Hard Disk और RAM"], c: 0 },
-        { t: "रजिस्टर कहाँ स्थित होते हैं?", o: ["CPU के अंदर", "RAM में", "ROM में", "Hard Disk में"], c: 0 },
-        { t: "बस क्या होती है?", o: ["डेटा ट्रांसफर पथ", "पावर सप्लाई", "कूलिंग फैन", "केबल"], c: 0 },
-        { t: "PCI स्लॉट किसके लिए होता है?", o: ["एक्सपेंशन कार्ड", "CPU", "RAM", "पावर सप्लाई"], c: 0 },
-        { t: "CMOS बैटरी का क्या कार्य है?", o: ["BIOS सेटिंग्स स्टोर करना", "कंप्यूटर चलाना", "डेटा स्टोर करना", "पावर देना"], c: 0 },
-        { t: "BIOS का पूरा नाम क्या है?", o: ["Basic Input Output System", "Basic Input Output Software", "Basic Internal Output System", "Basic Input Output Setup"], c: 0 },
-        { t: "POST का पूरा नाम क्या है?", o: ["Power On Self Test", "Power Output Self Test", "Power On System Test", "Power On Self Task"], c: 0 },
-        { t: "सीरियल पोर्ट को क्या कहते हैं?", o: ["COM पोर्ट", "LPT पोर्ट", "USB पोर्ट", "PS/2 पोर्ट"], c: 0 },
-        { t: "पैरेलल पोर्ट को क्या कहते हैं?", o: ["LPT पोर्ट", "COM पोर्ट", "USB पोर्ट", "PS/2 पोर्ट"], c: 0 },
-        { t: "VGA पोर्ट किसके लिए होता है?", o: ["मॉनिटर", "प्रिंटर", "कीबोर्ड", "माउस"], c: 0 },
-        { t: "HDMI का पूरा नाम क्या है?", o: ["High Definition Multimedia Interface", "High Display Multimedia Interface", "High Definition Media Interface", "High Definition Multimedia Input"], c: 0 },
-        { t: "SSD का पूरा नाम क्या है?", o: ["Solid State Drive", "Solid System Drive", "System State Drive", "Solid State Disk"], c: 0 },
-        { t: "HDD का पूरा नाम क्या है?", o: ["Hard Disk Drive", "High Disk Drive", "Hard Data Drive", "Hard Drive Disk"], c: 0 },
-        { t: "DVD का पूरा नाम क्या है?", o: ["Digital Versatile Disc", "Digital Video Disc", "Digital Visual Disc", "Both A and B"], c: 3 },
-        { t: "CD का पूरा नाम क्या है?", o: ["Compact Disc", "Computer Disc", "Compact Data", "Copy Disc"], c: 0 },
-        { t: "ब्लू-रे डिस्क की क्षमता कितनी होती है?", o: ["25 GB", "4.7 GB", "700 MB", "50 GB"], c: 0 },
-        { t: "फ्लॉपी डिस्क की क्षमता कितनी होती है?", o: ["1.44 MB", "1.44 GB", "720 KB", "2.88 MB"], c: 0 }
-    ];
-
-    const computerSoftware = [
-        { t: "सिस्टम सॉफ्टवेयर का उदाहरण क्या है?", o: ["Windows", "MS Word", "Excel", "PowerPoint"], c: 0 },
-        { t: "एप्लीकेशन सॉफ्टवेयर का उदाहरण क्या है?", o: ["MS Word", "Windows", "Linux", "macOS"], c: 0 },
-        { t: "यूटिलिटी सॉफ्टवेयर का उदाहरण क्या है?", o: ["Antivirus", "MS Word", "Excel", "PowerPoint"], c: 0 },
-        { t: "कंपाइलर का क्या कार्य है?", o: ["प्रोग्राम को मशीन भाषा में बदलना", "प्रोग्राम चलाना", "प्रोग्राम स्टोर करना", "प्रोग्राम डिबग करना"], c: 0 },
-        { t: "इंटरप्रेटर का क्या कार्य है?", o: ["लाइन बाय लाइन कोड बदलना", "पूरा कोड एक साथ बदलना", "कोड स्टोर करना", "कोड डिलीट करना"], c: 0 },
-        { t: "MS Office किसका उदाहरण है?", o: ["एप्लीकेशन सॉफ्टवेयर", "सिस्टम सॉफ्टवेयर", "यूटिलिटी सॉफ्टवेयर", "ड्राइवर"], c: 0 },
-        { t: "ड्राइवर का क्या कार्य है?", o: ["हार्डवेयर को नियंत्रित करना", "प्रोग्राम चलाना", "डेटा स्टोर करना", "वायरस हटाना"], c: 0 },
-        { t: "ओपन सोर्स सॉफ्टवेयर का उदाहरण क्या है?", o: ["Linux", "Windows", "macOS", "MS Office"], c: 0 },
-        { t: "प्रोपराइटरी सॉफ्टवेयर का उदाहरण क्या है?", o: ["Windows", "Linux", "Ubuntu", "Android"], c: 0 },
-        { t: "फ्रीवेयर सॉफ्टवेयर का उदाहरण क्या है?", o: ["Google Chrome", "MS Word", "Photoshop", "Windows"], c: 0 },
-        { t: "डेटाबेस सॉफ्टवेयर का उदाहरण क्या है?", o: ["MySQL", "MS Word", "Excel", "PowerPoint"], c: 0 },
-        { t: "ग्राफिक्स सॉफ्टवेयर का उदाहरण क्या है?", o: ["Photoshop", "MS Word", "Excel", "Notepad"], c: 0 },
-        { t: "वेब ब्राउज़र का उदाहरण क्या है?", o: ["Google Chrome", "Windows", "Linux", "macOS"], c: 0 },
-        { t: "ईमेल क्लाइंट का उदाहरण क्या है?", o: ["Outlook", "Gmail Web", "Yahoo Mail", "All"], c: 3 },
-        { t: "क्लाउड स्टोरेज का उदाहरण क्या है?", o: ["Google Drive", "Hard Disk", "Pen Drive", "DVD"], c: 0 },
-        { t: "फायरवॉल का क्या कार्य है?", o: ["सुरक्षा प्रदान करना", "डेटा स्टोर करना", "प्रोग्राम चलाना", "वायरस बनाना"], c: 0 },
-        { t: "एंटीवायरस का क्या कार्य है?", o: ["वायरस हटाना", "स्पीड बढ़ाना", "डेटा स्टोर करना", "प्रोग्राम चलाना"], c: 0 },
-        { t: "डीफ्रैग्मेंटेशन का क्या कार्य है?", o: ["डिस्क व्यवस्थित करना", "वायरस हटाना", "डेटा डिलीट करना", "प्रोग्राम इंस्टॉल करना"], c: 0 },
-        { t: "बैकअप का क्या मतलब है?", o: ["डेटा की प्रतिलिपि बनाना", "डेटा डिलीट करना", "डेटा एन्क्रिप्ट करना", "डेटा कंप्रेस करना"], c: 0 },
-        { t: "रेस्टोर का क्या मतलब है?", o: ["बैकअप से डेटा वापस लाना", "डेटा डिलीट करना", "डेटा बैकअप करना", "डेटा एन्क्रिप्ट करना"], c: 0 }
-    ];
-
-    const computerInternet = [
-        { t: "इंटरनेट का जनक किसे कहा जाता है?", o: ["विंटन सर्फ", "बिल गेट्स", "स्टीव जॉब्स", "मार्क जुकरबर्ग"], c: 0 },
-        { t: "वर्ल्ड वाइड वेब के जनक किसे कहा जाता है?", o: ["टिम बर्नर्स ली", "विंटन सर्फ", "बिल गेट्स", "मार्क जुकरबर्ग"], c: 0 },
-        { t: "IP का पूरा नाम क्या है?", o: ["Internet Protocol", "Internet Program", "Internal Protocol", "International Protocol"], c: 0 },
-        { t: "TCP का पूरा नाम क्या है?", o: ["Transmission Control Protocol", "Transfer Control Protocol", "Transmission Central Protocol", "Transfer Central Protocol"], c: 0 },
-        { t: "FTP का पूरा नाम क्या है?", o: ["File Transfer Protocol", "File Transmission Protocol", "Fast Transfer Protocol", "File Transfer Program"], c: 0 },
-        { t: "SMTP का पूरा नाम क्या है?", o: ["Simple Mail Transfer Protocol", "Simple Mail Transmission Protocol", "System Mail Transfer Protocol", "System Mail Transmission Protocol"], c: 0 },
-        { t: "POP3 का पूरा नाम क्या है?", o: ["Post Office Protocol 3", "Post Office Program 3", "Post Office Protocol Version 3", "Both A and C"], c: 3 },
-        { t: "DNS का पूरा नाम क्या है?", o: ["Domain Name System", "Data Name System", "Domain Network System", "Data Network System"], c: 0 },
-        { t: "ISP का पूरा नाम क्या है?", o: ["Internet Service Provider", "Internet System Provider", "International Service Provider", "Internal Service Provider"], c: 0 },
-        { t: "LAN का पूरा नाम क्या है?", o: ["Local Area Network", "Large Area Network", "Long Area Network", "Link Area Network"], c: 0 },
-        { t: "WAN का पूरा नाम क्या है?", o: ["Wide Area Network", "Wireless Area Network", "Web Area Network", "World Area Network"], c: 0 },
-        { t: "MAN का पूरा नाम क्या है?", o: ["Metropolitan Area Network", "Medium Area Network", "Multiple Area Network", "Main Area Network"], c: 0 },
-        { t: "Wi-Fi का पूरा नाम क्या है?", o: ["Wireless Fidelity", "Wireless Frequency", "Wired Fidelity", "Wireless Fiber"], c: 0 },
-        { t: "ब्लूटूथ का नाम किसके नाम पर रखा गया?", o: ["हैराल्ड ब्लूटूथ", "बिल गेट्स", "स्टीव जॉब्स", "मार्क जुकरबर्ग"], c: 0 },
-        { t: "मॉडेम का पूरा नाम क्या है?", o: ["Modulator Demodulator", "Modem Demodulator", "Modulator Demodulator", "Mode Demodulator"], c: 0 },
-        { t: "राउटर का क्या कार्य है?", o: ["डेटा रूट करना", "डेटा स्टोर करना", "डेटा डिलीट करना", "डेटा एन्क्रिप्ट करना"], c: 0 },
-        { t: "स्विच का क्या कार्य है?", o: ["डिवाइस कनेक्ट करना", "डेटा रूट करना", "डेटा स्टोर करना", "डेटा डिलीट करना"], c: 0 },
-        { t: "हब का क्या कार्य है?", o: ["डिवाइस कनेक्ट करना", "डेटा रूट करना", "डेटा स्टोर करना", "डेटा फिल्टर करना"], c: 0 },
-        { t: "फायरवॉल का क्या कार्य है?", o: ["सुरक्षा प्रदान करना", "स्पीड बढ़ाना", "डेटा स्टोर करना", "प्रोग्राम चलाना"], c: 0 },
-        { t: "VPN का पूरा नाम क्या है?", o: ["Virtual Private Network", "Virtual Public Network", "Virtual Private Network", "Visual Private Network"], c: 0 }
-    ];
-
-    // GK Questions (सामान्य ज्ञान)
-    const gkHistory = [
-        { t: "भारत की राजधानी क्या है?", o: ["नई दिल्ली", "मुंबई", "कोलकाता", "चेन्नई"], c: 0 },
-        { t: "भारत का राष्ट्रीय पक्षी कौन है?", o: ["मोर", "तोता", "कोयल", "गरुड़"], c: 0 },
-        { t: "भारत का राष्ट्रीय पशु कौन है?", o: ["बाघ", "शेर", "हाथी", "गाय"], c: 0 },
-        { t: "भारत का राष्ट्रीय फल कौन है?", o: ["आम", "सेब", "केला", "अंगूर"], c: 0 },
-        { t: "भारत का राष्ट्रीय वृक्ष कौन है?", o: ["बरगद", "पीपल", "नीम", "आम"], c: 0 },
-        { t: "भारत का राष्ट्रीय खेल कौन है?", o: ["हॉकी", "क्रिकेट", "फुटबॉल", "कबड्डी"], c: 0 },
-        { t: "गणतंत्र दिवस कब मनाया जाता है?", o: ["26 जनवरी", "15 अगस्त", "2 अक्टूबर", "30 जनवरी"], c: 0 },
-        { t: "स्वतंत्रता दिवस कब मनाया जाता है?", o: ["15 अगस्त", "26 जनवरी", "2 अक्टूबर", "30 जनवरी"], c: 0 },
-        { t: "गाँधी जयंती कब मनाई जाती है?", o: ["2 अक्टूबर", "15 अगस्त", "26 जनवरी", "30 जनवरी"], c: 0 },
-        { t: "शहीद दिवस कब मनाया जाता है?", o: ["30 जनवरी", "2 अक्टूबर", "15 अगस्त", "26 जनवरी"], c: 0 },
-        { t: "ताजमहल कहाँ स्थित है?", o: ["आगरा", "दिल्ली", "जयपुर", "लखनऊ"], c: 0 },
-        { t: "गंगा नदी कहाँ से निकलती है?", o: ["गंगोत्री", "यमुनोत्री", "बद्रीनाथ", "केदारनाथ"], c: 0 },
-        { t: "भारत के पहले राष्ट्रपति कौन थे?", o: ["राजेंद्र प्रसाद", "नेहरू", "गाँधी", "पटेल"], c: 0 },
-        { t: "भारत के पहले प्रधानमंत्री कौन थे?", o: ["जवाहरलाल नेहरू", "राजेंद्र प्रसाद", "गाँधी", "पटेल"], c: 0 },
-        { t: "हिंदी दिवस कब मनाया जाता है?", o: ["14 सितंबर", "26 जनवरी", "15 अगस्त", "2 अक्टूबर"], c: 0 },
-        { t: "विश्व पर्यावरण दिवस कब है?", o: ["5 जून", "22 अप्रैल", "7 अप्रैल", "1 मई"], c: 0 },
-        { t: "विश्व जल दिवस कब है?", o: ["22 मार्च", "5 जून", "22 अप्रैल", "7 अप्रैल"], c: 0 },
-        { t: "महात्मा गाँधी को क्या कहा जाता है?", o: ["राष्ट्रपिता", "लौह पुरुष", "चाचा", "गुरुदेव"], c: 0 },
-        { t: "सरदार पटेल को क्या कहा जाता है?", o: ["लौह पुरुष", "राष्ट्रपिता", "चाचा", "गुरुदेव"], c: 0 },
-        { t: "नेताजी सुभाष बोस का प्रसिद्ध नारा क्या था?", o: ["जय हिंद", "वंदे मातरम्", "सत्यमेव जयते", "इन्कलाब जिंदाबाद"], c: 0 }
-    ];
-
-    const gkGeography = [
-        { t: "पृथ्वी का सबसे बड़ा महासागर कौन सा है?", o: ["प्रशांत महासागर", "अटलांटिक महासागर", "हिंद महासागर", "आर्कटिक महासागर"], c: 0 },
-        { t: "पृथ्वी का सबसे ऊँचा पर्वत कौन सा है?", o: ["माउंट एवरेस्ट", "K2", "कंचनजंगा", "नंगा पर्वत"], c: 0 },
-        { t: "भारत की सबसे लंबी नदी कौन सी है?", o: ["गंगा", "यमुना", "ब्रह्मपुत्र", "गोदावरी"], c: 0 },
-        { t: "विश्व का सबसे बड़ा महाद्वीप कौन सा है?", o: ["एशिया", "अफ्रीका", "उत्तरी अमेरिका", "दक्षिण अमेरिका"], c: 0 },
-        { t: "विश्व का सबसे छोटा महाद्वीप कौन सा है?", o: ["ऑस्ट्रेलिया", "अंटार्कटिका", "यूरोप", "दक्षिण अमेरिका"], c: 0 },
-        { t: "भारत का सबसे बड़ा राज्य कौन सा है (क्षेत्रफल में)?", o: ["राजस्थान", "मध्य प्रदेश", "महाराष्ट्र", "उत्तर प्रदेश"], c: 0 },
-        { t: "भारत का सबसे बड़ा राज्य कौन सा है (जनसंख्या में)?", o: ["उत्तर प्रदेश", "महाराष्ट्र", "बिहार", "पश्चिम बंगाल"], c: 0 },
-        { t: "रेगिस्तान को क्या कहते हैं?", o: ["मरुस्थल", "पर्वत", "मैदान", "पठार"], c: 0 },
-        { t: "विश्व की सबसे लंबी दीवार कौन सी है?", o: ["चीन की दीवार", "हैड्रियन की दीवार", "बर्लिन की दीवार", "कोई नहीं"], c: 0 },
-        { t: "विश्व की सबसे लंबी नदी कौन सी है?", o: ["नील", "अमेजन", "गंगा", "यांग्त्ज़ी"], c: 0 },
-        { t: "विश्व का सबसे ऊँचा झरना कौन सा है?", o: ["एंजिल झरना", "नियाग्रा झरना", "विक्टोरिया झरना", "योसेमाइट झरना"], c: 0 },
-        { t: "भारत का सबसे ऊँचा झरना कौन सा है?", o: ["जोग झरना", "धुआंधार झरना", "चित्रकूट झरना", "कोपिली झरना"], c: 0 },
-        { t: "हिमालय की सबसे ऊँची चोटी कौन सी है?", o: ["माउंट एवरेस्ट", "K2", "कंचनजंगा", "नंगा पर्वत"], c: 0 },
-        { t: "भारत की सबसे ऊँची चोटी कौन सी है?", o: ["कंचनजंगा", "माउंट एवरेस्ट", "K2", "नंगा पर्वत"], c: 0 },
-        { t: "कर्क रेखा भारत के कितने राज्यों से होकर गुजरती है?", o: ["8", "6", "7", "9"], c: 0 },
-        { t: "भारत का मरुस्थल कौन सा है?", o: ["थार मरुस्थल", "सहारा मरुस्थल", "गोबी मरुस्थल", "अटाकामा मरुस्थल"], c: 0 },
-        { t: "विश्व की सबसे ऊँची पठार कौन सी है?", o: ["तिब्बत का पठार", "दक्कन का पठार", "कोलोराडो का पठार", "मैक्सिको का पठार"], c: 0 },
-        { t: "भारत का सबसे बड़ा बंदरगाह कौन सा है?", o: ["मुंबई", "चेन्नई", "कोलकाता", "विशाखापट्टनम"], c: 0 },
-        { t: "हरियाणा का क्षेत्रफल कितना है?", o: ["44,212 km²", "50,000 km²", "40,000 km²", "30,000 km²"], c: 0 },
-        { t: "भारत का क्षेत्रफल कितना है?", o: ["3.287 मिलियन km²", "2.5 मिलियन km²", "4 मिलियन km²", "5 मिलियन km²"], c: 0 }
-    ];
-
-    // ==================== CREATE ALL CHAPTER QUESTIONS ====================
     
-    const allChapterData = [
-        physicsMaatrak, physicsGati, physicsUrja, physicsDhvani,
-        chemistryPadarth, chemistryParmanu, chemistryAmla,
-        biologyKoshika, biologyManav, biologyRog,
-        mathsSankhya, mathsLCM, mathsBhinn, mathsAnupat, mathsPratishat, mathsLabhHani, mathsByaj, mathsKshetramiti,
-        gkHistory, gkGeography,
-        computerBasic, computerHardware, computerSoftware, computerInternet
+    const nutrition = [
+        { t: "प्रोटीन का मुख्य स्रोत क्या है?", o: ["दाल", "चावल", "रोटी", "फल"], c: 0 },
+        { t: "विटामिन A की कमी से क्या रोग होता है?", o: ["रतौंधी", "स्कर्वी", "रिकेट्स", "बेरीबेरी"], c: 0 },
+        { t: "कार्बोहाइड्रेट का मुख्य स्रोत क्या है?", o: ["चावल", "दाल", "मांस", "फल"], c: 0 }
+    ];
+    
+    const diseases = [
+        { t: "मलेरिया किससे होता है?", o: ["प्रोटोजोआ", "वायरस", "बैक्टीरिया", "फंगस"], c: 0 },
+        { t: "डेंगू बुखार किससे होता है?", o: ["वायरस", "बैक्टीरिया", "प्रोटोजोआ", "फंगस"], c: 0 },
+        { t: "कोविड-19 किससे होता है?", o: ["कोरोना वायरस", "HIV", "H1N1", "Ebola"], c: 0 }
+    ];
+    
+    const botany = [
+        { t: "प्रकाश संश्लेषण किसमें होता है?", o: ["हरित लवक", "माइटोकॉन्ड्रिया", "केंद्रक", "राइबोसोम"], c: 0 },
+        { t: "पादप कोशिका में कौन सा अंगक नहीं होता?", o: ["तारक काय", "केंद्रक", "माइटोकॉन्ड्रिया", "राइबोसोम"], c: 0 },
+        { t: "क्लोरोफिल का रंग क्या होता है?", o: ["हरा", "लाल", "नीला", "पीला"], c: 0 }
+    ];
+    
+    // ==================== CATEGORIES AND CHAPTERS ====================
+    const categories = [
+        { name: "📐 MATHS (अंकगणित)", icon: "🔢", chapters: [
+            { name: "संख्या पद्धति (Number System)", questions: numberSystem },
+            { name: "LCM & HCF", questions: lcmHcf },
+            { name: "प्रतिशत (Percentage)", questions: percentage },
+            { name: "लाभ-हानि (Profit & Loss)", questions: profitLoss },
+            { name: "छूट (Discount)", questions: discount },
+            { name: "साधारण ब्याज (Simple Interest)", questions: simpleInterest },
+            { name: "चक्रवृद्धि ब्याज (Compound Interest)", questions: compoundInterest },
+            { name: "अनुपात और समानुपात (Ratio & Proportion)", questions: ratioProportion },
+            { name: "औसत (Average)", questions: average },
+            { name: "समय और कार्य (Time & Work)", questions: timeWork },
+            { name: "पाइप और टंकी (Pipe & Cistern)", questions: pipeCistern },
+            { name: "समय, चाल और दूरी (Time, Speed, Distance)", questions: timeSpeedDistance },
+            { name: "ट्रेन (Train)", questions: train },
+            { name: "नाव और धारा (Boat & Stream)", questions: boatStream },
+            { name: "मिश्रण और आरोपण (Mixture & Alligation)", questions: mixtureAlligation }
+        ]},
+        { name: "🧠 REASONING (तार्किक क्षमता)", icon: "🎯", chapters: [
+            { name: "Coding-Decoding", questions: codingDecoding },
+            { name: "Number Series", questions: numberSeries },
+            { name: "Alphabet Series", questions: alphabetSeries },
+            { name: "Analogy", questions: analogy },
+            { name: "Classification", questions: classification },
+            { name: "Blood Relation", questions: bloodRelation },
+            { name: "Direction Test", questions: directionTest },
+            { name: "Order & Ranking", questions: orderRanking },
+            { name: "Puzzle", questions: puzzle },
+            { name: "Sitting Arrangement", questions: sittingArrangement }
+        ]},
+        { name: "🌍 GK (सामान्य ज्ञान)", icon: "📚", chapters: [
+            { name: "भारत का इतिहास", questions: indianHistory },
+            { name: "भारतीय संविधान", questions: indianConstitution },
+            { name: "राजनीति (Polity)", questions: polity },
+            { name: "भूगोल (Geography)", questions: geography },
+            { name: "अर्थशास्त्र (Economics)", questions: economics },
+            { name: "महत्वपूर्ण दिवस", questions: importantDays },
+            { name: "पुरस्कार और सम्मान", questions: awards },
+            { name: "खेल (Sports)", questions: sports },
+            { name: "पुस्तक और लेखक", questions: booksAuthors },
+            { name: "महत्वपूर्ण योजनाएँ", questions: governmentSchemes }
+        ]},
+        { name: "🔬 SCIENCE (विज्ञान)", icon: "⚛️", chapters: [
+            { name: "GS (सामान्य विज्ञान)", questions: gsScience },
+            { name: "भौतिकी - गति (Motion)", questions: physicsMotion },
+            { name: "भौतिकी - बल (Force)", questions: physicsForce },
+            { name: "भौतिकी - ऊर्जा (Energy)", questions: physicsEnergy },
+            { name: "भौतिकी - कार्य (Work)", questions: physicsWork },
+            { name: "भौतिकी - बिजली (Electricity)", questions: physicsElectricity },
+            { name: "रसायन - तत्व (Elements)", questions: chemistryElements },
+            { name: "रसायन - अम्ल, क्षार, लवण", questions: chemistryAcidBaseSalt },
+            { name: "रसायन - धातु और अधातु", questions: chemistryMetalNonmetal },
+            { name: "रसायन - रासायनिक अभिक्रिया", questions: chemicalReaction },
+            { name: "जीवविज्ञान - मानव शरीर", questions: biologyHumanBody },
+            { name: "जीवविज्ञान - पोषण", questions: nutrition },
+            { name: "जीवविज्ञान - रोग", questions: diseases },
+            { name: "जीवविज्ञान - वनस्पति विज्ञान", questions: botany }
+        ]}
     ];
 
-    // Remaining chapters get default questions
-    const defaultQ = [
-        { t: "भारत की राजधानी क्या है?", o: ["नई दिल्ली", "मुंबई", "कोलकाता", "चेन्नई"], c: 0 },
-        { t: "ताजमहल कहाँ है?", o: ["आगरा", "दिल्ली", "जयपुर", "लखनऊ"], c: 0 },
-        { t: "गंगा कहाँ से निकलती है?", o: ["गंगोत्री", "यमुनोत्री", "बद्रीनाथ", "केदारनाथ"], c: 0 },
-        { t: "कंप्यूटर के जनक?", o: ["चार्ल्स बैबेज", "बिल गेट्स", "स्टीव जॉब्स", "मार्क जुकरबर्ग"], c: 0 },
-        { t: "पानी का सूत्र?", o: ["H₂O", "CO₂", "O₂", "NaCl"], c: 0 }
-    ];
-
-    // Build chapters array
-    let chaptersList = [];
-    let chapterNames = [
-        "🔬 भौतिकी - मात्रक एवं मापन", "⚡ भौतिकी - गति एवं बल", "💡 भौतिकी - ऊर्जा एवं कार्य", "🎵 भौतिकी - ध्वनि एवं प्रकाश",
-        "🧪 रसायन - पदार्थ की अवस्थाएँ", "⚛️ रसायन - परमाणु एवं अणु", "🧴 रसायन - अम्ल क्षार लवण", "🔬 जीवविज्ञान - कोशिका एवं ऊतक",
-        "❤️ जीवविज्ञान - मानव शरीर", "🦠 जीवविज्ञान - रोग एवं प्रतिरक्षा", "🔢 गणित - संख्या पद्धति", "📐 गणित - ल.स. म.स.",
-        "🧮 गणित - भिन्न एवं दशमलव", "⚖️ गणित - अनुपात एवं समानुपात", "📊 गणित - प्रतिशत", "💰 गणित - लाभ हानि",
-        "🏦 गणित - साधारण ब्याज", "📏 गणित - क्षेत्रमिति", "📜 सामान्य ज्ञान - इतिहास", "🗺️ सामान्य ज्ञान - भूगोल",
-        "⚖️ सामान्य ज्ञान - संविधान", "🏏 सामान्य ज्ञान - खेलकूद", "📅 सामान्य ज्ञान - महत्वपूर्ण दिवस", "💻 सामान्य ज्ञान - विज्ञान एवं प्रौद्योगिकी",
-        "📚 बिहार जीके - इतिहास", "🗿 बिहार जीके - भूगोल", "🏛️ बिहार जीके - संस्कृति", "👑 बिहार जीके - प्रमुख व्यक्तित्व",
-        "🏆 खेल जीके - ओलंपिक", "🎯 खेल जीके - क्रिकेट", "⚽ खेल जीके - फुटबॉल", "🎾 खेल जीके - टेनिस",
-        "💻 कंप्यूटर - बेसिक्स", "🖥️ कंप्यूटर - हार्डवेयर", "📀 कंप्यूटर - सॉफ्टवेयर", "🌐 कंप्यूटर - इंटरनेट",
-        "🔌 इलेक्ट्रिकल - बेसिक्स", "⚡ इलेक्ट्रिकल - सर्किट", "🔧 इलेक्ट्रिकल - मशीनरी", "🛠️ इलेक्ट्रिकल - सुरक्षा",
-        "🏗️ सिविल - बेसिक्स", "📐 सिविल - मापन", "🏠 सिविल - निर्माण", "📏 सिविल - ड्राइंग",
-        "🔩 मैकेनिकल - बेसिक्स", "⚙️ मैकेनिकल - मशीनें", "🔧 मैकेनिकल - टूल्स", "🛠️ मैकेनिकल - मेंटेनेंस",
-        "🎨 रीजनिंग - वर्गीकरण", "🧩 रीजनिंग - श्रृंखला"
-    ];
-
-    for(let i = 0; i < chapterNames.length; i++) {
-        let qData;
-        if(i < allChapterData.length) qData = allChapterData[i];
-        else qData = defaultQ;
+    // Render categories
+    function renderCategories() {
+        const container = document.getElementById('categories-container');
+        container.innerHTML = '';
         
-        let questions = [];
-        for(let j = 0; j < 20; j++) {
-            let qb = qData[j % qData.length];
-            questions.push({
-                text: `${chapterNames[i]} - प्रश्न ${j+1}: ${qb.t}`,
-                options: [...qb.o],
-                correct: qb.c
-            });
-        }
-        chaptersList.push(questions);
-    }
-
-    // Quiz Variables
-    let currentChapter = 0, currentIndex = 0, score = 0, selected = null, answered = false, userAnswers = [];
-
-    function loadChapters() {
-        let grid = document.getElementById("chapterGrid");
-        grid.innerHTML = "";
-        for(let i = 0; i < chapterNames.length; i++) {
-            let btn = document.createElement("button");
-            if(!isPremium && i > 0) {
-                btn.className = "chapter-btn locked";
-                btn.textContent = chapterNames[i];
-                btn.onclick = () => alert("🔒 ₹49 में प्रीमियम लें!");
-            } else {
-                btn.className = "chapter-btn" + (i === currentChapter ? " active" : "");
-                btn.textContent = chapterNames[i];
-                btn.onclick = () => { currentChapter = i; resetQuiz(); document.querySelectorAll(".chapter-btn").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); };
-            }
-            grid.appendChild(btn);
-        }
-        resetQuiz();
-    }
-
-    function resetQuiz() { currentIndex = 0; score = 0; selected = null; answered = false; userAnswers = new Array(20).fill(null); updateScore(); loadQuestion(); document.getElementById("certificateSection").style.display = "none"; }
-    function updateScore() { document.getElementById("scoreDisplay").innerHTML = `⭐ स्कोर: ${score}`; }
-    
-    function loadQuestion() {
-        let q = chaptersList[currentChapter][currentIndex];
-        document.getElementById("questionText").innerHTML = `${currentIndex+1}. ${q.text}`;
-        document.getElementById("questionCount").innerHTML = `प्रश्न ${currentIndex+1} / 20`;
-        document.getElementById("progressBar").style.width = `${((currentIndex+1)/20)*100}%`;
-        let optsDiv = document.getElementById("optionsContainer");
-        optsDiv.innerHTML = "";
-        q.options.forEach((opt,idx)=>{
-            let div = document.createElement("div"); div.className = "option";
-            let radio = document.createElement("span"); radio.className = "option-radio";
-            let txt = document.createElement("span"); txt.innerHTML = `${String.fromCharCode(65+idx)}. ${opt}`;
-            div.appendChild(radio); div.appendChild(txt);
-            if(!answered) { div.onclick = () => { document.querySelectorAll(".option").forEach(o=>o.classList.remove("selected")); div.classList.add("selected"); selected = idx; document.getElementById("submitBtn").disabled = false; }; }
-            optsDiv.appendChild(div);
+        categories.forEach((cat, catIdx) => {
+            const catDiv = document.createElement('div');
+            catDiv.className = 'category';
+            catDiv.innerHTML = `
+                <div class="category-title" onclick="toggleChapter(${catIdx})">
+                    <span>${cat.icon} ${cat.name}</span>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="chapter-list" id="chapter-list-${catIdx}">
+                    ${cat.chapters.map((ch, chIdx) => `
+                        <button class="chapter-btn" onclick="openQuiz('${cat.name}', ${catIdx}, ${chIdx})">
+                            📖 ${ch.name}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+            container.appendChild(catDiv);
         });
-        document.getElementById("submitBtn").disabled = true; answered = false; selected = null;
-        document.getElementById("feedback").innerHTML = "";
     }
 
-    document.getElementById("submitBtn").onclick = () => {
-        if(selected === null) { document.getElementById("feedback").innerHTML = "⚠️ कोई विकल्प चुनें!"; return; }
-        let q = chaptersList[currentChapter][currentIndex];
-        let correct = (selected === q.correct);
-        userAnswers[currentIndex] = { selected, isCorrect: correct };
-        score = userAnswers.filter(a=>a && a.isCorrect).length;
-        updateScore();
-        document.getElementById("feedback").innerHTML = correct ? "✅ सही! बहुत बढ़िया!" : `❌ गलत! सही: ${q.options[q.correct]}`;
-        document.getElementById("feedback").className = correct ? "feedback correct" : "feedback wrong";
-        answered = true; document.getElementById("submitBtn").disabled = true;
-    };
+    let currentQuestions = [];
+    let currentUserAnswers = [];
+    let currentChapterName = '';
 
-    document.getElementById("nextBtn").onclick = () => {
-        if(!answered) { document.getElementById("feedback").innerHTML = "⚠️ पहले जमा करें!"; return; }
-        if(currentIndex + 1 < 20) { currentIndex++; loadQuestion(); }
-        else { let ts = userAnswers.filter(a=>a && a.isCorrect).length; document.getElementById("feedback").innerHTML = `🎉 अध्याय पूरा! स्कोर: ${ts}/20 🎉`; if(isPremium) document.getElementById("certificateSection").style.display = "block"; }
-    };
-    document.getElementById("resetBtn").onclick = () => resetQuiz();
-
-    function downloadCertificate() {
-        let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>प्रमाण पत्र</title><style>body{font-family:Arial;text-align:center;padding:50px;}.cert{border:10px solid #f7971e;padding:40px;border-radius:20px;}</style></head><body><div class="cert"><h1>🎓 प्रमाण पत्र</h1><p>यह प्रमाणित किया जाता है कि</p><h2>${currentUser?.name || "छात्र"}</h2><p>ने सफलतापूर्वक पूरा किया है</p><h3>आईटीआई सीएटी कोर्स (हिंदी में)</h3><p>1000+ प्रश्नों के साथ | 50 अध्याय</p><p>दिनांक: ${new Date().toLocaleDateString('hi-IN')}</p><p>✍️ यादव विद्युत एजुकेशन</p></div></body></html>`;
-        let blob = new Blob([html], {type:"text/html"}); let link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = `Certificate_${currentUser?.name||"Student"}.html`; link.click(); URL.revokeObjectURL(link.href);
+    function toggleChapter(catIdx) {
+        const list = document.getElementById(`chapter-list-${catIdx}`);
+        list.classList.toggle('show');
     }
 
-    loadUser();
+    function openQuiz(categoryName, catIdx, chIdx) {
+        currentChapterName = categories[catIdx].chapters[chIdx].name;
+        currentQuestions = categories[catIdx].chapters[chIdx].questions;
+        currentUserAnswers = new Array(currentQuestions.length).fill(null);
+        
+        document.getElementById('modalTitle').innerHTML = `${categoryName} : ${currentChapterName}`;
+        renderQuestions();
+        document.getElementById('quizModal').style.display = 'block';
+        updateModalScore();
+    }
+
+    function renderQuestions() {
+        const container = document.getElementById('questions-container');
+        container.innerHTML = '';
+        
+        currentQuestions.forEach((q, idx) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = 'question-card';
+            qDiv.id = `q-${idx}`;
+            
+            qDiv.innerHTML = `
+                <div class="question-text">${idx+1}. ${q.text || q.t}</div>
+                <div class="options" id="options-${idx}">
+                    ${(q.options || q.o).map((opt, optIdx) => `
+                        <div class="option" data-opt="${optIdx}" data-q="${idx}">
+                            <span class="option-radio"></span>
+                            <span class="option-text">${String.fromCharCode(65+optIdx)}. ${opt}</span>
+                        </div>
+                    `).join('')}
+                </div>
+                <div id="feedback-${idx}" class="feedback"></div>
+            `;
+            container.appendChild(qDiv);
+        });
+        
+        document.querySelectorAll('.option').forEach(opt => {
+            opt.addEventListener('click', function() {
+                const qIdx = parseInt(this.dataset.q);
+                const selected = parseInt(this.dataset.opt);
+                const question = currentQuestions[qIdx];
+                const correct = question.correct !== undefined ? question.correct : question.c;
+                const isCorrect = (selected === correct);
+                
+                document.querySelectorAll(`#options-${qIdx} .option`).forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                currentUserAnswers[qIdx] = isCorrect;
+                
+                const feedbackDiv = document.getElementById(`feedback-${qIdx}`);
+                if(isCorrect) {
+                    feedbackDiv.innerHTML = '✅ सही उत्तर! बहुत बढ़िया!';
+                    feedbackDiv.className = 'feedback correct';
+                } else {
+                    const correctOpt = (question.options || question.o)[correct];
+                    feedbackDiv.innerHTML = `❌ गलत! सही उत्तर: ${String.fromCharCode(65+correct)}. ${correctOpt}`;
+                    feedbackDiv.className = 'feedback wrong';
+                }
+                
+                updateModalScore();
+            });
+        });
+    }
+    
+    function updateModalScore() {
+        const correctCount = currentUserAnswers.filter(a => a === true).length;
+        document.getElementById('modal-score').innerHTML = `⭐ Score: ${correctCount} / ${currentQuestions.length} ⭐`;
+    }
+    
+    function closeModal() {
+        document.getElementById('quizModal').style.display = 'none';
+    }
+    
+    window.onclick = function(event) {
+        const modal = document.getElementById('quizModal');
+        if(event.target === modal) closeModal();
+    }
+    
+    renderCategories();
 </script>
 </body>
 </html>
