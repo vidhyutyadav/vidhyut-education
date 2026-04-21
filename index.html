@@ -99,7 +99,7 @@
         <div class="options-list" id="optionsContainer"></div>
 
         <div style="text-align:center;">
-            <button class="btn btn-primary" id="submitBtn" disabled>✅ जमा करें</button>
+            <button class="btn btn-primary" id="submitBtn">✅ जमा करें</button>
             <button class="btn" id="nextBtn" style="background:#1a1a2e;color:white;">➡ अगला</button>
             <button class="btn" id="resetBtn" style="background:#718096;color:white;">🔄 रीसेट</button>
         </div>
@@ -742,7 +742,6 @@
     // Remaining chapters get default questions
     const defaultQ = [
         { t: "भारत की राजधानी क्या है?", o: ["नई दिल्ली", "मुंबई", "कोलकाता", "चेन्नई"], c: 0 },
-{ t: "तुम्हारा सवाल यहाँ लिखो?", o: ["विकल्प A", "विकल्प B", "विकल्प C", "विकल्प D"], c: 0 },
         { t: "ताजमहल कहाँ है?", o: ["आगरा", "दिल्ली", "जयपुर", "लखनऊ"], c: 0 },
         { t: "गंगा कहाँ से निकलती है?", o: ["गंगोत्री", "यमुनोत्री", "बद्रीनाथ", "केदारनाथ"], c: 0 },
         { t: "कंप्यूटर के जनक?", o: ["चार्ल्स बैबेज", "बिल गेट्स", "स्टीव जॉब्स", "मार्क जुकरबर्ग"], c: 0 },
@@ -757,14 +756,7 @@
         "❤️ जीवविज्ञान - मानव शरीर", "🦠 जीवविज्ञान - रोग एवं प्रतिरक्षा", "🔢 गणित - संख्या पद्धति", "📐 गणित - ल.स. म.स.",
         "🧮 गणित - भिन्न एवं दशमलव", "⚖️ गणित - अनुपात एवं समानुपात", "📊 गणित - प्रतिशत", "💰 गणित - लाभ हानि",
         "🏦 गणित - साधारण ब्याज", "📏 गणित - क्षेत्रमिति", "📜 सामान्य ज्ञान - इतिहास", "🗺️ सामान्य ज्ञान - भूगोल",
-        "⚖️ सामान्य ज्ञान - संविधान", "🏏 सामान्य ज्ञान - खेलकूद", "📅 सामान्य ज्ञान - महत्वपूर्ण दिवस", "💻 सामान्य ज्ञान - विज्ञान एवं प्रौद्योगिकी",
-        "📚 बिहार जीके - इतिहास", "🗿 बिहार जीके - भूगोल", "🏛️ बिहार जीके - संस्कृति", "👑 बिहार जीके - प्रमुख व्यक्तित्व",
-        "🏆 खेल जीके - ओलंपिक", "🎯 खेल जीके - क्रिकेट", "⚽ खेल जीके - फुटबॉल", "🎾 खेल जीके - टेनिस",
-        "💻 कंप्यूटर - बेसिक्स", "🖥️ कंप्यूटर - हार्डवेयर", "📀 कंप्यूटर - सॉफ्टवेयर", "🌐 कंप्यूटर - इंटरनेट",
-        "🔌 इलेक्ट्रिकल - बेसिक्स", "⚡ इलेक्ट्रिकल - सर्किट", "🔧 इलेक्ट्रिकल - मशीनरी", "🛠️ इलेक्ट्रिकल - सुरक्षा",
-        "🏗️ सिविल - बेसिक्स", "📐 सिविल - मापन", "🏠 सिविल - निर्माण", "📏 सिविल - ड्राइंग",
-        "🔩 मैकेनिकल - बेसिक्स", "⚙️ मैकेनिकल - मशीनें", "🔧 मैकेनिकल - टूल्स", "🛠️ मैकेनिकल - मेंटेनेंस",
-        "🎨 रीजनिंग - वर्गीकरण", "🧩 रीजनिंग - श्रृंखला"
+        "💻 कंप्यूटर - बेसिक्स", "🖥️ कंप्यूटर - हार्डवेयर", "📀 कंप्यूटर - सॉफ्टवेयर", "🌐 कंप्यूटर - इंटरनेट"
     ];
 
     for(let i = 0; i < chapterNames.length; i++) {
@@ -806,8 +798,21 @@
         resetQuiz();
     }
 
-    function resetQuiz() { currentIndex = 0; score = 0; selected = null; answered = false; userAnswers = new Array(20).fill(null); updateScore(); loadQuestion(); document.getElementById("certificateSection").style.display = "none"; }
-    function updateScore() { document.getElementById("scoreDisplay").innerHTML = `⭐ स्कोर: ${score}`; }
+    function resetQuiz() { 
+        currentIndex = 0; 
+        score = 0; 
+        selected = null; 
+        answered = false; 
+        userAnswers = new Array(20).fill(null); 
+        updateScore(); 
+        loadQuestion(); 
+        document.getElementById("certificateSection").style.display = "none"; 
+        document.getElementById("submitBtn").disabled = false; 
+    }
+    
+    function updateScore() { 
+        document.getElementById("scoreDisplay").innerHTML = `⭐ स्कोर: ${score}`; 
+    }
 
     function loadQuestion() {
         let q = chaptersList[currentChapter][currentIndex];
@@ -816,40 +821,84 @@
         document.getElementById("progressBar").style.width = `${((currentIndex+1)/20)*100}%`;
         let optsDiv = document.getElementById("optionsContainer");
         optsDiv.innerHTML = "";
+        
+        // Reset answer state for new question
+        answered = false;
+        selected = null;
+        document.getElementById("submitBtn").disabled = false;
+        document.getElementById("feedback").innerHTML = "";
+        
         q.options.forEach((opt,idx)=>{
-            let div = document.createElement("div"); div.className = "option";
-            let radio = document.createElement("span"); radio.className = "option-radio";
-            let txt = document.createElement("span"); txt.innerHTML = `${String.fromCharCode(65+idx)}. ${opt}`;
-            div.appendChild(radio); div.appendChild(txt);
-            if(!answered) { div.onclick = () => { document.querySelectorAll(".option").forEach(o=>o.classList.remove("selected")); div.classList.add("selected"); selected = idx; document.getElementById("submitBtn").disabled = false; }; }
+            let div = document.createElement("div"); 
+            div.className = "option";
+            let radio = document.createElement("span"); 
+            radio.className = "option-radio";
+            let txt = document.createElement("span"); 
+            txt.innerHTML = `${String.fromCharCode(65+idx)}. ${opt}`;
+            div.appendChild(radio); 
+            div.appendChild(txt);
+            
+            // This is the key fix - always attach click handler
+            div.onclick = () => {
+                if(answered) {
+                    document.getElementById("feedback").innerHTML = "⚠️ इस प्रश्न का उत्तर पहले ही जमा हो चुका है! अगले प्रश्न पर जाएं।";
+                    return;
+                }
+                document.querySelectorAll(".option").forEach(o=>o.classList.remove("selected"));
+                div.classList.add("selected");
+                selected = idx;
+            };
+            
             optsDiv.appendChild(div);
         });
-        document.getElementById("submitBtn").disabled = true; answered = false; selected = null;
-        document.getElementById("feedback").innerHTML = "";
     }
 
     document.getElementById("submitBtn").onclick = () => {
-        if(selected === null) { document.getElementById("feedback").innerHTML = "⚠️ कोई विकल्प चुनें!"; return; }
+        if(answered) {
+            document.getElementById("feedback").innerHTML = "⚠️ इस प्रश्न का उत्तर पहले ही जमा हो चुका है! अगले प्रश्न पर जाएं।";
+            return;
+        }
+        if(selected === null) { 
+            document.getElementById("feedback").innerHTML = "⚠️ कोई विकल्प चुनें!"; 
+            return; 
+        }
         let q = chaptersList[currentChapter][currentIndex];
         let correct = (selected === q.correct);
         userAnswers[currentIndex] = { selected, isCorrect: correct };
         score = userAnswers.filter(a=>a && a.isCorrect).length;
         updateScore();
-        document.getElementById("feedback").innerHTML = correct ? "✅ सही! बहुत बढ़िया!" : `❌ गलत! सही: ${q.options[q.correct]}`;
+        document.getElementById("feedback").innerHTML = correct ? "✅ सही! बहुत बढ़िया!" : `❌ गलत! सही उत्तर: ${q.options[q.correct]}`;
         document.getElementById("feedback").className = correct ? "feedback correct" : "feedback wrong";
-        answered = true; document.getElementById("submitBtn").disabled = true;
+        answered = true;
+        document.getElementById("submitBtn").disabled = true;
     };
 
     document.getElementById("nextBtn").onclick = () => {
-        if(!answered) { document.getElementById("feedback").innerHTML = "⚠️ पहले जमा करें!"; return; }
-        if(currentIndex + 1 < 20) { currentIndex++; loadQuestion(); }
-        else { let ts = userAnswers.filter(a=>a && a.isCorrect).length; document.getElementById("feedback").innerHTML = `🎉 अध्याय पूरा! स्कोर: ${ts}/20 🎉`; if(isPremium) document.getElementById("certificateSection").style.display = "block"; }
+        if(!answered && currentIndex < 19) { 
+            document.getElementById("feedback").innerHTML = "⚠️ पहले 'जमा करें' बटन दबाएं!"; 
+            return; 
+        }
+        if(currentIndex + 1 < 20) { 
+            currentIndex++; 
+            loadQuestion(); 
+        } else { 
+            let ts = userAnswers.filter(a=>a && a.isCorrect).length; 
+            document.getElementById("feedback").innerHTML = `🎉 अध्याय पूरा! स्कोर: ${ts}/20 🎉`; 
+            document.getElementById("feedback").className = "feedback correct";
+            if(isPremium) document.getElementById("certificateSection").style.display = "block"; 
+        }
     };
+    
     document.getElementById("resetBtn").onclick = () => resetQuiz();
 
     function downloadCertificate() {
         let html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>प्रमाण पत्र</title><style>body{font-family:Arial;text-align:center;padding:50px;}.cert{border:10px solid #f7971e;padding:40px;border-radius:20px;}</style></head><body><div class="cert"><h1>🎓 प्रमाण पत्र</h1><p>यह प्रमाणित किया जाता है कि</p><h2>${currentUser?.name || "छात्र"}</h2><p>ने सफलतापूर्वक पूरा किया है</p><h3>आईटीआई सीएटी कोर्स (हिंदी में)</h3><p>1000+ प्रश्नों के साथ | 50 अध्याय</p><p>दिनांक: ${new Date().toLocaleDateString('hi-IN')}</p><p>✍️ यादव विद्युत एजुकेशन</p></div></body></html>`;
-        let blob = new Blob([html], {type:"text/html"}); let link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = `Certificate_${currentUser?.name||"Student"}.html`; link.click(); URL.revokeObjectURL(link.href);
+        let blob = new Blob([html], {type:"text/html"}); 
+        let link = document.createElement("a"); 
+        link.href = URL.createObjectURL(blob); 
+        link.download = `Certificate_${currentUser?.name||"Student"}.html`; 
+        link.click(); 
+        URL.revokeObjectURL(link.href);
     }
 
     loadUser();
