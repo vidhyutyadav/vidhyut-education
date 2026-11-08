@@ -1,0 +1,817 @@
+
+<section id="quizApp">
+  <h2>🧠 Maths Quiz</h2>
+  <p id="progress">प्रश्न 1</p>
+  <div id="timer">⏱️ समय: 15 सेकंड</div>
+
+  <h3 id="question">प्रश्न यहाँ दिखाई देगा</h3>
+  <div id="options"></div>
+
+  <p id="feedback"></p>
+  <p id="score">स्कोर: 0</p>
+
+  <button id="nextBtn" onclick="nextQuestion()">
+    अगला प्रश्न ➜
+  </button>
+  <button id="restartBtn" onclick="restartQuiz()">
+    🔄 दोबारा शुरू करें
+  </button>
+</section>
+
+<style>
+#quizApp {
+  max-width: 650px;
+  margin: 20px auto;
+  padding: 22px;
+  border-radius: 18px;
+  background-color:grey;
+  color: white;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+#quizApp h2 { color: #ffd166; text-align: center; }
+#question { line-height: 1.6; }
+#timer, #progress, #score { font-weight: bold; }
+#options {
+  display: grid;
+  gap: 12px;
+  margin: 20px 0;
+}
+#options button, #quizApp button {
+  padding: 13px;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+#options button {
+  background: #fff;
+  color: #222;
+  text-align: left;
+}
+#options button:disabled { cursor: default; }
+#quizApp button {
+  background: #ffd166;
+  color: #202040;
+  margin: 4px 2px;
+  font-weight: bold;
+}
+#feedback { font-weight: bold; min-height: 24px; }
+</style>
+
+<script>
+
+const questions = [
+  // =========================
+  // NUMBER SYSTEM (1–25)
+  // =========================
+  {
+    q: "सबसे छोटी प्राकृतिक संख्या कौन-सी है?",
+    options: ["0", "1", "-1", "2"],
+    answer: 1,
+    explain: "प्राकृतिक संख्याएँ सामान्यतः 1 से शुरू होती हैं।"
+  },
+  {
+    q: "सबसे छोटी पूर्ण संख्या कौन-सी है?",
+    options: ["1", "-1", "0", "2"],
+    answer: 2,
+    explain: "पूर्ण संख्याएँ 0, 1, 2, 3... होती हैं।"
+  },
+  {
+    q: "निम्न में से कौन-सी अभाज्य संख्या है?",
+    options: ["9", "15", "17", "21"],
+    answer: 2,
+    explain: "17 के केवल दो गुणनखंड हैं: 1 और 17।"
+  },
+  {
+    q: "सबसे छोटी अभाज्य संख्या कौन-सी है?",
+    options: ["0", "1", "2", "3"],
+    answer: 2,
+    explain: "2 सबसे छोटी अभाज्य संख्या है।"
+  },
+  {
+    q: "निम्न में से कौन-सी भाज्य संख्या है?",
+    options: ["2", "3", "5", "9"],
+    answer: 3,
+    explain: "9 के गुणनखंड 1, 3 और 9 हैं।"
+  },
+  {
+    q: "24 और 36 का HCF कितना है?",
+    options: ["6", "12", "18", "24"],
+    answer: 1,
+    explain: "24 और 36 का सबसे बड़ा समान गुणनखंड 12 है।"
+  },
+  {
+    q: "12 और 18 का LCM कितना है?",
+    options: ["24", "30", "36", "72"],
+    answer: 2,
+    explain: "12 और 18 का सबसे छोटा समान गुणज 36 है।"
+  },
+  {
+    q: "2⁴ का मान कितना है?",
+    options: ["8", "12", "16", "32"],
+    answer: 2,
+    explain: "2⁴ = 2 × 2 × 2 × 2 = 16।"
+  },
+  {
+    q: "√144 का मान क्या है?",
+    options: ["10", "11", "12", "14"],
+    answer: 2,
+    explain: "12 × 12 = 144, इसलिए √144 = 12।"
+  },
+  {
+    q: "∛125 का मान क्या है?",
+    options: ["3", "4", "5", "25"],
+    answer: 2,
+    explain: "5 × 5 × 5 = 125।"
+  },
+  {
+    q: "निम्न में से कौन-सी सम संख्या है?",
+    options: ["13", "17", "21", "28"],
+    answer: 3,
+    explain: "जो संख्या 2 से पूरी तरह विभाजित हो, वह सम होती है।"
+  },
+  {
+    q: "निम्न में से कौन-सी विषम संख्या है?",
+    options: ["24", "36", "41", "50"],
+    answer: 2,
+    explain: "41 को 2 से पूरी तरह विभाजित नहीं किया जा सकता।"
+  },
+  {
+    q: "किसी संख्या को 0 से गुणा करने पर क्या मिलेगा?",
+    options: ["वही संख्या", "1", "0", "अनंत"],
+    answer: 2,
+    explain: "किसी भी परिभाषित संख्या का 0 से गुणनफल 0 होता है।"
+  },
+  {
+    q: "15 ÷ 0 का मान क्या है?",
+    options: ["0", "15", "1", "परिभाषित नहीं"],
+    answer: 3,
+    explain: "शून्य से भाग देना गणित में परिभाषित नहीं है।"
+  },
+  {
+    q: "0.75 को भिन्न में लिखिए।",
+    options: ["1/2", "2/3", "3/4", "4/5"],
+    answer: 2,
+    explain: "0.75 = 75/100 = 3/4।"
+  },
+  {
+    q: "3/5 को दशमलव में लिखिए।",
+    options: ["0.3", "0.5", "0.6", "0.8"],
+    answer: 2,
+    explain: "3 ÷ 5 = 0.6।"
+  },
+  {
+    q: "1/2 + 1/4 = ?",
+    options: ["1/4", "2/6", "3/4", "1"],
+    answer: 2,
+    explain: "1/2 = 2/4, इसलिए 2/4 + 1/4 = 3/4।"
+  },
+  {
+    q: "3/4 - 1/4 = ?",
+    options: ["1/4", "1/2", "3/8", "1"],
+    answer: 1,
+    explain: "समान हर होने पर अंश घटाते हैं: 2/4 = 1/2।"
+  },
+  {
+    q: "2/3 × 3/4 = ?",
+    options: ["1/2", "2/7", "3/4", "5/7"],
+    answer: 0,
+    explain: "(2 × 3)/(3 × 4) = 1/2।"
+  },
+  {
+    q: "2/5 ÷ 1/5 = ?",
+    options: ["1/2", "2", "5", "10"],
+    answer: 1,
+    explain: "2/5 × 5/1 = 2।"
+  },
+  {
+    q: "7² का मान कितना है?",
+    options: ["14", "42", "49", "56"],
+    answer: 2,
+    explain: "7² = 7 × 7 = 49।"
+  },
+  {
+    q: "प्रथम पाँच प्राकृतिक संख्याओं का योग कितना है?",
+    options: ["10", "12", "15", "20"],
+    answer: 2,
+    explain: "1 + 2 + 3 + 4 + 5 = 15।"
+  },
+  {
+    q: "36 का अभाज्य गुणनखंड कौन-सा है?",
+    options: ["2 × 3", "2² × 3²", "2 × 3²", "3³"],
+    answer: 1,
+    explain: "36 = 2² × 3²।"
+  },
+  {
+    q: "किसी संख्या का 1 से गुणा करने पर क्या मिलता है?",
+    options: ["0", "1", "वही संख्या", "दोगुनी संख्या"],
+    answer: 2,
+    explain: "1 गुणात्मक तत्समक है: n × 1 = n।"
+  },
+  {
+    q: "2, 4, 6, 8, ? श्रृंखला पूरी कीजिए।",
+    options: ["9", "10", "12", "14"],
+    answer: 1,
+    explain: "हर बार 2 जोड़ा जा रहा है।"
+
+  },
+
+  // =========================
+  // PERCENTAGE (26–50)
+  // =========================
+  {
+    q: "100 का 10% कितना है?",
+    options: ["5", "10", "15", "20"],
+    answer: 1,
+    explain: "100 × 10/100 = 10।"
+  },
+  {
+    q: "200 का 25% कितना है?",
+    options: ["25", "40", "50", "75"],
+    answer: 2,
+    explain: "200 × 25/100 = 50।"
+  },
+  {
+    q: "400 का 50% कितना है?",
+    options: ["100", "150", "200", "250"],
+    answer: 2,
+    explain: "50% का अर्थ आधा है; 400 का आधा 200 है।"
+  },
+  {
+    q: "80 का 10% कितना है?",
+    options: ["4", "6", "8", "10"],
+    answer: 2,
+    explain: "80 × 10/100 = 8।"
+  },
+  {
+    q: "150 का 20% कितना है?",
+    options: ["15", "20", "30", "40"],
+    answer: 2,
+    explain: "150 × 20/100 = 30।"
+  },
+  {
+    q: "60 का 50% कितना है?",
+    options: ["20", "25", "30", "40"],
+    answer: 2,
+    explain: "60 का आधा 30 है।"
+  },
+  {
+    q: "200 का 5% कितना है?",
+    options: ["5", "10", "15", "20"],
+    answer: 1,
+    explain: "200 × 5/100 = 10।"
+  },
+  {
+    q: "किसी संख्या का 100% क्या होता है?",
+    options: ["आधा", "दोगुना", "वही संख्या", "शून्य"],
+    answer: 2,
+    explain: "100% का अर्थ पूरी संख्या है।"
+  },
+  {
+    q: "1/4 को प्रतिशत में बदलें।",
+    options: ["20%", "25%", "40%", "50%"],
+    answer: 1,
+    explain: "1/4 × 100 = 25%।"
+  },
+  {
+    q: "3/5 को प्रतिशत में बदलें।",
+    options: ["30%", "40%", "50%", "60%"],
+    answer: 3,
+    explain: "3/5 × 100 = 60%।"
+  },
+  {
+    q: "0.2 को प्रतिशत में बदलें।",
+    options: ["2%", "10%", "20%", "25%"],
+    answer: 2,
+    explain: "0.2 × 100 = 20%।"
+  },
+  {
+    q: "0.75 को प्रतिशत में बदलें।",
+    options: ["25%", "50%", "75%", "80%"],
+    answer: 2,
+    explain: "0.75 × 100 = 75%।"
+  },
+  {
+    q: "500 में 10% की वृद्धि के बाद संख्या क्या होगी?",
+    options: ["510", "525", "550", "600"],
+    answer: 2,
+    explain: "10% of 500 = 50; नई संख्या 550 है।"
+  },
+  {
+    q: "200 में 20% की कमी के बाद संख्या क्या होगी?",
+    options: ["120", "140", "160", "180"],
+    answer: 2,
+    explain: "20% of 200 = 40; 200 - 40 = 160।"
+  },
+  {
+    q: "किसी संख्या का 30% = 60 है। संख्या क्या है?",
+    options: ["120", "150", "180", "200"],
+    answer: 3,
+    explain: "संख्या = 60 × 100/30 = 200।"
+  },
+  {
+    q: "किसी संख्या का 25% = 40 है। संख्या क्या है?",
+    options: ["100", "120", "160", "200"],
+    answer: 2,
+    explain: "संख्या = 40 × 100/25 = 160।"
+  },
+  {
+    q: "80 में से 20 कितने प्रतिशत है?",
+    options: ["20%", "25%", "30%", "40%"],
+    answer: 1,
+    explain: "20/80 × 100 = 25%।"
+  },
+  {
+    q: "200 में से 50 कितने प्रतिशत है?",
+    options: ["10%", "20%", "25%", "50%"],
+    answer: 2,
+    explain: "50/200 × 100 = 25%।"
+  },
+  {
+    q: "एक विद्यार्थी ने 100 में से 75 अंक पाए। प्रतिशत कितना है?",
+    options: ["65%", "70%", "75%", "80%"],
+    answer: 2,
+    explain: "75/100 × 100 = 75%।"
+  },
+  {
+    q: "एक विद्यार्थी ने 200 में से 150 अंक पाए। प्रतिशत कितना है?",
+    options: ["50%", "60%", "70%", "75%"],
+    answer: 3,
+    explain: "150/200 × 100 = 75%।"
+  },
+  {
+    q: "40 का 15% कितना है?",
+    options: ["4", "5", "6", "8"],
+    answer: 2,
+    explain: "40 × 15/100 = 6।"
+  },
+  {
+    q: "250 का 12% कितना है?",
+    options: ["20", "25", "30", "35"],
+    answer: 2,
+    explain: "250 × 12/100 = 30।"
+  },
+  {
+    q: "किसी वस्तु की कीमत ₹1000 है। 10% छूट के बाद कीमत क्या होगी?",
+    options: ["₹800", "₹850", "₹900", "₹950"],
+    answer: 2,
+    explain: "छूट ₹100 है; ₹1000 - ₹100 = ₹900।"
+  },
+  {
+    q: "₹500 पर 20% छूट कितनी होगी?",
+    options: ["₹50", "₹75", "₹100", "₹150"],
+    answer: 2,
+    explain: "500 × 20/100 = ₹100।"
+  },
+  {
+    q: "किसी संख्या में 20% वृद्धि हुई। मूल संख्या 100 थी। नई संख्या क्या है?",
+    options: ["110", "115", "120", "125"],
+    answer: 2,
+    explain: "100 + 20% of 100 = 120।"
+  },
+
+  // =========================
+  // RATIO & PROPORTION (51–75)
+  // =========================
+  {
+    q: "10 : 20 का सरलतम अनुपात क्या है?",
+    options: ["1 : 2", "2 : 1", "1 : 3", "2 : 3"],
+    answer: 0,
+    explain: "दोनों पदों को 10 से भाग देने पर 1 : 2 मिलता है।"
+  },
+  {
+    q: "15 : 25 का सरलतम अनुपात क्या है?",
+    options: ["2 : 5", "3 : 5", "5 : 3", "3 : 4"],
+    answer: 1,
+    explain: "15 और 25 को 5 से भाग दें: 3 : 5।"
+  },
+  {
+    q: "2 : 3 में पहला पद 10 हो, तो दूसरा पद क्या होगा?",
+    options: ["12", "15", "18", "20"],
+    answer: 1,
+    explain: "2 से 10 बनने के लिए 5 से गुणा किया; 3 × 5 = 15।"
+  },
+  {
+    q: "3 : 4 में पहला पद 12 हो, तो दूसरा पद क्या होगा?",
+    options: ["14", "16", "18", "20"],
+    answer: 1,
+    explain: "3 × 4 = 12, इसलिए दूसरा पद 4 × 4 = 16।"
+  },
+  {
+    q: "20 रुपये और 30 रुपये का अनुपात क्या है?",
+    options: ["2 : 3", "3 : 2", "1 : 3", "2 : 5"],
+    answer: 0,
+    explain: "20 : 30 = 2 : 3।"
+  },
+  {
+    q: "12 : 18 का सरलतम अनुपात क्या है?",
+    options: ["2 : 3", "3 : 2", "4 : 5", "1 : 3"],
+    answer: 0,
+    explain: "12 और 18 को 6 से भाग दें: 2 : 3।"
+  },
+  {
+    q: "यदि A : B = 2 : 5 और A = 10, तो B कितना है?",
+    options: ["15", "20", "25", "30"],
+    answer: 2,
+    explain: "2 से 10 बनने के लिए 5 से गुणा किया; B = 5 × 5 = 25।"
+  },
+  {
+    q: "यदि A : B = 3 : 7 और A = 12, तो B कितना है?",
+    options: ["21", "24", "28", "35"],
+    answer: 2,
+    explain: "3 से 12 बनने के लिए 4 से गुणा किया; B = 7 × 4 = 28।"
+  },
+  {
+    q: "₹100 को 2 : 3 में बाँटने पर पहला हिस्सा कितना होगा?",
+    options: ["₹20", "₹30", "₹40", "₹60"],
+    answer: 2,
+    explain: "कुल भाग 5; पहला हिस्सा = 100 × 2/5 = ₹40।"
+  },
+  {
+    q: "₹100 को 2 : 3 में बाँटने पर दूसरा हिस्सा कितना होगा?",
+    options: ["₹30", "₹40", "₹50", "₹60"],
+    answer: 3,
+    explain: "दूसरा हिस्सा = 100 × 3/5 = ₹60।"
+  },
+  {
+    q: "40 को 3 : 5 में बाँटने पर पहला हिस्सा कितना होगा?",
+    options: ["10", "15", "20", "25"],
+    answer: 1,
+    explain: "कुल भाग 8; 40 × 3/8 = 15।"
+  },
+  {
+    q: "40 को 3 : 5 में बाँटने पर दूसरा हिस्सा कितना होगा?",
+    options: ["15", "20", "25", "30"],
+    answer: 2,
+    explain: "40 × 5/8 = 25।"
+  },
+  {
+    q: "यदि 4 : 8 = 1 : x, तो x कितना होगा?",
+    options: ["1", "2", "3", "4"],
+    answer: 1,
+    explain: "4/8 = 1/x; इसलिए x = 2।"
+  },
+  {
+    q: "यदि 2 : 3 = 8 : x, तो x कितना होगा?",
+    options: ["10", "12", "14", "16"],
+    answer: 1,
+    explain: "2/3 = 8/x; 2x = 24, इसलिए x = 12।"
+  },
+  {
+    q: "5 : 10 और 1 : 2 कैसे हैं?",
+    options: ["असमान", "बराबर", "उल्टे", "इनमें संबंध नहीं"],
+    answer: 1,
+    explain: "5/10 = 1/2, इसलिए दोनों अनुपात बराबर हैं।"
+  },
+  {
+    q: "लड़कों और लड़कियों का अनुपात 2 : 3 है। कुल 25 विद्यार्थी हैं। लड़के कितने हैं?",
+    options: ["5", "10", "15", "20"],
+    answer: 1,
+    explain: "कुल भाग 5; प्रत्येक भाग 25/5 = 5; लड़के = 2 × 5 = 10।"
+  },
+  {
+    q: "लड़कों और लड़कियों का अनुपात 2 : 3 है। कुल 25 विद्यार्थी हैं। लड़कियाँ कितनी हैं?",
+    options: ["10", "12", "15", "20"],
+    answer: 2,
+    explain: "प्रत्येक भाग 5 है; लड़कियाँ = 3 × 5 = 15।"
+  },
+  {
+    q: "दो संख्याओं का अनुपात 4 : 5 है। पहली संख्या 20 है। दूसरी संख्या क्या है?",
+    options: ["15", "20", "25", "30"],
+    answer: 2,
+    explain: "4 से 20 बनने के लिए 5 से गुणा किया; 5 × 5 = 25।"
+  },
+  {
+    q: "दो संख्याओं का अनुपात 7 : 9 है। पहली संख्या 21 है। दूसरी संख्या क्या है?",
+    options: ["24", "25", "27", "30"],
+    answer: 2,
+    explain: "7 से 21 बनने के लिए 3 से गुणा किया; 9 × 3 = 27।"
+  },
+  {
+    q: "6 : 9 का सरलतम अनुपात क्या है?",
+    options: ["2 : 3", "3 : 2", "1 : 2", "3 : 4"],
+    answer: 0,
+    explain: "6 और 9 को 3 से भाग देने पर 2 : 3 मिलता है।"
+  },
+  {
+    q: "8 : 12 का सरलतम अनुपात क्या है?",
+    options: ["1 : 2", "2 : 3", "3 : 2", "4 : 5"],
+    answer: 1,
+    explain: "8 और 12 को 4 से भाग दें: 2 : 3।"
+  },
+  {
+    q: "यदि A : B = 5 : 6 और B = 24, तो A कितना है?",
+    options: ["15", "20", "25", "30"],
+    answer: 1,
+    explain: "6 से 24 बनने के लिए 4 से गुणा किया; A = 5 × 4 = 20।"
+  },
+  {
+    q: "₹360 को 5 : 4 में बाँटा जाए, तो पहला हिस्सा कितना होगा?",
+    options: ["₹160", "₹180", "₹200", "₹240"],
+    answer: 2,
+    explain: "कुल भाग 9; 360 × 5/9 = ₹200।"
+  },
+  {
+    q: "₹360 को 5 : 4 में बाँटा जाए, तो दूसरा हिस्सा कितना होगा?",
+    options: ["₹120", "₹140", "₹160", "₹200"],
+    answer: 2,
+    explain: "360 × 4/9 = ₹160।"
+  },
+  {
+    q: "यदि 3 : 5 = x : 20, तो x कितना होगा?",
+    options: ["10", "12", "15", "18"],
+    answer: 1,
+    explain: "3/5 = x/20; x = 3 × 20/5 = 12।"
+  },
+
+  // =========================
+  // PRECAUTIONS & MIXED PRACTICE (76–100)
+  // =========================
+  {
+    q: "गणित में BODMAS के अनुसार सबसे पहले क्या हल करते हैं?",
+    options: ["जोड़", "घटाव", "कोष्ठक", "भाग"],
+    answer: 2,
+    explain: "BODMAS में B यानी Brackets सबसे पहले हल किए जाते हैं।"
+  },
+  {
+    q: "10 + 2 × 5 का सही उत्तर क्या है?",
+    options: ["60", "20", "30", "15"],
+    answer: 1,
+    explain: "पहले गुणा: 2 × 5 = 10; फिर 10 + 10 = 20।"
+  },
+  {
+    q: "(10 + 2) × 5 का मान कितना है?",
+    options: ["20", "50", "60", "70"],
+    answer: 2,
+    explain: "पहले कोष्ठक: 10 + 2 = 12; फिर 12 × 5 = 60।"
+  },
+  {
+    q: "18 ÷ 3 × 2 का मान कितना है?",
+    options: ["3", "6", "12", "18"],
+    answer: 2,
+    explain: "भाग और गुणा समान प्राथमिकता के हैं; बाएँ से दाएँ हल करें।"
+  },
+  {
+    q: "20 - 5 + 3 का सही उत्तर क्या है?",
+    options: ["12", "15", "18", "22"],
+    answer: 2,
+    explain: "जोड़ और घटाव को बाएँ से दाएँ हल करें: 20 - 5 + 3 = 18।"
+  },
+  {
+    q: "निम्न में से किससे भाग देना परिभाषित नहीं है?",
+    options: ["1", "2", "5", "0"],
+    answer: 3,
+    explain: "शून्य से भाग देना परिभाषित नहीं है।"
+  },
+  {
+    q: "(-5) + 8 का मान क्या है?",
+    options: ["-13", "-3", "3", "13"],
+    answer: 2,
+    explain: "8 - 5 = 3।"
+  },
+  {
+    q: "(-4) × (-3) का मान क्या है?",
+    options: ["-12", "-7", "7", "12"],
+    answer: 3,
+    explain: "दो ऋणात्मक संख्याओं का गुणनफल धनात्मक होता है।"
+  },
+  {
+    q: "(-12) ÷ 3 का मान क्या है?",
+    options: ["-4", "4", "-9", "9"],
+    answer: 0,
+    explain: "ऋणात्मक संख्या को धनात्मक संख्या से भाग देने पर ऋणात्मक उत्तर मिलता है।"
+  },
+  {
+    q: "25% को भिन्न में बदलने पर क्या मिलेगा?",
+    options: ["1/2", "1/3", "1/4", "3/4"],
+    answer: 2,
+    explain: "25/100 = 1/4।"
+  },
+  {
+    q: "किसी संख्या का 10% निकालने का आसान तरीका क्या है?",
+    options: ["10 से गुणा करें", "100 से गुणा करें", "10 से भाग दें", "2 से भाग दें"],
+    answer: 2,
+    explain: "किसी संख्या का 10% निकालने के लिए उसे 10 से भाग दें।"
+  },
+  {
+    q: "किसी संख्या का 50% निकालने का आसान तरीका क्या है?",
+    options: ["2 से गुणा करें", "2 से भाग दें", "5 से गुणा करें", "10 से भाग दें"],
+    answer: 1,
+    explain: "50% का अर्थ आधा है।"
+  },
+  {
+    q: "किसी संख्या का 25% निकालने के लिए किससे भाग दे सकते हैं?",
+    options: ["2", "3", "4", "5"],
+    answer: 2,
+    explain: "25% = 1/4, इसलिए संख्या को 4 से भाग दें।"
+  },
+  {
+    q: "अनुपात 12 : 16 को सरल करते समय दोनों पदों को किससे भाग दें?",
+    options: ["2", "3", "4", "6"],
+    answer: 2,
+    explain: "12 और 16 का HCF 4 है; दोनों को 4 से भाग दें।"
+  },
+  {
+    q: "भिन्नों को जोड़ने से पहले हर अलग-अलग हों, तो क्या करना चाहिए?",
+    options: ["अंश जोड़ दें", "हर जोड़ दें", "समान हर बनाएँ", "दोनों भिन्न घटाएँ"],
+    answer: 2,
+    explain: "पहले समान हर बनाएँ, फिर अंश जोड़ें।"
+  },
+  {
+    q: "3/4 + 1/2 का सही उत्तर क्या है?",
+    options: ["4/6", "1", "5/4", "3/8"],
+    answer: 2,
+    explain: "1/2 = 2/4; 3/4 + 2/4 = 5/4।"
+  },
+  {
+    q: "दशमलव 2.5 + 1.25 का मान क्या है?",
+    options: ["3.25", "3.50", "3.75", "4.00"],
+    answer: 2,
+    explain: "2.50 + 1.25 = 3.75।"
+  },
+  {
+    q: "15 × 12 का सही उत्तर क्या है?",
+    options: ["160", "170", "180", "190"],
+    answer: 2,
+    explain: "15 × 12 = 15 × (10 + 2) = 180।"
+  },
+  {
+    q: "144 ÷ 12 का मान क्या है?",
+    options: ["10", "11", "12", "14"],
+    answer: 2,
+    explain: "12 × 12 = 144, इसलिए उत्तर 12 है।"
+  },
+  {
+    q: "यदि किसी वस्तु का मूल्य ₹200 है और 10% GST लगाया जाए, तो कुल मूल्य कितना होगा?",
+    options: ["₹210", "₹220", "₹230", "₹240"],
+    answer: 1,
+    explain: "GST ₹20 है; कुल मूल्य ₹200 + ₹20 = ₹220।"
+  },
+  {
+    q: "₹800 का 5% कितना है?",
+    options: ["₹20", "₹30", "₹40", "₹50"],
+    answer: 2,
+    explain: "800 × 5/100 = ₹40।"
+  },
+  {
+    q: "एक संख्या 40 से बढ़कर 50 हो गई। वृद्धि कितनी है?",
+    options: ["5", "10", "15", "20"],
+    answer: 1,
+    explain: "वृद्धि = नई संख्या - पुरानी संख्या = 50 - 40 = 10।"
+  },
+  {
+    q: "40 से 50 होने पर प्रतिशत वृद्धि कितनी है?",
+    options: ["10%", "20%", "25%", "50%"],
+    answer: 2,
+    explain: "वृद्धि 10 है; 10/40 × 100 = 25%।"
+  },
+  {
+    q: "गणना करने के बाद उत्तर की जाँच करने का अच्छा तरीका क्या है?",
+    options: ["उत्तर बिना जाँच लिखना", "अनुमान लगाना", "उलटी गणना करना", "प्रश्न छोड़ देना"],
+    answer: 2,
+    explain: "उलटी गणना करने से उत्तर की शुद्धता जाँची जा सकती है।"
+  },
+  {
+    q: "MCQ हल करते समय सबसे जरूरी सावधानी क्या है?",
+    options: ["केवल विकल्प देखकर चुनना", "प्रश्न ध्यान से पढ़ना", "जल्दी में उत्तर देना", "इकाई अनदेखी करना"],
+    answer: 1,
+    explain: "प्रश्न, इकाई और दिए गए विकल्प ध्यान से पढ़ने चाहिए।"
+  }
+];
+
+let current = 0;
+let points = 0;
+let timeLeft = 15;
+let timerId = null;
+let locked = false;
+
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+const feedbackEl = document.getElementById("feedback");
+const scoreEl = document.getElementById("score");
+const progressEl = document.getElementById("progress");
+const timerEl = document.getElementById("timer");
+const nextBtn = document.getElementById("nextBtn");
+const restartBtn = document.getElementById("restartBtn");
+
+function showQuestion() {
+  clearInterval(timerId);
+  locked = false;
+  timeLeft = 15;
+
+  feedbackEl.textContent = "";
+  nextBtn.style.display = "inline-block";
+  nextBtn.disabled = false;
+  nextBtn.textContent = "अगला प्रश्न ➜";
+
+  const item = questions[current];
+  questionEl.textContent = item.q;
+  progressEl.textContent =
+    `प्रश्न ${current + 1} / ${questions.length}`;
+
+  optionsEl.innerHTML = "";
+
+  item.options.forEach((option, index) => {
+    const button = document.createElement("button");
+    button.textContent =
+      `${String.fromCharCode(65 + index)}. ${option}`;
+    button.onclick = () => checkAnswer(index);
+    optionsEl.appendChild(button);
+  });
+
+  updateScore();
+  updateTimer();
+
+  timerId = setInterval(() => {
+    timeLeft--;
+    updateTimer();
+
+    if (timeLeft <= 0) {
+      clearInterval(timerId);
+      if (!locked) {
+        locked = true;
+        disableOptions();
+        feedbackEl.textContent =
+          "⏰ समय समाप्त! " + item.explain;
+      }
+    }
+  }, 1000);
+}
+
+function updateTimer() {
+  timerEl.textContent = `⏱️ समय: ${timeLeft} सेकंड`;
+}
+
+function checkAnswer(index) {
+  if (locked) return;
+
+  locked = true;
+  clearInterval(timerId);
+
+  const item = questions[current];
+  const buttons = optionsEl.querySelectorAll("button");
+
+  if (index === item.answer) {
+    points++;
+    feedbackEl.textContent = "✅ सही उत्तर! " + item.explain;
+  } else {
+    feedbackEl.textContent =
+      "❌ गलत उत्तर! सही उत्तर: " +
+      item.options[item.answer] + ". " + item.explain;
+  }
+
+  buttons.forEach((button, i) => {
+    button.disabled = true;
+
+    if (i === item.answer) {
+      button.style.background = "#9cf6b0";
+    } else if (i === index) {
+      button.style.background = "#ffaaaa";
+    }
+  });
+
+  updateScore();
+}
+
+function disableOptions() {
+  optionsEl.querySelectorAll("button").forEach(button => {
+    button.disabled = true;
+  });
+}
+
+function updateScore() {
+  scoreEl.textContent = `स्कोर: ${points} / ${questions.length}`;
+}
+
+function nextQuestion() {
+  if (current < questions.length - 1) {
+    current++;
+    showQuestion();
+  } else {
+    finishQuiz();
+  }
+}
+
+function finishQuiz() {
+  clearInterval(timerId);
+  locked = true;
+  questionEl.textContent = "🎉 टेस्ट पूरा हुआ!";
+  optionsEl.innerHTML = "";
+  feedbackEl.textContent =
+    `आपका अंतिम स्कोर ${points} / ${questions.length} है।`;
+  progressEl.textContent = "परिणाम";
+  timerEl.textContent = "समय समाप्त";
+  nextBtn.style.display = "none";
+}
+
+function restartQuiz() {
+  clearInterval(timerId);
+  current = 0;
+  points = 0;
+  showQuestion();
+}
+
+restartBtn.style.display = "inline-block";
+showQuestion();
+</script>
